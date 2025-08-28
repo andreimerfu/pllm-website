@@ -1,0 +1,268 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+const docSections = [
+  {
+    title: "Getting Started",
+    description: "Quick setup and basic configuration",
+    items: [
+      { name: "Installation", href: "#installation", description: "Install pLLM using Docker, Kubernetes, or binary" },
+      { name: "Quick Start", href: "#quick-start", description: "Get pLLM running in 5 minutes" },
+      { name: "Configuration", href: "#configuration", description: "Configure providers, models, and routing" },
+      { name: "First Request", href: "#first-request", description: "Make your first API call through pLLM" }
+    ]
+  },
+  {
+    title: "Deployment",
+    description: "Production deployment options",
+    items: [
+      { name: "Kubernetes with Helm", href: "#kubernetes", description: "Production-ready Kubernetes deployment" },
+      { name: "Docker Compose", href: "#docker-compose", description: "Local development and testing" },
+      { name: "Binary Installation", href: "#binary", description: "Standalone deployment" },
+      { name: "Environment Variables", href: "#environment", description: "Configuration reference" }
+    ]
+  },
+  {
+    title: "Features",
+    description: "Core functionality and capabilities",
+    items: [
+      { name: "Provider Support", href: "#providers", description: "OpenAI, Anthropic, Azure, AWS Bedrock, and more" },
+      { name: "Load Balancing", href: "#load-balancing", description: "6 different routing strategies" },
+      { name: "Authentication", href: "#authentication", description: "JWT, API keys, and RBAC" },
+      { name: "Caching", href: "#caching", description: "Redis-backed response caching" }
+    ]
+  },
+  {
+    title: "Monitoring",
+    description: "Observability and metrics",
+    items: [
+      { name: "Prometheus Metrics", href: "#metrics", description: "Comprehensive metric collection" },
+      { name: "Grafana Dashboards", href: "#grafana", description: "Pre-built visualization dashboards" },
+      { name: "Health Checks", href: "#health", description: "Service health and readiness endpoints" },
+      { name: "Logging", href: "#logging", description: "Structured logging and audit trails" }
+    ]
+  },
+  {
+    title: "Advanced",
+    description: "Advanced configuration and customization",
+    items: [
+      { name: "Circuit Breakers", href: "#circuit-breakers", description: "Failure protection and recovery" },
+      { name: "Rate Limiting", href: "#rate-limiting", description: "Request throttling and quotas" },
+      { name: "Budget Management", href: "#budget", description: "Cost control and spending limits" },
+      { name: "Multi-tenancy", href: "#multi-tenancy", description: "Team and user isolation" }
+    ]
+  },
+  {
+    title: "API Reference",
+    description: "Complete API documentation",
+    items: [
+      { name: "Chat Completions", href: "#chat-completions", description: "OpenAI-compatible chat API" },
+      { name: "Completions", href: "#completions", description: "Text completion endpoints" },
+      { name: "Admin API", href: "#admin-api", description: "Management and configuration API" },
+      { name: "WebUI", href: "#webui", description: "Web-based administration interface" }
+    ]
+  }
+];
+
+const quickLinks = [
+  {
+    title: "🚀 Quick Start",
+    description: "Get pLLM running in minutes",
+    href: "https://github.com/andreimerfu/pllm#quick-start",
+    external: true
+  },
+  {
+    title: "📖 GitHub Docs",
+    description: "Complete documentation on GitHub",
+    href: "https://github.com/andreimerfu/pllm/tree/main/docs",
+    external: true
+  },
+  {
+    title: "🐳 Docker Hub",
+    description: "Official Docker images",
+    href: "https://hub.docker.com/r/amerfu/pllm",
+    external: true
+  },
+  {
+    title: "📊 Swagger UI",
+    description: "Interactive API documentation",
+    href: "/swagger",
+    external: false
+  }
+];
+---
+
+<Layout 
+  title="Documentation - pLLM" 
+  description="Complete documentation for pLLM - Enterprise-Grade LLM Gateway. Learn how to install, configure, and deploy pLLM in your environment."
+>
+  <Navigation />
+  
+  <main class="pt-16">
+    <!-- Header -->
+    <section class="py-16 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+            Documentation
+          </h1>
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+            Everything you need to know to get started with pLLM, from installation to advanced configuration.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Quick Links</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {quickLinks.map((link) => (
+            <a 
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              class="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-slate-300 group"
+            >
+              <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                {link.title}
+                {link.external && (
+                  <svg class="inline-block ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                  </svg>
+                )}
+              </h3>
+              <p class="text-slate-600 text-sm">{link.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation Sections -->
+    <section class="py-16 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {docSections.map((section) => (
+            <div class="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 p-8">
+              <h3 class="text-xl font-bold text-slate-900 mb-3">{section.title}</h3>
+              <p class="text-slate-600 mb-6 text-sm">{section.description}</p>
+              <ul class="space-y-3">
+                {section.items.map((item) => (
+                  <li>
+                    <a 
+                      href={`https://github.com/andreimerfu/pllm/tree/main/docs${item.href}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-start group"
+                    >
+                      <div class="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 group-hover:bg-blue-600"></div>
+                      <div>
+                        <div class="font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
+                          {item.name}
+                        </div>
+                        <div class="text-sm text-slate-500 mt-1">{item.description}</div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Community and Support -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-slate-900 mb-4">Community & Support</h2>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Get help from the community and contribute to making pLLM better.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <a 
+            href="https://github.com/andreimerfu/pllm/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center group"
+          >
+            <div class="text-3xl mb-4">🐛</div>
+            <h3 class="font-bold text-slate-900 mb-2 group-hover:text-red-600">Bug Reports</h3>
+            <p class="text-slate-600 text-sm">Found a bug? Report it on GitHub Issues</p>
+          </a>
+
+          <a 
+            href="https://github.com/andreimerfu/pllm/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center group"
+          >
+            <div class="text-3xl mb-4">💬</div>
+            <h3 class="font-bold text-slate-900 mb-2 group-hover:text-blue-600">Discussions</h3>
+            <p class="text-slate-600 text-sm">Ask questions and share ideas</p>
+          </a>
+
+          <a 
+            href="https://github.com/andreimerfu/pllm/blob/main/CONTRIBUTING.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center group"
+          >
+            <div class="text-3xl mb-4">🤝</div>
+            <h3 class="font-bold text-slate-900 mb-2 group-hover:text-green-600">Contributing</h3>
+            <p class="text-slate-600 text-sm">Help improve pLLM with contributions</p>
+          </a>
+
+          <a 
+            href="https://github.com/andreimerfu/pllm/releases"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 text-center group"
+          >
+            <div class="text-3xl mb-4">🚀</div>
+            <h3 class="font-bold text-slate-900 mb-2 group-hover:text-purple-600">Releases</h3>
+            <p class="text-slate-600 text-sm">Download the latest version</p>
+          </a>
+        </div>
+
+        <!-- Notice about external documentation -->
+        <div class="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-3xl p-8">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                📚
+              </div>
+            </div>
+            <div class="ml-6">
+              <h3 class="text-xl font-bold text-blue-800 mb-3">Complete Documentation on GitHub</h3>
+              <p class="text-blue-700 mb-4">
+                The complete and up-to-date documentation is maintained in the GitHub repository. 
+                This includes detailed guides, API reference, deployment instructions, and examples.
+              </p>
+              <a 
+                href="https://github.com/andreimerfu/pllm/tree/main/docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors duration-200"
+              >
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View Full Documentation
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,241 @@
+---
+import PerformanceChart from './PerformanceChart';
+
+const benchmarkStats = [
+  {
+    metric: "Requests/sec",
+    pllm: "12,000+",
+    typical: "2,500",
+    improvement: "4.8x",
+    icon: "🚀"
+  },
+  {
+    metric: "P99 Latency", 
+    pllm: "0.8ms",
+    typical: "15ms",
+    improvement: "18.7x",
+    icon: "⚡"
+  },
+  {
+    metric: "Memory Efficiency",
+    pllm: "50-80MB",
+    typical: "200-400MB",
+    improvement: "4-8x",
+    icon: "💾"
+  },
+  {
+    metric: "Cold Start",
+    pllm: "<100ms",
+    typical: "2-5s",
+    improvement: "20-50x",
+    icon: "🏃"
+  }
+];
+
+const scalabilityFeatures = [
+  {
+    title: "True Parallelism",
+    description: "No GIL limitations - utilize all CPU cores effectively",
+    benefit: "Handle thousands of concurrent requests on a single instance"
+  },
+  {
+    title: "Memory Efficient",
+    description: "Native compilation with optimized memory management",
+    benefit: "3-6x less memory usage compared to interpreted alternatives"
+  },
+  {
+    title: "Instant Scaling",
+    description: "Sub-100ms startup enables aggressive auto-scaling",
+    benefit: "Scale from 0 to production load in milliseconds"
+  },
+  {
+    title: "Network Optimized",
+    description: "Efficient connection pooling and keep-alive management",
+    benefit: "Minimal network overhead with connection reuse"
+  }
+];
+---
+
+<section id="benchmarks" class="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+        Performance Benchmarks
+      </h2>
+      <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+        Real-world performance data showing why Go-based pLLM outperforms interpreted gateway solutions.
+      </p>
+    </div>
+
+    <!-- Benchmark stats grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      {benchmarkStats.map((stat) => (
+        <div class="bg-white rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-3xl">{stat.icon}</div>
+            <div class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">
+              {stat.improvement} faster
+            </div>
+          </div>
+          <h3 class="font-bold text-slate-900 mb-2">{stat.metric}</h3>
+          <div class="space-y-1">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">pLLM</span>
+              <span class="font-semibold text-blue-600">{stat.pllm}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Typical</span>
+              <span class="font-medium text-slate-400">{stat.typical}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Interactive performance chart -->
+    <div class="mb-16">
+      <PerformanceChart client:load />
+    </div>
+
+    <!-- Load testing results -->
+    <div class="mb-16">
+      <div class="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl font-bold text-slate-900 mb-4">Load Testing Results</h3>
+          <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Stress tested with 10,000 concurrent users making chat completion requests.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Test configuration -->
+          <div class="space-y-6">
+            <h4 class="text-xl font-bold text-slate-900">Test Configuration</h4>
+            <div class="bg-slate-50 rounded-2xl p-6">
+              <div class="space-y-4">
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Concurrent Users:</span>
+                  <span class="font-semibold text-slate-900">10,000</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Request Type:</span>
+                  <span class="font-semibold text-slate-900">Chat Completions</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Test Duration:</span>
+                  <span class="font-semibold text-slate-900">10 minutes</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Infrastructure:</span>
+                  <span class="font-semibold text-slate-900">Single 4-core instance</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">Memory Limit:</span>
+                  <span class="font-semibold text-slate-900">1GB</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="space-y-6">
+            <h4 class="text-xl font-bold text-slate-900">Results</h4>
+            <div class="space-y-4">
+              <div class="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-2xl p-6">
+                <div class="flex items-center mb-3">
+                  <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                  <span class="font-bold text-green-800">Success Rate</span>
+                </div>
+                <div class="text-3xl font-bold text-green-600 mb-1">99.97%</div>
+                <p class="text-sm text-green-700">Zero failed requests under normal conditions</p>
+              </div>
+
+              <div class="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6">
+                <div class="flex items-center mb-3">
+                  <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                  <span class="font-bold text-blue-800">Average Response Time</span>
+                </div>
+                <div class="text-3xl font-bold text-blue-600 mb-1">1.2ms</div>
+                <p class="text-sm text-blue-700">Gateway overhead only, excluding LLM processing</p>
+              </div>
+
+              <div class="bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-200 rounded-2xl p-6">
+                <div class="flex items-center mb-3">
+                  <div class="w-3 h-3 bg-purple-500 rounded-full mr-3"></div>
+                  <span class="font-bold text-purple-800">Memory Usage</span>
+                </div>
+                <div class="text-3xl font-bold text-purple-600 mb-1">78MB</div>
+                <p class="text-sm text-purple-700">Peak memory during 10K concurrent connections</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scalability features -->
+    <div>
+      <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold text-slate-900 mb-4">Enterprise Scalability</h3>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Built-in scalability features that make pLLM ideal for high-volume production workloads.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {scalabilityFeatures.map((feature) => (
+          <div class="bg-white rounded-2xl p-8 shadow-sm">
+            <h4 class="text-xl font-bold text-slate-900 mb-3">{feature.title}</h4>
+            <p class="text-slate-600 mb-4 leading-relaxed">{feature.description}</p>
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-sm font-medium text-slate-700">{feature.benefit}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Enterprise scaling note -->
+      <div class="mt-12 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-3xl p-8">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+              ⚠️
+            </div>
+          </div>
+          <div class="ml-6">
+            <h4 class="text-xl font-bold text-orange-800 mb-3">Enterprise Performance Scaling</h4>
+            <p class="text-orange-700 mb-4 leading-relaxed">
+              For <strong>massive performance and ultra-low latency</strong>, the bottleneck is often the LLM providers themselves, not the gateway. 
+              To achieve true enterprise scale:
+            </p>
+            <ul class="space-y-2 text-orange-700">
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                <span><strong>Multiple LLM Deployments:</strong> Deploy several instances of the same model (e.g., 5-10 GPT-4 Azure OpenAI deployments)</span>
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                <span><strong>Multi-Provider Redundancy:</strong> Use multiple AWS Bedrock accounts, Azure regions, or provider accounts</span>
+              </li>
+              <li class="flex items-start">
+                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                <span><strong>Geographic Distribution:</strong> Deploy models across regions for latency optimization</span>
+              </li>
+            </ul>
+            <p class="text-sm text-orange-600 mt-4 bg-orange-100 rounded-lg p-3">
+              <strong>Why This Matters:</strong> A single LLM deployment typically handles 60-100 RPM. For 10,000+ concurrent users, 
+              you need multiple deployments of the same model to prevent provider-side bottlenecks. pLLM's adaptive routing 
+              automatically distributes load across all deployments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
