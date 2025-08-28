@@ -76,14 +76,14 @@ const initialNodes: Node[] = [
   {
     id: '1',
     type: 'request',
-    position: { x: 50, y: 200 },
+    position: { x: 20, y: 200 },
     data: { label: 'Client Request' },
     sourcePosition: Position.Right,
   },
   {
     id: '2',
     type: 'gateway',
-    position: { x: 350, y: 180 },
+    position: { x: 200, y: 180 },
     data: { label: 'pLLM Gateway' },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -91,7 +91,7 @@ const initialNodes: Node[] = [
   {
     id: '3',
     type: 'provider',
-    position: { x: 650, y: 80 },
+    position: { x: 450, y: 80 },
     data: { 
       label: 'OpenAI', 
       icon: 'simple-icons:openai',
@@ -105,7 +105,7 @@ const initialNodes: Node[] = [
   {
     id: '4',
     type: 'provider',
-    position: { x: 650, y: 160 },
+    position: { x: 450, y: 160 },
     data: { 
       label: 'Anthropic', 
       icon: 'simple-icons:anthropic',
@@ -119,7 +119,7 @@ const initialNodes: Node[] = [
   {
     id: '5',
     type: 'provider',
-    position: { x: 650, y: 240 },
+    position: { x: 450, y: 240 },
     data: { 
       label: 'Google', 
       icon: 'simple-icons:google',
@@ -133,14 +133,14 @@ const initialNodes: Node[] = [
   {
     id: '6',
     type: 'circuitBreaker',
-    position: { x: 650, y: 320 },
+    position: { x: 450, y: 320 },
     data: { label: 'Circuit Breaker', active: false },
     targetPosition: Position.Left,
   },
   {
     id: '7',
     type: 'request',
-    position: { x: 950, y: 200 },
+    position: { x: 650, y: 200 },
     data: { label: 'Response' },
     targetPosition: Position.Left,
   },
