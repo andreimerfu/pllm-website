@@ -85,11 +85,11 @@ const supportTiers: SupportTier[] = [
 
 const SupportTiers: React.FC = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div className="flex flex-col lg:flex-row gap-8 max-w-6xl mx-auto">
       {supportTiers.map((tier, index) => (
         <div
           key={tier.name}
-          className={`relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
+          className={`relative flex-1 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
             tier.popular 
               ? 'border-blue-300 dark:border-blue-600 shadow-blue-100 dark:shadow-blue-900/20' 
               : 'border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
@@ -103,7 +103,7 @@ const SupportTiers: React.FC = () => {
             </div>
           )}
 
-          <div className="p-8">
+          <div className="p-8 flex flex-col h-full">
             {/* Header */}
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">{tier.name}</h3>
