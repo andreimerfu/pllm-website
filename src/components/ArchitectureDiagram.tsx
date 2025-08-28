@@ -1,4 +1,5 @@
 import React from "react";
+import { Icon } from "@iconify/react";
 
 const ArchitectureDiagram: React.FC = () => {
   return (
@@ -198,13 +199,13 @@ const ArchitectureDiagram: React.FC = () => {
               {[
                 {
                   name: "OpenAI",
-                  icon: "simple-icons:openai",
+                  icon: "logos:openai-icon",
                   color: "from-green-500 to-green-600",
                   status: "healthy",
                 },
                 {
                   name: "Anthropic",
-                  icon: "simple-icons:anthropic",
+                  icon: "logos:anthropic-icon",
                   color: "from-orange-500 to-orange-600",
                   status: "healthy",
                 },
@@ -228,7 +229,7 @@ const ArchitectureDiagram: React.FC = () => {
                 },
                 {
                   name: "Llama",
-                  icon: "simple-icons:meta",
+                  icon: "logos:meta-icon",
                   color: "from-purple-500 to-purple-600",
                   status: "failed",
                 },
@@ -239,11 +240,11 @@ const ArchitectureDiagram: React.FC = () => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
-                        <iconify-icon
+                      <div className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
+                        <Icon
                           icon={provider.icon}
-                          class="w-6 h-6"
-                        ></iconify-icon>
+                          className="w-8 h-8 text-slate-700 dark:text-slate-300"
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-slate-900 dark:text-white text-sm transition-colors duration-200">
@@ -281,7 +282,9 @@ const ArchitectureDiagram: React.FC = () => {
                             ? "85.2%"
                             : "0%"}
                       </p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500 transition-colors duration-200">uptime</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 transition-colors duration-200">
+                        uptime
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -329,7 +332,9 @@ const ArchitectureDiagram: React.FC = () => {
                   <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
                     {feature.name}
                   </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">{feature.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
+                    {feature.desc}
+                  </p>
                 </div>
               </div>
             ))}
