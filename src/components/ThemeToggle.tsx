@@ -2,23 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 
 const ThemeToggle: React.FC = () => {
+  // Always start with false on server to prevent hydration mismatch
   const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    
-    // Check for saved theme preference or default to system preference
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove('dark');
-    }
+    // Set the correct state after hydration
+    const currentlyDark = document.documentElement.classList.contains('dark');
+    setIsDark(currentlyDark);
+    setIsHydrated(true);
   }, []);
 
   const toggleTheme = () => {
@@ -33,10 +25,21 @@ const ThemeToggle: React.FC = () => {
     }
   };
 
-  // Don't render until mounted to prevent hydration mismatch
-  if (!mounted) {
+  // Don't render anything until hydrated to prevent mismatch
+  if (!isHydrated) {
     return (
-      <div className="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 animate-pulse"></div>
+      <button
+        className="relative w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200 flex items-center justify-center group"
+        aria-label="Theme toggle"
+      >
+        <div className="relative w-5 h-5 overflow-hidden">
+          {/* Show sun icon by default during SSR */}
+          <Icon 
+            icon="lucide:sun" 
+            className="absolute inset-0 w-5 h-5 text-amber-500 transition-all duration-300"
+          />
+        </div>
+      </button>
     );
   }
 
@@ -49,16 +52,16 @@ const ThemeToggle: React.FC = () => {
       <div className="relative w-5 h-5 overflow-hidden">
         {/* Sun icon */}
         <Icon 
-          icon="mdi:white-balance-sunny" 
-          className={`absolute inset-0 w-5 h-5 text-amber-500 transition-all duration-300 ${
-            isDark ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'
+          icon="lucide:sun" 
+          className={`absolute inset-0 w-5 h-5 text-amber-500 transition-all duration-300 transform ${
+            isDark ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'
           }`}
         />
         {/* Moon icon */}
         <Icon 
-          icon="mdi:moon-waning-crescent" 
-          className={`absolute inset-0 w-5 h-5 text-slate-700 dark:text-slate-300 transition-all duration-300 ${
-            isDark ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'
+          icon="lucide:moon" 
+          className={`absolute inset-0 w-5 h-5 text-indigo-400 dark:text-blue-300 transition-all duration-300 transform ${
+            isDark ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'
           }`}
         />
       </div>

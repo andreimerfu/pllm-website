@@ -75,6 +75,18 @@ const socialImageURL = new URL(image, Astro.site);
     <!-- Iconify -->
     <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     
+    <!-- Dark mode script - runs immediately to prevent FOUC -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme') || 
+          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    
     <title>{title}</title>
     
     <style>
