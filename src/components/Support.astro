@@ -1,5 +1,6 @@
 ---
 import SupportTiers from './SupportTiers.tsx';
+import FAQSection from './FAQSection.tsx';
 ---
 
 <section id="support" class="py-20 bg-white">
@@ -121,12 +122,6 @@ import SupportTiers from './SupportTiers.tsx';
             </div>
           </div>
 
-          <!-- Anti-spam notice -->
-          <div class="mt-6 text-center">
-            <p class="text-slate-400 text-sm">
-              💡 <strong>Anti-spam measures:</strong> Enterprise inquiries are manually reviewed. Please include company details and specific requirements for faster processing.
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -137,44 +132,13 @@ import SupportTiers from './SupportTiers.tsx';
         <h3 class="text-2xl font-bold text-slate-900 mb-4">
           Frequently Asked Questions
         </h3>
+        <p class="text-slate-600 max-w-2xl mx-auto">
+          Everything you need to know about pLLM, from technical details to enterprise support options.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-slate-50 rounded-xl p-6">
-          <h4 class="text-lg font-semibold text-slate-900 mb-3">
-            Is pLLM really free for commercial use?
-          </h4>
-          <p class="text-slate-600 text-sm">
-            Yes, pLLM is open source under MIT license and completely free for commercial use. Enterprise support is optional for organizations needing dedicated assistance.
-          </p>
-        </div>
-
-        <div class="bg-slate-50 rounded-xl p-6">
-          <h4 class="text-lg font-semibold text-slate-900 mb-3">
-            What's included in enterprise support?
-          </h4>
-          <p class="text-slate-600 text-sm">
-            Priority bug fixes, custom feature development, deployment assistance, architecture review, and direct access to our core engineering team.
-          </p>
-        </div>
-
-        <div class="bg-slate-50 rounded-xl p-6">
-          <h4 class="text-lg font-semibold text-slate-900 mb-3">
-            Do you offer on-premise deployment?
-          </h4>
-          <p class="text-slate-600 text-sm">
-            Yes, we can assist with on-premise deployments, including Kubernetes configurations, security hardening, and integration with existing infrastructure.
-          </p>
-        </div>
-
-        <div class="bg-slate-50 rounded-xl p-6">
-          <h4 class="text-lg font-semibold text-slate-900 mb-3">
-            How do you prevent spam in enterprise inquiries?
-          </h4>
-          <p class="text-slate-600 text-sm">
-            We use structured email templates, manual review processes, and require specific company information to ensure legitimate enterprise communications.
-          </p>
-        </div>
+      <div class="max-w-7xl mx-auto">
+        <FAQSection client:load />
       </div>
     </div>
   </div>
