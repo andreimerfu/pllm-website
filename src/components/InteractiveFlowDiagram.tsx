@@ -37,7 +37,7 @@ const GatewayNode = ({ data }: { data: any }) => (
 );
 
 const ProviderNode = ({ data }: { data: any }) => (
-  <div className={`px-4 py-3 text-white rounded-lg font-semibold shadow-lg ${data.bgColor} border-2 ${data.borderColor}`}>
+  <div className={`w-32 px-4 py-3 text-white rounded-lg font-semibold shadow-lg ${data.bgColor} border-2 ${data.borderColor}`}>
     <Handle type="target" position={Position.Left} />
     <div className="text-center">
       <div className="flex items-center justify-center mb-2">
@@ -54,7 +54,7 @@ const ProviderNode = ({ data }: { data: any }) => (
 );
 
 const CircuitBreakerNode = ({ data }: { data: any }) => (
-  <div className="px-4 py-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg font-semibold shadow-lg border-2 border-red-400">
+  <div className="w-32 px-4 py-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg font-semibold shadow-lg border-2 border-red-400">
     <Handle type="target" position={Position.Left} />
     <div className="text-center">
       <div className="font-bold text-sm">{data.label}</div>
@@ -83,7 +83,7 @@ const initialNodes: Node[] = [
   {
     id: '2',
     type: 'gateway',
-    position: { x: 350, y: 200 },
+    position: { x: 350, y: 180 },
     data: { label: 'pLLM Gateway' },
     sourcePosition: Position.Right,
     targetPosition: Position.Left,
@@ -157,6 +157,7 @@ const initialEdges: Edge[] = [
       type: MarkerType.ArrowClosed,
       color: '#3B82F6',
     },
+    type: 'straight',
   },
   {
     id: 'e2-3',
@@ -337,7 +338,7 @@ const InteractiveFlowDiagram: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[500px] bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+    <div className="w-full h-[500px] bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-600 overflow-hidden transition-colors duration-200">
       <div className="h-full relative">
         <ReactFlow
           nodes={nodes}
@@ -355,21 +356,21 @@ const InteractiveFlowDiagram: React.FC = () => {
           zoomOnDoubleClick={false}
           panOnScroll={false}
           panOnDrag={false}
-          className="bg-gradient-to-br from-slate-50 to-slate-100"
+          className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 transition-colors duration-200"
         >
           <Background color="#e2e8f0" gap={20} />
         </ReactFlow>
         
         {/* Simulation Controls */}
-        <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg p-4 border border-slate-200">
-          <div className="text-sm font-semibold text-slate-700 mb-2">Simulation Mode</div>
+        <div className="absolute top-4 left-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-4 border border-slate-200 dark:border-slate-600 transition-colors duration-200">
+          <div className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-200">Simulation Mode</div>
           <div className="flex gap-2">
             <button
               onClick={() => setSimulationMode('healthy')}
               className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                 simulationMode === 'healthy'
-                  ? 'bg-green-100 text-green-700 border border-green-300'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border border-green-300 dark:border-green-600'
+                  : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
               }`}
             >
               Healthy
@@ -378,8 +379,8 @@ const InteractiveFlowDiagram: React.FC = () => {
               onClick={() => setSimulationMode('degraded')}
               className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                 simulationMode === 'degraded'
-                  ? 'bg-orange-100 text-orange-700 border border-orange-300'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 border border-orange-300 dark:border-orange-600'
+                  : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
               }`}
             >
               Degraded
@@ -388,8 +389,8 @@ const InteractiveFlowDiagram: React.FC = () => {
               onClick={() => setSimulationMode('failed')}
               className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
                 simulationMode === 'failed'
-                  ? 'bg-red-100 text-red-700 border border-red-300'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-600'
+                  : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
               }`}
             >
               Failed
@@ -398,20 +399,20 @@ const InteractiveFlowDiagram: React.FC = () => {
         </div>
 
         {/* Legend */}
-        <div className="absolute bottom-4 right-4 bg-white rounded-lg shadow-lg p-3 border border-slate-200">
-          <div className="text-xs font-semibold text-slate-700 mb-2">Status Legend</div>
+        <div className="absolute bottom-4 right-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-3 border border-slate-200 dark:border-slate-600 transition-colors duration-200">
+          <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-200">Status Legend</div>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-xs text-slate-600">Healthy</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 transition-colors duration-200">Healthy</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-              <span className="text-xs text-slate-600">Degraded</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 transition-colors duration-200">Degraded</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-              <span className="text-xs text-slate-600">Failed</span>
+              <span className="text-xs text-slate-600 dark:text-slate-400 transition-colors duration-200">Failed</span>
             </div>
           </div>
         </div>

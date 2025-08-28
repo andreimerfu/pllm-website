@@ -202,7 +202,7 @@ const HeroIllustration: React.FC = () => {
             width="200"
             height="160"
             rx="20"
-            fill="white"
+            className="fill-white dark:fill-slate-800"
             stroke="#e2e8f0"
             strokeWidth="2"
             filter="url(#glow)"
@@ -212,8 +212,7 @@ const HeroIllustration: React.FC = () => {
             x="100"
             y="25"
             textAnchor="middle"
-            fill="#1e293b"
-            className="text-lg font-semibold"
+            className="fill-slate-900 dark:fill-white text-lg font-semibold"
           >
             AI Providers
           </text>
@@ -233,8 +232,7 @@ const HeroIllustration: React.FC = () => {
               x="-10"
               y="32"
               textAnchor="middle"
-              fill="#1e293b"
-              className="text-sm font-medium"
+              className="fill-slate-900 dark:fill-white text-sm font-medium"
             >
               OpenAI
             </text>
@@ -254,8 +252,7 @@ const HeroIllustration: React.FC = () => {
               x="10"
               y="32"
               textAnchor="middle"
-              fill="#1e293b"
-              className="text-sm font-medium"
+              className="fill-slate-900 dark:fill-white text-sm font-medium"
             >
               Claude
             </text>
@@ -275,8 +272,7 @@ const HeroIllustration: React.FC = () => {
               x="0"
               y="32"
               textAnchor="middle"
-              fill="#1e293b"
-              className="text-sm font-medium"
+              className="fill-slate-900 dark:fill-white text-sm font-medium"
             >
               Azure
             </text>
@@ -296,8 +292,7 @@ const HeroIllustration: React.FC = () => {
               x="0"
               y="32"
               textAnchor="middle"
-              fill="#1e293b"
-              className="text-sm font-medium"
+              className="fill-slate-900 dark:fill-white text-sm font-medium"
             >
               Bedrock
             </text>
@@ -317,8 +312,7 @@ const HeroIllustration: React.FC = () => {
               x="0"
               y="32"
               textAnchor="middle"
-              fill="#1e293b"
-              className="text-sm font-medium"
+              className="fill-slate-900 dark:fill-white text-sm font-medium"
             >
               Vertex
             </text>
