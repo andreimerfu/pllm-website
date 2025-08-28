@@ -178,68 +178,6 @@ const completion = await openai.chat.completions.create({
       </div>
     </div>
 
-    <!-- Service endpoints -->
-    <div class="mb-20">
-      <div class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-3xl p-4 sm:p-6 lg:p-12">
-        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center">Service Endpoints</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">API Gateway</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/v1</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Main gateway endpoint</p>
-          </div>
-
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-blue-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">Swagger UI</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/swagger</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Interactive API docs</p>
-          </div>
-
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-purple-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">Admin UI</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/ui</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Web admin dashboard</p>
-          </div>
-
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-orange-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">Documentation</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/docs</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Project documentation</p>
-          </div>
-
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-red-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">Metrics</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/metrics</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Prometheus metrics</p>
-          </div>
-
-          <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-4 lg:p-6 shadow-sm">
-            <div class="flex items-center mb-3">
-              <div class="w-3 h-3 bg-green-500 rounded-full mr-3 flex-shrink-0"></div>
-              <span class="font-bold text-slate-900 dark:text-white text-sm lg:text-base">Health Check</span>
-            </div>
-            <div class="font-mono text-xs lg:text-sm text-blue-600 mb-2 break-all">http://localhost:8080/health</div>
-            <p class="text-slate-600 dark:text-slate-300 text-xs lg:text-sm">Service health status</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Integration examples -->
     <div>
