@@ -27,7 +27,7 @@ const architectureLayers = [
         title: "Provider Abstraction",
         description: "Unified interface for all LLM providers",
         color: "from-green-500 to-green-600",
-        providers: ["OpenAI", "Claude", "Azure", "Vertex", "Bedrock", "Grok"],
+        providers: ["OpenAI", "Claude", "Azure", "Vertex", "Bedrock", "Llama"],
     },
 ];
 
@@ -73,11 +73,11 @@ const loadBalancingStrategies = [
 
 <section
     id="architecture"
-    class="py-20 bg-gradient-to-br from-slate-50 to-slate-100"
+    class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-dark-primary dark:to-dark-secondary"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section header -->
-        <div class="text-center mb-16">
+        <!-- <div class="text-center mb-16">
             <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
                 Built for Scale
             </h2>
@@ -85,7 +85,7 @@ const loadBalancingStrategies = [
                 Modern architecture designed for enterprise workloads with
                 battle-tested components and intelligent routing.
             </p>
-        </div>
+        </div> -->
 
         <!-- New Modern Architecture diagram -->
         <div class="mb-16">
@@ -95,10 +95,14 @@ const loadBalancingStrategies = [
         <!-- Load balancing strategies -->
         <div class="mb-16">
             <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                <h3
+                    class="text-3xl font-bold text-slate-900 dark:text-white mb-4"
+                >
                     Intelligent Load Balancing
                 </h3>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                <p
+                    class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto"
+                >
                     Choose from 6 different routing strategies optimized for
                     different use cases and workload patterns.
                 </p>
@@ -107,7 +111,7 @@ const loadBalancingStrategies = [
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     loadBalancingStrategies.map((strategy) => (
-                        <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200">
+                        <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200 dark:border-slate-700">
                             <div class="flex items-center mb-4">
                                 <div class="mr-3 text-blue-600">
                                     {strategy.iconComponent ===
@@ -123,15 +127,15 @@ const loadBalancingStrategies = [
                                         <LoadBalancerIcon size={28} />
                                     )}
                                 </div>
-                                <h4 class="text-lg font-bold text-slate-900">
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">
                                     {strategy.name}
                                 </h4>
                             </div>
-                            <p class="text-slate-600 text-sm mb-3 leading-relaxed">
+                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-3 leading-relaxed">
                                 {strategy.description}
                             </p>
-                            <div class="bg-slate-50 rounded-lg px-3 py-2">
-                                <span class="text-xs font-medium text-slate-700">
+                            <div class="bg-slate-50 dark:bg-dark-secondary rounded-lg px-3 py-2">
+                                <span class="text-xs font-medium text-slate-700 dark:text-slate-300">
                                     Best for: {strategy.useCase}
                                 </span>
                             </div>
@@ -142,12 +146,12 @@ const loadBalancingStrategies = [
         </div>
 
         <!-- Tech stack -->
-        <div class="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
+        <div class="bg-white dark:bg-dark-tertiary rounded-3xl shadow-lg p-8 lg:p-12">
             <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Production-Ready Stack
                 </h3>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                     Built with battle-tested technologies and modern best
                     practices for enterprise reliability.
                 </p>
@@ -160,8 +164,8 @@ const loadBalancingStrategies = [
                     >
                         <RouterIcon size={32} className="text-blue-700" />
                     </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Chi Router</h4>
-                    <p class="text-sm text-slate-600">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Chi Router</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
                         Lightning-fast HTTP routing and middleware
                     </p>
                 </div>
@@ -172,8 +176,8 @@ const loadBalancingStrategies = [
                     >
                         <DatabaseIcon size={32} className="text-green-700" />
                     </div>
-                    <h4 class="font-bold text-slate-900 mb-2">PostgreSQL</h4>
-                    <p class="text-sm text-slate-600">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">PostgreSQL</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
                         Reliable data persistence with GORM ORM
                     </p>
                 </div>
@@ -184,8 +188,8 @@ const loadBalancingStrategies = [
                     >
                         <CacheIcon size={32} className="text-red-700" />
                     </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Redis</h4>
-                    <p class="text-sm text-slate-600">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Redis</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
                         High-speed caching and rate limiting
                     </p>
                 </div>
@@ -196,8 +200,8 @@ const loadBalancingStrategies = [
                     >
                         <MonitoringIcon size={32} className="text-orange-700" />
                     </div>
-                    <h4 class="font-bold text-slate-900 mb-2">Prometheus</h4>
-                    <p class="text-sm text-slate-600">
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Prometheus</h4>
+                    <p class="text-sm text-slate-600 dark:text-slate-300">
                         Enterprise monitoring and metrics
                     </p>
                 </div>
@@ -207,10 +211,10 @@ const loadBalancingStrategies = [
         <!-- Interactive Request flow diagram -->
         <div class="mt-16">
             <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Adaptive Request Flow
                 </h3>
-                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
                     Interactive visualization of intelligent routing with
                     automatic failover and circuit breaker protection.
                 </p>

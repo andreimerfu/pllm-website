@@ -2,14 +2,14 @@
 import RoadmapTimeline from './RoadmapTimeline.tsx';
 ---
 
-<section id="roadmap" class="py-20 bg-slate-50">
+<section id="roadmap" class="py-20 bg-slate-50 dark:bg-slate-800 transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
     <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6 transition-colors duration-200">
         Product Roadmap
       </h2>
-      <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto transition-colors duration-200">
         Exciting features coming soon to make pLLM even more powerful and enterprise-ready.
       </p>
     </div>
@@ -19,11 +19,11 @@ import RoadmapTimeline from './RoadmapTimeline.tsx';
 
     <!-- Call to action -->
     <div class="mt-16 text-center">
-      <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-8 lg:p-12 border border-blue-100">
-        <h3 class="text-2xl font-bold text-slate-900 mb-4">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-3xl p-8 lg:p-12 border border-blue-100 dark:border-blue-800 transition-colors duration-200">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-200">
           Shape Our Roadmap
         </h3>
-        <p class="text-lg text-slate-600 mb-6 max-w-2xl mx-auto">
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-6 max-w-2xl mx-auto transition-colors duration-200">
           Have a feature request or want to influence our development priorities? We'd love to hear from you.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -42,7 +42,7 @@ import RoadmapTimeline from './RoadmapTimeline.tsx';
             href="https://github.com/andreimerfu/pllm/issues/new"
             target="_blank"
             rel="noopener noreferrer"
-            class="bg-white text-slate-700 px-6 py-3 rounded-lg font-semibold border border-slate-300 hover:bg-slate-50 hover:border-slate-400 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center"
+            class="bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-lg font-semibold border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>

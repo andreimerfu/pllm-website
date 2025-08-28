@@ -89,10 +89,10 @@ const SupportTiers: React.FC = () => {
       {supportTiers.map((tier, index) => (
         <div
           key={tier.name}
-          className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
+          className={`relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 ${
             tier.popular 
-              ? 'border-blue-300 shadow-blue-100' 
-              : 'border-slate-200 hover:border-slate-300'
+              ? 'border-blue-300 dark:border-blue-600 shadow-blue-100 dark:shadow-blue-900/20' 
+              : 'border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
           }`}
         >
           {tier.popular && (
@@ -106,22 +106,22 @@ const SupportTiers: React.FC = () => {
           <div className="p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">{tier.name}</h3>
-              <p className="text-slate-600 text-sm mb-4">{tier.description}</p>
-              <div className="text-4xl font-bold text-slate-900">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">{tier.name}</h3>
+              <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 transition-colors duration-200">{tier.description}</p>
+              <div className="text-4xl font-bold text-slate-900 dark:text-white transition-colors duration-200">
                 {tier.price}
                 {tier.price === 'Custom' && (
-                  <span className="text-base font-normal text-slate-500 block">Contact for pricing</span>
+                  <span className="text-base font-normal text-slate-500 dark:text-slate-400 block transition-colors duration-200">Contact for pricing</span>
                 )}
               </div>
             </div>
 
             {/* Features */}
             <div className="mb-8">
-              <h4 className="text-sm font-semibold text-slate-900 mb-4">What's included:</h4>
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-4 transition-colors duration-200">What's included:</h4>
               <ul className="space-y-3">
                 {tier.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start text-sm text-slate-700">
+                  <li key={featureIndex} className="flex items-start text-sm text-slate-700 dark:text-slate-300 transition-colors duration-200">
                     <Icon 
                       icon="mdi:check-circle" 
                       className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" 
@@ -135,13 +135,13 @@ const SupportTiers: React.FC = () => {
             {/* Limitations */}
             {tier.limitations && (
               <div className="mb-8">
-                <h4 className="text-sm font-semibold text-slate-900 mb-4">Limitations:</h4>
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-4 transition-colors duration-200">Limitations:</h4>
                 <ul className="space-y-3">
                   {tier.limitations.map((limitation, limitationIndex) => (
-                    <li key={limitationIndex} className="flex items-start text-sm text-slate-500">
+                    <li key={limitationIndex} className="flex items-start text-sm text-slate-500 dark:text-slate-400 transition-colors duration-200">
                       <Icon 
                         icon="mdi:minus-circle" 
-                        className="w-5 h-5 text-slate-400 mr-3 flex-shrink-0 mt-0.5" 
+                        className="w-5 h-5 text-slate-400 dark:text-slate-500 mr-3 flex-shrink-0 mt-0.5 transition-colors duration-200" 
                       />
                       {limitation}
                     </li>
@@ -159,7 +159,7 @@ const SupportTiers: React.FC = () => {
                 className={`w-full inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200 ${
                   tier.popular
                     ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl'
-                    : 'bg-slate-100 text-slate-900 hover:bg-slate-200 border border-slate-300'
+                    : 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-600 border border-slate-300 dark:border-slate-600'
                 }`}
               >
                 {tier.cta.text}

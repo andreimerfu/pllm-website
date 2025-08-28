@@ -51,10 +51,10 @@ export default function PerformanceChart() {
   }, []);
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg p-8 border border-slate-200">
+    <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-lg p-8 border border-slate-200 dark:border-slate-600 transition-colors duration-200">
       <div className="text-center mb-8">
-        <h3 className="text-2xl font-bold text-slate-900 mb-2">Performance Comparison</h3>
-        <p className="text-slate-600">pLLM vs Typical Interpreted Gateway</p>
+        <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">Performance Comparison</h3>
+        <p className="text-slate-600 dark:text-slate-400 transition-colors duration-200">pLLM vs Typical Interpreted Gateway</p>
       </div>
       
       <div className="space-y-8">
@@ -73,8 +73,8 @@ export default function PerformanceChart() {
               className="space-y-4 p-4 rounded-2xl"
             >
               <div className="flex justify-between items-center">
-                <h4 className="font-bold text-slate-900 text-lg">{item.label}</h4>
-                <div className="px-3 py-1 rounded-full text-sm font-bold bg-green-100 text-green-700">
+                <h4 className="font-bold text-slate-900 dark:text-white text-lg transition-colors duration-200">{item.label}</h4>
+                <div className="px-3 py-1 rounded-full text-sm font-bold bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 transition-colors duration-200">
                   {improvementPercent}% {isLowerBetter ? 'less' : 'more'}
                 </div>
               </div>
@@ -82,8 +82,8 @@ export default function PerformanceChart() {
               <div className="space-y-3">
                 {/* pLLM Bar */}
                 <div className="flex items-center space-x-4">
-                  <div className="w-20 text-sm font-bold text-slate-800">pLLM</div>
-                  <div className="flex-1 bg-slate-200 rounded-full h-8 relative overflow-hidden shadow-inner">
+                  <div className="w-20 text-sm font-bold text-slate-800 dark:text-slate-200 transition-colors duration-200">pLLM</div>
+                  <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-8 relative overflow-hidden shadow-inner transition-colors duration-200">
                     <div 
                       className={`h-full rounded-full transition-all duration-2000 ease-out relative ${item.color}`}
                       style={{ width: `${pllmPercentage}%` }}
@@ -101,8 +101,8 @@ export default function PerformanceChart() {
                 
                 {/* Typical Bar */}
                 <div className="flex items-center space-x-4">
-                  <div className="w-20 text-sm font-medium text-slate-500">Typical</div>
-                  <div className="flex-1 bg-slate-200 rounded-full h-8 relative overflow-hidden shadow-inner">
+                  <div className="w-20 text-sm font-medium text-slate-500 dark:text-slate-400 transition-colors duration-200">Typical</div>
+                  <div className="flex-1 bg-slate-200 dark:bg-slate-700 rounded-full h-8 relative overflow-hidden shadow-inner transition-colors duration-200">
                     <div 
                       className="h-full bg-gradient-to-r from-slate-400 to-slate-500 rounded-full transition-all duration-2000 ease-out"
                       style={{ width: `${typicalPercentage}%` }}
@@ -122,7 +122,7 @@ export default function PerformanceChart() {
               <div className="flex justify-end">
                 <div className="flex items-center space-x-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-medium text-slate-600">
+                  <span className="text-xs font-medium text-slate-600 dark:text-slate-400 transition-colors duration-200">
                     {isLowerBetter ? 'Lower is better' : 'Higher is better'}
                   </span>
                 </div>
@@ -132,19 +132,19 @@ export default function PerformanceChart() {
         })}
       </div>
       
-      <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-2xl border border-slate-200">
+      <div className="mt-8 p-6 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-2xl border border-slate-200 dark:border-slate-600 transition-colors duration-200">
         <div className="flex items-center justify-center space-x-8 text-sm">
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full shadow-sm"></div>
-            <span className="text-slate-800 font-semibold">pLLM (Go)</span>
+            <span className="text-slate-800 dark:text-slate-200 font-semibold transition-colors duration-200">pLLM (Go)</span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full shadow-sm"></div>
-            <span className="text-slate-800 font-semibold">Typical Gateway</span>
+            <span className="text-slate-800 dark:text-slate-200 font-semibold transition-colors duration-200">Typical Gateway</span>
           </div>
         </div>
         <div className="text-center mt-4">
-          <p className="text-xs text-slate-600 font-medium">
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-200">
             Performance comparison between pLLM and typical gateways
           </p>
         </div>

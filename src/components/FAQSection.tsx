@@ -74,20 +74,20 @@ const FAQSection: React.FC = () => {
 
   const getCategoryColor = (category: FAQItem['category']) => {
     switch (category) {
-      case 'general': return 'bg-blue-50 border-blue-200';
-      case 'technical': return 'bg-purple-50 border-purple-200';
-      case 'enterprise': return 'bg-green-50 border-green-200';
-      case 'pricing': return 'bg-orange-50 border-orange-200';
-      default: return 'bg-slate-50 border-slate-200';
+      case 'general': return 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-600';
+      case 'technical': return 'bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-600';
+      case 'enterprise': return 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-600';
+      case 'pricing': return 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-600';
+      default: return 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-600';
     }
   };
 
   const getCategoryBadge = (category: FAQItem['category']) => {
     const badges = {
-      general: { label: 'General', color: 'bg-blue-100 text-blue-800' },
-      technical: { label: 'Technical', color: 'bg-purple-100 text-purple-800' },
-      enterprise: { label: 'Enterprise', color: 'bg-green-100 text-green-800' },
-      pricing: { label: 'Pricing', color: 'bg-orange-100 text-orange-800' }
+      general: { label: 'General', color: 'bg-blue-100 dark:bg-blue-800/30 text-blue-800 dark:text-blue-300' },
+      technical: { label: 'Technical', color: 'bg-purple-100 dark:bg-purple-800/30 text-purple-800 dark:text-purple-300' },
+      enterprise: { label: 'Enterprise', color: 'bg-green-100 dark:bg-green-800/30 text-green-800 dark:text-green-300' },
+      pricing: { label: 'Pricing', color: 'bg-orange-100 dark:bg-orange-800/30 text-orange-800 dark:text-orange-300' }
     };
 
     const badge = badges[category];
@@ -106,7 +106,7 @@ const FAQSection: React.FC = () => {
           className={`rounded-xl border-2 transition-all duration-200 ${
             openItems.has(item.id) 
               ? `${getCategoryColor(item.category)} shadow-md` 
-              : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm'
+              : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 hover:shadow-sm transition-colors duration-200'
           }`}
         >
           <button
@@ -118,14 +118,14 @@ const FAQSection: React.FC = () => {
                 <div className="flex items-center mb-2">
                   {getCategoryBadge(item.category)}
                 </div>
-                <h4 className="text-lg font-semibold text-slate-900 leading-tight">
+                <h4 className="text-lg font-semibold text-slate-900 dark:text-white leading-tight transition-colors duration-200">
                   {item.question}
                 </h4>
               </div>
               <div className="flex-shrink-0">
                 <Icon 
                   icon={openItems.has(item.id) ? "mdi:chevron-up" : "mdi:chevron-down"}
-                  className="w-6 h-6 text-slate-400 transition-transform duration-200"
+                  className="w-6 h-6 text-slate-400 dark:text-slate-300 transition-all duration-200"
                 />
               </div>
             </div>
@@ -135,8 +135,8 @@ const FAQSection: React.FC = () => {
             openItems.has(item.id) ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'
           }`}>
             <div className="px-6">
-              <div className="border-t border-slate-200 pt-4">
-                <p className="text-slate-600 leading-relaxed">
+              <div className="border-t border-slate-200 dark:border-slate-600 pt-4 transition-colors duration-200">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-200">
                   {item.answer}
                 </p>
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 const ArchitectureDiagram: React.FC = () => {
   return (
-    <div className="relative w-full max-w-6xl mx-auto bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-8 lg:p-12 border border-slate-200">
+    <div className="relative w-full max-w-6xl mx-auto bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-3xl p-8 lg:p-12 border border-slate-200 dark:border-slate-600 transition-colors duration-300">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -17,10 +17,10 @@ const ArchitectureDiagram: React.FC = () => {
       <div className="relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 mb-4">
+          <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-200">
             System Architecture
           </h3>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto transition-colors duration-200">
             Enterprise-grade architecture designed for high availability,
             scalability, and performance
           </p>
@@ -31,10 +31,12 @@ const ArchitectureDiagram: React.FC = () => {
           {/* Client Layer */}
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 mb-2">
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
                 Client Layer
               </h4>
-              <p className="text-sm text-slate-600">Applications & Services</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
+                Applications & Services
+              </p>
             </div>
 
             <div className="space-y-4">
@@ -62,17 +64,17 @@ const ArchitectureDiagram: React.FC = () => {
               ].map((client, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 hover:shadow-md transition-all duration-200"
+                  className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-lg">
+                    <div className="w-10 h-10 bg-blue-50 dark:bg-slate-700 rounded-xl flex items-center justify-center text-lg transition-colors duration-200">
                       {client.icon}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 text-sm">
+                      <p className="font-semibold text-slate-900 dark:text-white text-sm transition-colors duration-200">
                         {client.name}
                       </p>
-                      <p className="text-xs text-slate-500 truncate">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate transition-colors duration-200">
                         {client.desc}
                       </p>
                     </div>
@@ -93,10 +95,10 @@ const ArchitectureDiagram: React.FC = () => {
           {/* pLLM Gateway Layer */}
           <div className="relative">
             <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 mb-2">
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
                 pLLM Gateway
               </h4>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
                 Intelligent Routing Engine
               </p>
             </div>
@@ -184,10 +186,12 @@ const ArchitectureDiagram: React.FC = () => {
           {/* Provider Layer */}
           <div className="space-y-6">
             <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 mb-2">
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
                 Provider Layer
               </h4>
-              <p className="text-sm text-slate-600">LLM Service Providers</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
+                LLM Service Providers
+              </p>
             </div>
 
             <div className="space-y-4">
@@ -223,7 +227,7 @@ const ArchitectureDiagram: React.FC = () => {
                   status: "healthy",
                 },
                 {
-                  name: "Grok",
+                  name: "Llama",
                   icon: "simple-icons:meta",
                   color: "from-purple-500 to-purple-600",
                   status: "failed",
@@ -231,18 +235,18 @@ const ArchitectureDiagram: React.FC = () => {
               ].map((provider, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 hover:shadow-md transition-all duration-200"
+                  className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center border border-slate-200">
+                      <div className="w-10 h-10 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
                         <iconify-icon
                           icon={provider.icon}
                           class="w-6 h-6"
                         ></iconify-icon>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-slate-900 text-sm">
+                        <p className="font-semibold text-slate-900 dark:text-white text-sm transition-colors duration-200">
                           {provider.name}
                         </p>
                         <div className="flex items-center space-x-2 mt-1">
@@ -270,14 +274,14 @@ const ArchitectureDiagram: React.FC = () => {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
                         {provider.status === "healthy"
                           ? "99.9%"
                           : provider.status === "degraded"
                             ? "85.2%"
                             : "0%"}
                       </p>
-                      <p className="text-xs text-slate-400">uptime</p>
+                      <p className="text-xs text-slate-400 dark:text-slate-500 transition-colors duration-200">uptime</p>
                     </div>
                   </div>
                 </div>
@@ -287,12 +291,12 @@ const ArchitectureDiagram: React.FC = () => {
         </div>
 
         {/* Data Flow Indicators */}
-        <div className="mt-12 pt-8 border-t border-slate-200">
+        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-600 transition-colors duration-200">
           <div className="text-center mb-6">
-            <h5 className="text-lg font-bold text-slate-900 mb-2">
+            <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
               Data Flow & Features
             </h5>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
               Real-time monitoring and intelligent routing
             </p>
           </div>
@@ -318,14 +322,14 @@ const ArchitectureDiagram: React.FC = () => {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-4 shadow-sm border border-slate-200"
+                className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 transition-colors duration-200"
               >
                 <div className="text-center">
                   <div className="text-2xl mb-2">{feature.icon}</div>
-                  <p className="font-semibold text-slate-900 text-sm mb-1">
+                  <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
                     {feature.name}
                   </p>
-                  <p className="text-xs text-slate-500">{feature.desc}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -333,9 +337,9 @@ const ArchitectureDiagram: React.FC = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6">
+        <div className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 transition-colors duration-200">
           <div className="text-center mb-6">
-            <h5 className="text-lg font-bold text-slate-900 mb-2">
+            <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
               Live Performance Metrics
             </h5>
           </div>
@@ -354,7 +358,9 @@ const ArchitectureDiagram: React.FC = () => {
                 <p className={`text-2xl font-bold ${stat.color} mb-1`}>
                   {stat.metric}
                 </p>
-                <p className="text-sm text-slate-600">{stat.label}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>

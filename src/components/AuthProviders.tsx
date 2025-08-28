@@ -34,7 +34,7 @@ const AuthProviders: React.FC = () => {
         {providers.map((provider) => (
           <div 
             key={provider.name}
-            className="group bg-slate-50 hover:bg-slate-100 rounded-xl p-4 transition-all duration-200 cursor-pointer border border-slate-200 hover:border-slate-300"
+            className="group bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-xl p-4 transition-all duration-200 cursor-pointer border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500"
           >
             <div className="flex flex-col items-center text-center">
               <div className="mb-3 flex items-center justify-center">
@@ -51,10 +51,10 @@ const AuthProviders: React.FC = () => {
                   />
                 )}
               </div>
-              <div className="text-sm font-semibold text-slate-900 mb-1">
+              <div className="text-sm font-semibold text-slate-900 dark:text-white mb-1 transition-colors duration-200">
                 {provider.name}
               </div>
-              <div className="text-xs text-slate-600 line-clamp-2">
+              <div className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 transition-colors duration-200">
                 {provider.description}
               </div>
             </div>
@@ -63,19 +63,19 @@ const AuthProviders: React.FC = () => {
       </div>
 
       {/* Quick stats */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100">
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-blue-100 dark:border-blue-800 transition-colors duration-200">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
             <div className="text-2xl font-bold text-blue-600">9+</div>
-            <div className="text-xs text-slate-600">Providers</div>
+            <div className="text-xs text-slate-600 dark:text-slate-300 transition-colors duration-200">Providers</div>
           </div>
           <div>
             <div className="text-2xl font-bold text-purple-600">SSO</div>
-            <div className="text-xs text-slate-600">Ready</div>
+            <div className="text-xs text-slate-600 dark:text-slate-300 transition-colors duration-200">Ready</div>
           </div>
           <div>
             <div className="text-2xl font-bold text-green-600">Free</div>
-            <div className="text-xs text-slate-600">Included</div>
+            <div className="text-xs text-slate-600 dark:text-slate-300 transition-colors duration-200">Included</div>
           </div>
         </div>
       </div>
