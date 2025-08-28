@@ -75,6 +75,15 @@ const socialImageURL = new URL(image, Astro.site);
     <!-- Iconify -->
     <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WEB5LS71K4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WEB5LS71K4');
+    </script>
+    
     <!-- Dark mode script - runs immediately to prevent FOUC -->
     <script is:inline>
       (function() {
@@ -97,11 +106,6 @@ const socialImageURL = new URL(image, Astro.site);
   </head>
   <body class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300">
     <slot />
-    
-    <!-- Analytics placeholder -->
-    <script>
-      // Analytics code will go here
-    </script>
   </body>
 </html>
 
