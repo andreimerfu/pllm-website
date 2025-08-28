@@ -1,168 +1,222 @@
 ---
-import InteractiveFlowDiagram from './InteractiveFlowDiagram.tsx';
-import ArchitectureDiagram from './ArchitectureDiagram.tsx';
-import { RouterIcon, DatabaseIcon, CacheIcon, MonitoringIcon, RoundRobinIcon, AnalyticsIcon, LoadBalancerIcon } from './CustomIcons.tsx';
+import InteractiveFlowDiagram from "./InteractiveFlowDiagram.tsx";
+import ArchitectureDiagram from "./ArchitectureDiagram.tsx";
+import {
+    RouterIcon,
+    DatabaseIcon,
+    CacheIcon,
+    MonitoringIcon,
+    RoundRobinIcon,
+    AnalyticsIcon,
+    LoadBalancerIcon,
+} from "./CustomIcons.tsx";
 
 const architectureLayers = [
-  {
-    title: "Load Balancer",
-    description: "Request distribution and traffic management",
-    color: "from-blue-500 to-blue-600"
-  },
-  {
-    title: "pLLM Gateway",
-    description: "Chi Router • Auth Layer • Cache Layer",
-    color: "from-purple-500 to-purple-600",
-    components: ["Chi Router", "Auth Layer", "Cache Layer"]
-  },
-  {
-    title: "Provider Abstraction",
-    description: "Unified interface for all LLM providers",
-    color: "from-green-500 to-green-600",
-    providers: ["OpenAI", "Claude", "Azure", "Vertex", "Bedrock", "Groq"]
-  }
+    {
+        title: "Load Balancer",
+        description: "Request distribution and traffic management",
+        color: "from-blue-500 to-blue-600",
+    },
+    {
+        title: "pLLM Gateway",
+        description: "Chi Router • Auth Layer • Cache Layer",
+        color: "from-purple-500 to-purple-600",
+        components: ["Chi Router", "Auth Layer", "Cache Layer"],
+    },
+    {
+        title: "Provider Abstraction",
+        description: "Unified interface for all LLM providers",
+        color: "from-green-500 to-green-600",
+        providers: ["OpenAI", "Claude", "Azure", "Vertex", "Bedrock", "Grok"],
+    },
 ];
 
 const loadBalancingStrategies = [
-  {
-    name: "Round Robin",
-    iconComponent: "RoundRobinIcon",
-    description: "Even distribution across all providers",
-    useCase: "Balanced load scenarios"
-  },
-  {
-    name: "Least Busy",
-    iconComponent: "AnalyticsIcon", 
-    description: "Routes to least loaded provider",
-    useCase: "Variable workloads"
-  },
-  {
-    name: "Weighted",
-    iconComponent: "LoadBalancerIcon",
-    description: "Custom weight distribution",
-    useCase: "Tiered provider setups"
-  },
-  {
-    name: "Priority",
-    iconComponent: "RoundRobinIcon",
-    description: "Prefers high-priority providers",
-    useCase: "Cost optimization"
-  },
-  {
-    name: "Latency-Based",
-    iconComponent: "AnalyticsIcon",
-    description: "Routes to fastest responding provider",
-    useCase: "Performance critical"
-  },
-  {
-    name: "Usage-Based",
-    iconComponent: "LoadBalancerIcon",
-    description: "Respects rate limits and quotas",
-    useCase: "Token management"
-  }
+    {
+        name: "Round Robin",
+        iconComponent: "RoundRobinIcon",
+        description: "Even distribution across all providers",
+        useCase: "Balanced load scenarios",
+    },
+    {
+        name: "Least Busy",
+        iconComponent: "AnalyticsIcon",
+        description: "Routes to least loaded provider",
+        useCase: "Variable workloads",
+    },
+    {
+        name: "Weighted",
+        iconComponent: "LoadBalancerIcon",
+        description: "Custom weight distribution",
+        useCase: "Tiered provider setups",
+    },
+    {
+        name: "Priority",
+        iconComponent: "RoundRobinIcon",
+        description: "Prefers high-priority providers",
+        useCase: "Cost optimization",
+    },
+    {
+        name: "Latency-Based",
+        iconComponent: "AnalyticsIcon",
+        description: "Routes to fastest responding provider",
+        useCase: "Performance critical",
+    },
+    {
+        name: "Usage-Based",
+        iconComponent: "LoadBalancerIcon",
+        description: "Respects rate limits and quotas",
+        useCase: "Token management",
+    },
 ];
 ---
 
-<section id="architecture" class="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
-        Built for Scale
-      </h2>
-      <p class="text-xl text-slate-600 max-w-3xl mx-auto">
-        Modern architecture designed for enterprise workloads with battle-tested components and intelligent routing.
-      </p>
-    </div>
+<section
+    id="architecture"
+    class="py-20 bg-gradient-to-br from-slate-50 to-slate-100"
+>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section header -->
+        <div class="text-center mb-16">
+            <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
+                Built for Scale
+            </h2>
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                Modern architecture designed for enterprise workloads with
+                battle-tested components and intelligent routing.
+            </p>
+        </div>
 
-    <!-- New Modern Architecture diagram -->
-    <div class="mb-16">
-      <ArchitectureDiagram client:load />
-    </div>
+        <!-- New Modern Architecture diagram -->
+        <div class="mb-16">
+            <ArchitectureDiagram client:load />
+        </div>
 
-    <!-- Load balancing strategies -->
-    <div class="mb-16">
-      <div class="text-center mb-12">
-        <h3 class="text-3xl font-bold text-slate-900 mb-4">Intelligent Load Balancing</h3>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-          Choose from 6 different routing strategies optimized for different use cases and workload patterns.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {loadBalancingStrategies.map((strategy) => (
-          <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200">
-            <div class="flex items-center mb-4">
-              <div class="mr-3 text-blue-600">
-                {strategy.iconComponent === 'RoundRobinIcon' && <RoundRobinIcon size={28} />}
-                {strategy.iconComponent === 'AnalyticsIcon' && <AnalyticsIcon size={28} />}
-                {strategy.iconComponent === 'LoadBalancerIcon' && <LoadBalancerIcon size={28} />}
-              </div>
-              <h4 class="text-lg font-bold text-slate-900">{strategy.name}</h4>
+        <!-- Load balancing strategies -->
+        <div class="mb-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                    Intelligent Load Balancing
+                </h3>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Choose from 6 different routing strategies optimized for
+                    different use cases and workload patterns.
+                </p>
             </div>
-            <p class="text-slate-600 text-sm mb-3 leading-relaxed">{strategy.description}</p>
-            <div class="bg-slate-50 rounded-lg px-3 py-2">
-              <span class="text-xs font-medium text-slate-700">Best for: {strategy.useCase}</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {
+                    loadBalancingStrategies.map((strategy) => (
+                        <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200">
+                            <div class="flex items-center mb-4">
+                                <div class="mr-3 text-blue-600">
+                                    {strategy.iconComponent ===
+                                        "RoundRobinIcon" && (
+                                        <RoundRobinIcon size={28} />
+                                    )}
+                                    {strategy.iconComponent ===
+                                        "AnalyticsIcon" && (
+                                        <AnalyticsIcon size={28} />
+                                    )}
+                                    {strategy.iconComponent ===
+                                        "LoadBalancerIcon" && (
+                                        <LoadBalancerIcon size={28} />
+                                    )}
+                                </div>
+                                <h4 class="text-lg font-bold text-slate-900">
+                                    {strategy.name}
+                                </h4>
+                            </div>
+                            <p class="text-slate-600 text-sm mb-3 leading-relaxed">
+                                {strategy.description}
+                            </p>
+                            <div class="bg-slate-50 rounded-lg px-3 py-2">
+                                <span class="text-xs font-medium text-slate-700">
+                                    Best for: {strategy.useCase}
+                                </span>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
-          </div>
-        ))}
-      </div>
+        </div>
+
+        <!-- Tech stack -->
+        <div class="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                    Production-Ready Stack
+                </h3>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Built with battle-tested technologies and modern best
+                    practices for enterprise reliability.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div
+                        class="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                    >
+                        <RouterIcon size={32} className="text-blue-700" />
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-2">Chi Router</h4>
+                    <p class="text-sm text-slate-600">
+                        Lightning-fast HTTP routing and middleware
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div
+                        class="bg-gradient-to-br from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                    >
+                        <DatabaseIcon size={32} className="text-green-700" />
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-2">PostgreSQL</h4>
+                    <p class="text-sm text-slate-600">
+                        Reliable data persistence with GORM ORM
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div
+                        class="bg-gradient-to-br from-red-100 to-red-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                    >
+                        <CacheIcon size={32} className="text-red-700" />
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-2">Redis</h4>
+                    <p class="text-sm text-slate-600">
+                        High-speed caching and rate limiting
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div
+                        class="bg-gradient-to-br from-orange-100 to-orange-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                    >
+                        <MonitoringIcon size={32} className="text-orange-700" />
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-2">Prometheus</h4>
+                    <p class="text-sm text-slate-600">
+                        Enterprise monitoring and metrics
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Request flow diagram -->
+        <div class="mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold text-slate-900 mb-4">
+                    Adaptive Request Flow
+                </h3>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Interactive visualization of intelligent routing with
+                    automatic failover and circuit breaker protection.
+                </p>
+            </div>
+
+            <InteractiveFlowDiagram client:load />
+        </div>
     </div>
-
-    <!-- Tech stack -->
-    <div class="bg-white rounded-3xl shadow-lg p-8 lg:p-12">
-      <div class="text-center mb-12">
-        <h3 class="text-3xl font-bold text-slate-900 mb-4">Production-Ready Stack</h3>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-          Built with battle-tested technologies and modern best practices for enterprise reliability.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <RouterIcon size={32} className="text-blue-700" />
-          </div>
-          <h4 class="font-bold text-slate-900 mb-2">Chi Router</h4>
-          <p class="text-sm text-slate-600">Lightning-fast HTTP routing and middleware</p>
-        </div>
-
-        <div class="text-center">
-          <div class="bg-gradient-to-br from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <DatabaseIcon size={32} className="text-green-700" />
-          </div>
-          <h4 class="font-bold text-slate-900 mb-2">PostgreSQL</h4>
-          <p class="text-sm text-slate-600">Reliable data persistence with GORM ORM</p>
-        </div>
-
-        <div class="text-center">
-          <div class="bg-gradient-to-br from-red-100 to-red-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <CacheIcon size={32} className="text-red-700" />
-          </div>
-          <h4 class="font-bold text-slate-900 mb-2">Redis</h4>
-          <p class="text-sm text-slate-600">High-speed caching and rate limiting</p>
-        </div>
-
-        <div class="text-center">
-          <div class="bg-gradient-to-br from-orange-100 to-orange-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <MonitoringIcon size={32} className="text-orange-700" />
-          </div>
-          <h4 class="font-bold text-slate-900 mb-2">Prometheus</h4>
-          <p class="text-sm text-slate-600">Enterprise monitoring and metrics</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Request flow diagram -->
-    <div class="mt-16">
-      <div class="text-center mb-12">
-        <h3 class="text-3xl font-bold text-slate-900 mb-4">Adaptive Request Flow</h3>
-        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-          Interactive visualization of intelligent routing with automatic failover and circuit breaker protection.
-        </p>
-      </div>
-
-      <InteractiveFlowDiagram client:load />
-    </div>
-  </div>
 </section>
