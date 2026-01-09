@@ -2,10 +2,6 @@
 import InteractiveFlowDiagram from "./InteractiveFlowDiagram.tsx";
 import ArchitectureDiagram from "./ArchitectureDiagram.tsx";
 import {
-    RouterIcon,
-    DatabaseIcon,
-    CacheIcon,
-    MonitoringIcon,
     RoundRobinIcon,
     AnalyticsIcon,
     LoadBalancerIcon,
@@ -159,49 +155,41 @@ const loadBalancingStrategies = [
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center">
-                    <div
-                        class="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                    >
-                        <RouterIcon size={32} className="text-blue-700" />
+                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src="/logos/go.svg" alt="Go" class="w-12 h-12 object-contain" />
                     </div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-2">Chi Router</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
                         Lightning-fast HTTP routing and middleware
                     </p>
                 </div>
 
                 <div class="text-center">
-                    <div
-                        class="bg-gradient-to-br from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                    >
-                        <DatabaseIcon size={32} className="text-green-700" />
+                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src="/logos/postgresql.svg" alt="PostgreSQL" class="w-12 h-12 object-contain" />
                     </div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-2">PostgreSQL</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
                         Reliable data persistence with GORM ORM
                     </p>
                 </div>
 
                 <div class="text-center">
-                    <div
-                        class="bg-gradient-to-br from-red-100 to-red-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                    >
-                        <CacheIcon size={32} className="text-red-700" />
+                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src="/logos/redis.svg" alt="Redis" class="w-12 h-12 object-contain" />
                     </div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-2">Redis</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
                         High-speed caching and rate limiting
                     </p>
                 </div>
 
                 <div class="text-center">
-                    <div
-                        class="bg-gradient-to-br from-orange-100 to-orange-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                    >
-                        <MonitoringIcon size={32} className="text-orange-700" />
+                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <img src="/logos/prometheus.svg" alt="Prometheus" class="w-12 h-12 object-contain" />
                     </div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-2">Prometheus</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-300">
+                    <p class="text-sm text-slate-600 dark:text-slate-400">
                         Enterprise monitoring and metrics
                     </p>
                 </div>

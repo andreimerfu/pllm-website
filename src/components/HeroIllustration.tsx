@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 
 const HeroIllustration: React.FC = () => {
   return (
-    <div className="relative w-full max-w-4xl mx-auto mt-8 mb-4">
+    <div className="relative w-full max-w-5xl mx-auto mt-8 mb-4">
       <svg
-        viewBox="0 0 900 400"
+        viewBox="0 0 1000 400"
         className="w-full h-auto"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -196,11 +196,11 @@ const HeroIllustration: React.FC = () => {
         </g>
 
         {/* Provider Hub - Grouped layout */}
-        <g transform="translate(650, 130)">
+        <g transform="translate(680, 115)">
           {/* Hub container */}
           <rect
-            width="200"
-            height="160"
+            width="260"
+            height="190"
             rx="20"
             className="fill-white dark:fill-slate-800"
             stroke="#e2e8f0"
@@ -209,17 +209,18 @@ const HeroIllustration: React.FC = () => {
           />
 
           <text
-            x="100"
-            y="25"
+            x="130"
+            y="28"
             textAnchor="middle"
             className="fill-slate-900 dark:fill-white text-lg font-semibold"
           >
             AI Providers
           </text>
 
-          {/* Provider icons in circular arrangement with better spacing */}
+          {/* Provider icons in 2-row grid layout with proper spacing */}
+          {/* Row 1: OpenAI and Claude */}
           {/* OpenAI - Top Left */}
-          <g transform="translate(80, 45)">
+          <g transform="translate(75, 65)">
             <foreignObject x="-15" y="-15" width="30" height="30">
               <div className="w-7 h-7 flex items-center justify-center">
                 <iconify-icon
@@ -229,17 +230,18 @@ const HeroIllustration: React.FC = () => {
               </div>
             </foreignObject>
             <text
-              x="-10"
-              y="32"
+              x="0"
+              y="28"
               textAnchor="middle"
-              className="fill-slate-900 dark:fill-white text-sm font-medium"
+              className="fill-slate-700 dark:fill-slate-300"
+              fontSize="11"
             >
               OpenAI
             </text>
           </g>
 
           {/* Anthropic - Top Right */}
-          <g transform="translate(120, 45)">
+          <g transform="translate(185, 65)">
             <foreignObject x="-15" y="-15" width="30" height="30">
               <div className="w-7 h-7 flex items-center justify-center">
                 <iconify-icon
@@ -249,57 +251,19 @@ const HeroIllustration: React.FC = () => {
               </div>
             </foreignObject>
             <text
-              x="10"
-              y="32"
+              x="0"
+              y="28"
               textAnchor="middle"
-              className="fill-slate-900 dark:fill-white text-sm font-medium"
+              className="fill-slate-700 dark:fill-slate-300"
+              fontSize="11"
             >
               Claude
             </text>
           </g>
 
-          {/* Azure - Right */}
-          <g transform="translate(160, 90)">
-            <foreignObject x="-15" y="-15" width="30" height="30">
-              <div className="w-7 h-7 flex items-center justify-center">
-                <iconify-icon
-                  icon="simple-icons:microsoftazure"
-                  style={{ color: "#0078d4", fontSize: "28px" }}
-                ></iconify-icon>
-              </div>
-            </foreignObject>
-            <text
-              x="0"
-              y="32"
-              textAnchor="middle"
-              className="fill-slate-900 dark:fill-white text-sm font-medium"
-            >
-              Azure
-            </text>
-          </g>
-
-          {/* AWS Bedrock - Bottom */}
-          <g transform="translate(100, 125)">
-            <foreignObject x="-15" y="-15" width="30" height="30">
-              <div className="w-7 h-7 flex items-center justify-center">
-                <iconify-icon
-                  icon="simple-icons:amazonaws"
-                  style={{ color: "#ff9900", fontSize: "28px" }}
-                ></iconify-icon>
-              </div>
-            </foreignObject>
-            <text
-              x="0"
-              y="32"
-              textAnchor="middle"
-              className="fill-slate-900 dark:fill-white text-sm font-medium"
-            >
-              Bedrock
-            </text>
-          </g>
-
-          {/* Google Vertex - Left */}
-          <g transform="translate(40, 90)">
+          {/* Row 2: Vertex, Bedrock, Azure */}
+          {/* Google Vertex - Bottom Left */}
+          <g transform="translate(55, 135)">
             <foreignObject x="-15" y="-15" width="30" height="30">
               <div className="w-7 h-7 flex items-center justify-center">
                 <iconify-icon
@@ -310,18 +274,61 @@ const HeroIllustration: React.FC = () => {
             </foreignObject>
             <text
               x="0"
-              y="32"
+              y="28"
               textAnchor="middle"
-              className="fill-slate-900 dark:fill-white text-sm font-medium"
+              className="fill-slate-700 dark:fill-slate-300"
+              fontSize="11"
             >
               Vertex
+            </text>
+          </g>
+
+          {/* AWS Bedrock - Bottom Center */}
+          <g transform="translate(130, 135)">
+            <foreignObject x="-15" y="-15" width="30" height="30">
+              <div className="w-7 h-7 flex items-center justify-center">
+                <iconify-icon
+                  icon="simple-icons:amazonaws"
+                  style={{ color: "#ff9900", fontSize: "28px" }}
+                ></iconify-icon>
+              </div>
+            </foreignObject>
+            <text
+              x="0"
+              y="28"
+              textAnchor="middle"
+              className="fill-slate-700 dark:fill-slate-300"
+              fontSize="11"
+            >
+              Bedrock
+            </text>
+          </g>
+
+          {/* Azure - Bottom Right */}
+          <g transform="translate(205, 135)">
+            <foreignObject x="-15" y="-15" width="30" height="30">
+              <div className="w-7 h-7 flex items-center justify-center">
+                <iconify-icon
+                  icon="simple-icons:microsoftazure"
+                  style={{ color: "#0078d4", fontSize: "28px" }}
+                ></iconify-icon>
+              </div>
+            </foreignObject>
+            <text
+              x="0"
+              y="28"
+              textAnchor="middle"
+              className="fill-slate-700 dark:fill-slate-300"
+              fontSize="11"
+            >
+              Azure
             </text>
           </g>
 
           {/* Internal connection lines between providers */}
           <g stroke="#3b82f6" strokeWidth="1" fill="none" opacity="0.4">
             {/* Center hub connections */}
-            <circle cx="100" cy="85" r="3" fill="#3b82f6">
+            <circle cx="130" cy="100" r="3" fill="#3b82f6">
               <animate
                 attributeName="opacity"
                 values="0.4;1;0.4"
@@ -331,7 +338,7 @@ const HeroIllustration: React.FC = () => {
             </circle>
 
             {/* Animated connections to center */}
-            <path d="M 80 45 L 100 85" strokeDasharray="2,2">
+            <path d="M 75 65 L 130 100" strokeDasharray="2,2">
               <animate
                 attributeName="stroke-dashoffset"
                 values="0;4"
@@ -339,7 +346,7 @@ const HeroIllustration: React.FC = () => {
                 repeatCount="indefinite"
               />
             </path>
-            <path d="M 120 45 L 100 85" strokeDasharray="2,2">
+            <path d="M 185 65 L 130 100" strokeDasharray="2,2">
               <animate
                 attributeName="stroke-dashoffset"
                 values="0;4"
@@ -347,15 +354,15 @@ const HeroIllustration: React.FC = () => {
                 repeatCount="indefinite"
               />
             </path>
-            <path d="M 160 90 L 100 85" strokeDasharray="2,2">
+            <path d="M 55 135 L 130 100" strokeDasharray="2,2">
               <animate
                 attributeName="stroke-dashoffset"
                 values="0;4"
-                dur="1.9s"
+                dur="1.6s"
                 repeatCount="indefinite"
               />
             </path>
-            <path d="M 100 125 L 100 85" strokeDasharray="2,2">
+            <path d="M 130 135 L 130 100" strokeDasharray="2,2">
               <animate
                 attributeName="stroke-dashoffset"
                 values="0;4"
@@ -363,11 +370,11 @@ const HeroIllustration: React.FC = () => {
                 repeatCount="indefinite"
               />
             </path>
-            <path d="M 40 90 L 100 85" strokeDasharray="2,2">
+            <path d="M 205 135 L 130 100" strokeDasharray="2,2">
               <animate
                 attributeName="stroke-dashoffset"
                 values="0;4"
-                dur="1.6s"
+                dur="1.9s"
                 repeatCount="indefinite"
               />
             </path>
@@ -387,7 +394,7 @@ const HeroIllustration: React.FC = () => {
           </path>
 
           {/* Gateway to Provider Hub - Single connection */}
-          <path d="M 580 210 L 650 210" strokeDasharray="8,4">
+          <path d="M 580 210 L 680 210" strokeDasharray="8,4">
             <animate
               attributeName="stroke-dashoffset"
               values="0;12"

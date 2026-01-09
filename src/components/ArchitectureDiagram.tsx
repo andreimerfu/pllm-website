@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import { Zap, Activity, Gauge, BarChart3 } from "lucide-react";
 
 const ArchitectureDiagram: React.FC = () => {
   return (
@@ -308,27 +309,37 @@ const ArchitectureDiagram: React.FC = () => {
             {[
               {
                 name: "Circuit Breaker",
-                icon: "⚡",
+                IconComponent: Zap,
                 desc: "Automatic failover protection",
+                color: "text-amber-500",
               },
               {
                 name: "Health Checks",
-                icon: "💓",
+                IconComponent: Activity,
                 desc: "Continuous monitoring",
+                color: "text-red-500",
               },
               {
                 name: "Rate Limiting",
-                icon: "🚦",
+                IconComponent: Gauge,
                 desc: "Traffic control & quotas",
+                color: "text-green-500",
               },
-              { name: "Analytics", icon: "📊", desc: "Performance insights" },
+              {
+                name: "Analytics",
+                IconComponent: BarChart3,
+                desc: "Performance insights",
+                color: "text-blue-500",
+              },
             ].map((feature, index) => (
               <div
                 key={index}
                 className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 transition-colors duration-200"
               >
                 <div className="text-center">
-                  <div className="text-2xl mb-2">{feature.icon}</div>
+                  <div className="flex justify-center mb-2">
+                    <feature.IconComponent className={`w-6 h-6 ${feature.color}`} />
+                  </div>
                   <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
                     {feature.name}
                   </p>
@@ -342,7 +353,7 @@ const ArchitectureDiagram: React.FC = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 transition-colors duration-200">
+        <div className="mt-8 bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
           <div className="text-center mb-6">
             <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
               Live Performance Metrics

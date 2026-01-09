@@ -1,3 +1,121 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    /* Layout tokens */
+    --container-max: 80rem;
+    --section-gap: 5rem;
+    --card-gap: 1.5rem;
+
+    /* Card tokens */
+    --card-radius: 1rem;
+    --card-padding: 1.5rem;
+
+    /* Interactive states */
+    --focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.3);
+  }
+
+  .dark {
+    --focus-ring: 0 0 0 3px rgba(129, 140, 248, 0.3);
+  }
+}
+
+@layer components {
+  /* Standardized card component */
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-card transition-all duration-200;
+  }
+
+  .card-hover {
+    @apply hover:shadow-card-hover hover:border-slate-300 dark:hover:border-slate-600;
+  }
+
+  .card-interactive {
+    @apply card card-hover cursor-pointer;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-20;
+  }
+
+  .section-sm {
+    @apply py-12;
+  }
+
+  /* Container */
+  .container-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section header pattern */
+  .section-header {
+    @apply text-center mb-16;
+  }
+
+  .section-title {
+    @apply text-section-sm sm:text-section font-bold text-slate-900 dark:text-white mb-4;
+  }
+
+  .section-description {
+    @apply text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto;
+  }
+
+  /* Button variants */
+  .btn {
+    @apply inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-500 text-white px-6 py-3 hover:bg-brand-600 shadow-card hover:shadow-card-hover;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-6 py-3 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-500 shadow-card hover:shadow-card-hover;
+  }
+
+  /* Icon container */
+  .icon-box {
+    @apply flex items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400;
+  }
+
+  .icon-box-sm {
+    @apply icon-box w-10 h-10;
+  }
+
+  .icon-box-md {
+    @apply icon-box w-12 h-12;
+  }
+
+  .icon-box-lg {
+    @apply icon-box w-14 h-14;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-brand {
+    @apply badge bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300;
+  }
+
+  .badge-success {
+    @apply badge bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300;
+  }
+
+  /* Grid layouts */
+  .grid-features {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .grid-cards {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+}

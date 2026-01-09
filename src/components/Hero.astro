@@ -1,5 +1,6 @@
 ---
 import HeroIllustration from "./HeroIllustration.tsx";
+import { Zap, Github } from "lucide-react";
 import {
     PerformanceIcon,
     CostIcon,
@@ -8,148 +9,84 @@ import {
 } from "./CustomIcons.tsx";
 ---
 
-<section class="relative pt-20 pb-8 sm:pb-12 overflow-hidden">
-    <!-- Background gradient -->
+<section class="relative pt-24 pb-12 sm:pb-16 overflow-hidden">
+    <!-- Background - clean gradient without blobs -->
     <div
-        class="absolute inset-0 bg-gradient-to-br from-blue-50 via-slate-50 to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-900/20 -z-10 transition-colors duration-300"
+        class="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 -z-10"
     >
     </div>
 
-    <!-- Decorative shapes -->
+    <!-- Subtle grid pattern -->
     <div
-        class="absolute top-0 left-0 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-    >
-    </div>
-    <div
-        class="absolute top-1/2 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-gradient-to-bl from-purple-400/20 to-pink-400/20 rounded-full blur-3xl sm:translate-x-1/2"
+        class="absolute inset-0 -z-10 opacity-[0.02] dark:opacity-[0.03]"
+        style="background-image: url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");"
     >
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="container-page">
         <div class="text-center">
             <!-- Badge -->
-            <div
-                class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium mb-8 transition-colors duration-200"
-            >
-                <svg
-                    class="w-4 h-4 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
+            <div class="badge-brand mb-8">
+                <Zap className="w-4 h-4 mr-2" />
                 Enterprise-Grade Performance
             </div>
 
             <!-- Main headline -->
-            <h1
-                class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 leading-tight transition-colors duration-200"
-            >
-                <span
-                    class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-                >
+            <h1 class="text-hero-sm sm:text-hero font-bold text-slate-900 dark:text-white mb-6">
+                <span class="bg-gradient-to-r from-brand-500 to-brand-700 bg-clip-text text-transparent">
                     pLLM
                 </span>
                 <br />
-                <span class="text-3xl sm:text-4xl lg:text-5xl">
-                    High-Performance
-                </span>
-                <br />
-                <span class="text-3xl sm:text-4xl lg:text-5xl text-slate-700 dark:text-slate-300 transition-colors duration-200">
-                    LLM Gateway
+                <span class="text-3xl sm:text-4xl lg:text-5xl text-slate-900 dark:text-white">
+                    High-Performance LLM Gateway
                 </span>
             </h1>
 
             <!-- Subtitle -->
-            <p
-                class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-4xl mx-auto leading-relaxed transition-colors duration-200"
-            >
+            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
                 Drop-in OpenAI replacement built in Go. Handle thousands of
                 concurrent requests with
-                <span class="font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-200"
-                    >adaptive routing</span
-                >,
-                <span class="font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-200"
-                    >multi-provider support</span
-                >, and
-                <span class="font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-200"
-                    >enterprise-grade reliability</span
-                >.
+                <span class="font-semibold text-slate-800 dark:text-slate-200">adaptive routing</span>,
+                <span class="font-semibold text-slate-800 dark:text-slate-200">multi-provider support</span>, and
+                <span class="font-semibold text-slate-800 dark:text-slate-200">enterprise-grade reliability</span>.
             </p>
 
             <!-- Key features pills -->
-            <div class="flex flex-wrap justify-center gap-3 mb-6">
-                <div
-                    class="px-4 py-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-medium flex items-center transition-colors duration-200"
-                >
-                    <PerformanceIcon size={20} className="mr-2 text-blue-600" />
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
+                    <PerformanceIcon size={18} className="mr-2 text-brand-500" />
                     High Performance
                 </div>
-                <div
-                    class="px-4 py-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-medium flex items-center transition-colors duration-200"
-                >
-                    <CostIcon size={20} className="mr-2 text-green-600" />
+                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
+                    <CostIcon size={18} className="mr-2 text-green-500" />
                     Cost Efficient
                 </div>
-                <div
-                    class="px-4 py-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-medium flex items-center transition-colors duration-200"
-                >
-                    <LatencyIcon size={20} className="mr-2 text-orange-600" />
+                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
+                    <LatencyIcon size={18} className="mr-2 text-amber-500" />
                     Low Latency
                 </div>
-                <div
-                    class="px-4 py-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-medium flex items-center transition-colors duration-200"
-                >
-                    <CompatibilityIcon
-                        size={20}
-                        className="mr-2 text-purple-600"
-                    />
+                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
+                    <CompatibilityIcon size={18} className="mr-2 text-purple-500" />
                     100% OpenAI Compatible
                 </div>
             </div>
 
             <!-- CTA buttons -->
-            <div
-                class="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10"
-            >
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
                 <a
                     href="#quick-start"
-                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center"
+                    class="btn-primary flex items-center"
                 >
-                    <svg
-                        class="w-4 h-4 mr-2"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
+                    <Zap className="w-4 h-4 mr-2" />
                     Get Started
                 </a>
                 <a
                     href="https://github.com/andreimerfu/pllm"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-6 py-3 rounded-lg font-semibold border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center"
+                    class="btn-secondary flex items-center"
                 >
-                    <svg
-                        class="w-5 h-5 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        ></path>
-                    </svg>
+                    <Github className="w-5 h-5 mr-2" />
                     View on GitHub
                 </a>
             </div>
