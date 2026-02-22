@@ -1,0 +1,139 @@
+---
+import DashboardMockup from './DashboardMockup.tsx';
+
+const heroFeatures = [
+  {
+    icon: "solar:routing-2-bold-duotone",
+    title: "Visual Route Builder",
+    description: "Design route graphs with drag-and-drop. Set model weights, fallback chains, and routing strategies visually — no YAML editing required.",
+  },
+  {
+    icon: "solar:monitor-smartphone-bold-duotone",
+    title: "Real-Time Monitoring",
+    description: "Live dashboards tracking request volume, latency percentiles, error rates, and token usage across all providers in real time.",
+  },
+];
+
+const features = [
+  {
+    icon: "solar:earth-bold-duotone",
+    title: "Provider Onboarding",
+    description: "Add new LLM providers in seconds. Enter credentials, test connectivity, and start routing — all from the UI.",
+    color: "text-blue-600 dark:text-blue-400",
+    bgColor: "bg-blue-100 dark:bg-blue-900/30",
+  },
+  {
+    icon: "solar:key-bold-duotone",
+    title: "API Key Management",
+    description: "Generate, rotate, and revoke API keys with granular permissions. Set rate limits and expiry per key.",
+    color: "text-amber-600 dark:text-amber-400",
+    bgColor: "bg-amber-100 dark:bg-amber-900/30",
+  },
+  {
+    icon: "solar:users-group-rounded-bold-duotone",
+    title: "Team Management",
+    description: "Organize users into teams with role-based access control. Assign routes, quotas, and permissions per team.",
+    color: "text-purple-600 dark:text-purple-400",
+    bgColor: "bg-purple-100 dark:bg-purple-900/30",
+  },
+  {
+    icon: "solar:shield-check-bold-duotone",
+    title: "Guardrail Configuration",
+    description: "Enable and tune guardrails per route. Configure PII detection thresholds, content policies, and execution modes visually.",
+    color: "text-green-600 dark:text-green-400",
+    bgColor: "bg-green-100 dark:bg-green-900/30",
+  },
+  {
+    icon: "solar:chart-square-bold-duotone",
+    title: "Usage Analytics",
+    description: "Detailed breakdowns of token usage, cost per provider, and request patterns. Export reports for billing and audits.",
+    color: "text-teal-600 dark:text-teal-400",
+    bgColor: "bg-teal-100 dark:bg-teal-900/30",
+  },
+  {
+    icon: "solar:settings-bold-duotone",
+    title: "Configuration Management",
+    description: "Edit gateway configuration live. Changes apply instantly without restarts or redeployments.",
+    color: "text-red-600 dark:text-red-400",
+    bgColor: "bg-red-100 dark:bg-red-900/30",
+  },
+];
+---
+
+<section id="dashboard" class="section bg-white dark:bg-slate-900 transition-colors duration-200">
+  <div class="container-page">
+    <!-- Section header -->
+    <div class="section-header">
+      <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+        <iconify-icon icon="solar:monitor-bold-duotone" width="16" height="16"></iconify-icon>
+        Management Dashboard
+      </div>
+      <h2 class="section-title">
+        Control Everything from One Place
+      </h2>
+      <p class="section-description">
+        A full management UI for configuring routes, onboarding providers, managing API keys and teams, tuning guardrails, and monitoring your gateway — no CLI required.
+      </p>
+    </div>
+
+    <!-- Dashboard mockup -->
+    <div class="mb-20">
+      <DashboardMockup client:load />
+    </div>
+
+    <!-- Hero feature cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      {heroFeatures.map((feature) => (
+        <div class="card card-hover p-6 border-l-4 border-l-brand-500">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
+              <iconify-icon icon={feature.icon} width="24" height="24" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feature.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Feature cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      {features.map((feature) => (
+        <div class="card card-hover p-6">
+          <div class="flex items-start gap-4">
+            <div class={`w-10 h-10 rounded-lg ${feature.bgColor} flex items-center justify-center flex-shrink-0`}>
+              <iconify-icon icon={feature.icon} width="20" height="20" class={feature.color}></iconify-icon>
+            </div>
+            <div class="flex-1 min-w-0">
+              <h4 class="text-base font-bold text-slate-900 dark:text-white mb-1">{feature.title}</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{feature.description}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA callout -->
+    <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Try the Dashboard</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">
+            Start pLLM and open the dashboard at
+          </p>
+          <code class="text-sm font-mono bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg">
+            http://localhost:8080/dashboard
+          </code>
+        </div>
+        <a
+          href="#quick-start"
+          class="btn-primary whitespace-nowrap"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -46,7 +46,7 @@ const strategies = [
     useCase: "Latency-sensitive apps",
     detail: "Exponential moving average (90/10) ensures responsive adaptation without oscillation",
     color: "from-emerald-500 to-teal-600",
-    iconPath: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>`,
+    solarIcon: "solar:bolt-circle-bold-duotone",
   },
   {
     name: "Weighted Round-Robin",
@@ -55,7 +55,7 @@ const strategies = [
     useCase: "Capacity-based distribution",
     detail: "Smooth WRR prevents bursts: a 60/30/10 split interleaves evenly, not in blocks",
     color: "from-blue-500 to-indigo-600",
-    iconPath: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>`,
+    solarIcon: "solar:sort-by-time-bold-duotone",
   },
   {
     name: "Priority",
@@ -64,7 +64,7 @@ const strategies = [
     useCase: "Preferred provider setups",
     detail: "Use with fallback chains to build cost tiers: premium → standard → economy",
     color: "from-amber-500 to-orange-600",
-    iconPath: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/>`,
+    solarIcon: "solar:arrow-to-top-right-bold-duotone",
   },
   {
     name: "Random",
@@ -73,7 +73,7 @@ const strategies = [
     useCase: "Equal providers",
     detail: "Zero overhead — no counters, no Redis lookups, no state to synchronize",
     color: "from-purple-500 to-violet-600",
-    iconPath: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>`,
+    solarIcon: "solar:shuffle-bold-duotone",
   },
 ];
 
@@ -104,9 +104,7 @@ const failoverLayers = [
     <!-- Section header -->
     <div class="section-header">
       <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-        </svg>
+        <iconify-icon icon="solar:routing-2-bold-duotone" width="16" height="16"></iconify-icon>
         Intelligent Routing
       </div>
       <h2 class="section-title">
@@ -120,7 +118,7 @@ const failoverLayers = [
     </div>
 
     <!-- Two-level routing visual -->
-    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700 mb-20">
+    <div class="bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700 mb-20">
       <div class="text-center mb-10">
         <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3">
           Two-Level Selection
@@ -146,7 +144,7 @@ const failoverLayers = [
 
         <!-- Route Strategy -->
         <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[200px] bg-gradient-to-br from-brand-500 to-brand-600 text-white rounded-xl px-5 py-4 text-center shadow-lg">
+          <div class="w-full max-w-[200px] bg-brand-600 text-white rounded-xl px-5 py-4 text-center">
             <div class="text-xs text-brand-200 mb-1">Level 1: Route</div>
             <div class="font-bold">Select Model</div>
             <div class="text-xs text-brand-200 mt-1">least-latency</div>
@@ -159,7 +157,7 @@ const failoverLayers = [
 
         <!-- Selected Model -->
         <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[200px] bg-white dark:bg-slate-700 rounded-xl px-5 py-4 text-center border-2 border-brand-500 shadow-md">
+          <div class="w-full max-w-[200px] bg-white dark:bg-slate-700 rounded-xl px-5 py-4 text-center border-2 border-brand-500">
             <div class="text-xs text-slate-500 dark:text-slate-400 mb-1">Winner</div>
             <div class="font-bold text-slate-900 dark:text-white">gpt-4o</div>
             <div class="text-xs text-green-600 dark:text-green-400 mt-1">lowest latency</div>
@@ -172,7 +170,7 @@ const failoverLayers = [
 
         <!-- Instance Strategy -->
         <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[200px] bg-gradient-to-br from-emerald-500 to-green-600 text-white rounded-xl px-5 py-4 text-center shadow-lg">
+          <div class="w-full max-w-[200px] bg-emerald-600 text-white rounded-xl px-5 py-4 text-center">
             <div class="text-xs text-emerald-200 mb-1">Level 2: Instance</div>
             <div class="font-bold">Select Instance</div>
             <div class="text-xs text-emerald-200 mt-1">health + latency</div>
@@ -197,14 +195,11 @@ const failoverLayers = [
     <!-- Route config + app usage side by side -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-20">
       <!-- Define the route -->
-      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
         <div class="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
-              <svg class="w-5 h-5 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-              </svg>
+              <iconify-icon icon="solar:settings-bold-duotone" width="20" height="20" class="text-brand-600 dark:text-brand-400"></iconify-icon>
             </div>
             <div>
               <h4 class="text-lg font-bold text-slate-900 dark:text-white">1. Define a Route</h4>
@@ -212,20 +207,17 @@ const failoverLayers = [
             </div>
           </div>
         </div>
-        <div class="p-4 sm:p-6">
-          <CodeBlock code={routeConfigExample} language="javascript" client:load />
+        <div class="p-4 sm:p-6 flex-1 flex flex-col">
+          <CodeBlock code={routeConfigExample} language="javascript" className="flex-1" client:load />
         </div>
       </div>
 
       <!-- Use in your app -->
-      <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+      <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
         <div class="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-              <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+              <iconify-icon icon="solar:play-circle-bold-duotone" width="20" height="20" class="text-green-600 dark:text-green-400"></iconify-icon>
             </div>
             <div>
               <h4 class="text-lg font-bold text-slate-900 dark:text-white">2. Use It in Your App</h4>
@@ -233,8 +225,8 @@ const failoverLayers = [
             </div>
           </div>
         </div>
-        <div class="p-4 sm:p-6">
-          <CodeBlock code={appUsageExample} language="python" client:load />
+        <div class="p-4 sm:p-6 flex-1 flex flex-col">
+          <CodeBlock code={appUsageExample} language="python" className="flex-1" client:load />
         </div>
       </div>
     </div>
@@ -252,12 +244,10 @@ const failoverLayers = [
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {strategies.map((strategy) => (
-          <div class="card card-hover p-6">
+          <div class="card card-hover p-6 border-l-4 border-l-brand-500">
             <div class="flex items-start gap-4 mb-4">
-              <div class={`w-12 h-12 rounded-xl bg-gradient-to-br ${strategy.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <Fragment set:html={strategy.iconPath} />
-                </svg>
+              <div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon={strategy.solarIcon} width="24" height="24" class="text-slate-700 dark:text-slate-300"></iconify-icon>
               </div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-3 mb-1 flex-wrap">
@@ -268,9 +258,7 @@ const failoverLayers = [
               </div>
             </div>
             <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl px-4 py-3">
-              <svg class="w-4 h-4 text-brand-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+              <iconify-icon icon="solar:info-circle-bold-duotone" width="16" height="16" class="text-brand-500 flex-shrink-0 mt-0.5"></iconify-icon>
               <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{strategy.detail}</p>
             </div>
           </div>
@@ -279,7 +267,7 @@ const failoverLayers = [
     </div>
 
     <!-- Three-layer failover + circuit breaker -->
-    <div class="bg-slate-900 dark:bg-slate-950 rounded-3xl p-8 lg:p-12 border border-slate-700">
+    <div class="bg-slate-900 dark:bg-slate-950 rounded-xl p-8 lg:p-12 border border-slate-700">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
         <!-- Failover layers -->
         <div>
@@ -293,7 +281,7 @@ const failoverLayers = [
           <div class="space-y-4">
             {failoverLayers.map((layer) => (
               <div class="flex items-start gap-4">
-                <div class={`w-10 h-10 rounded-xl ${layer.color} flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                <div class={`w-10 h-10 rounded-lg ${layer.color} flex items-center justify-center flex-shrink-0`}>
                   <span class="text-white font-bold text-sm">{layer.level}</span>
                 </div>
                 <div>
@@ -306,9 +294,7 @@ const failoverLayers = [
 
           <div class="mt-8 bg-slate-800 rounded-xl p-4 border border-slate-700">
             <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
+              <iconify-icon icon="solar:bolt-circle-bold-duotone" width="20" height="20" class="text-amber-400 flex-shrink-0 mt-0.5"></iconify-icon>
               <p class="text-sm text-slate-300">
                 Each retry uses <strong class="text-white">1.5x increased timeout</strong> to account for provider recovery. Up to 10 failover hops with loop detection.
               </p>
@@ -402,9 +388,7 @@ const failoverLayers = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-            </svg>
+            <iconify-icon icon="solar:code-bold-duotone" width="20" height="20" class="text-blue-600 dark:text-blue-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Zero Retry Logic</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -414,9 +398,7 @@ const failoverLayers = [
 
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-            </svg>
+            <iconify-icon icon="solar:transfer-horizontal-bold-duotone" width="20" height="20" class="text-green-600 dark:text-green-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Swap Providers at Runtime</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -426,9 +408,7 @@ const failoverLayers = [
 
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
+            <iconify-icon icon="solar:wallet-money-bold-duotone" width="20" height="20" class="text-amber-600 dark:text-amber-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Cost Tiers Without Code</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -438,9 +418,7 @@ const failoverLayers = [
 
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
+            <iconify-icon icon="solar:chart-square-bold-duotone" width="20" height="20" class="text-purple-600 dark:text-purple-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">A/B Test Models</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -450,9 +428,7 @@ const failoverLayers = [
 
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
+            <iconify-icon icon="solar:shield-check-bold-duotone" width="20" height="20" class="text-red-600 dark:text-red-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Survive Provider Outages</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
@@ -462,9 +438,7 @@ const failoverLayers = [
 
         <div class="card card-hover p-6">
           <div class="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-            </svg>
+            <iconify-icon icon="solar:graph-up-bold-duotone" width="20" height="20" class="text-teal-600 dark:text-teal-400"></iconify-icon>
           </div>
           <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Route-Level Analytics</h4>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">

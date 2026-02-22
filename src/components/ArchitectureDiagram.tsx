@@ -1,22 +1,10 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { Zap, Activity, Gauge, BarChart3 } from "lucide-react";
 
 const ArchitectureDiagram: React.FC = () => {
   return (
-    <div className="relative w-full max-w-6xl mx-auto bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700 rounded-3xl p-8 lg:p-12 border border-slate-200 dark:border-slate-600 transition-colors duration-300">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, #3b82f6 2px, transparent 2px), radial-gradient(circle at 75% 75%, #8b5cf6 2px, transparent 2px)`,
-            backgroundSize: "60px 60px",
-          }}
-        ></div>
-      </div>
-
-      <div className="relative z-10">
+    <div className="relative w-full max-w-6xl mx-auto bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
+      <div className="relative">
         {/* Header */}
         <div className="text-center mb-12">
           <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-200">
@@ -66,7 +54,7 @@ const ArchitectureDiagram: React.FC = () => {
               ].map((client, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
+                  className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-blue-50 dark:bg-slate-700 rounded-xl flex items-center justify-center text-lg transition-colors duration-200">
@@ -105,10 +93,10 @@ const ArchitectureDiagram: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl p-8 text-white shadow-xl">
+            <div className="bg-brand-600 rounded-xl p-8 text-white">
               {/* Main Gateway */}
               <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <svg
                     className="w-8 h-8"
                     fill="currentColor"
@@ -133,7 +121,7 @@ const ArchitectureDiagram: React.FC = () => {
                 ].map((component, index) => (
                   <div
                     key={index}
-                    className="bg-white/10 rounded-xl p-3 backdrop-blur-sm"
+                    className="bg-white/10 rounded-xl p-3 "
                   >
                     <p className="font-semibold text-sm mb-1">
                       {component.name}
@@ -144,7 +132,7 @@ const ArchitectureDiagram: React.FC = () => {
               </div>
 
               {/* Load Balancer */}
-              <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm">
+              <div className="bg-white/10 rounded-xl p-4 ">
                 <div className="flex items-center justify-center space-x-2 mb-3">
                   <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
                     <svg
@@ -237,11 +225,11 @@ const ArchitectureDiagram: React.FC = () => {
               ].map((provider, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
+                  className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
+                      <div className="w-12 h-12 bg-slate-50 dark:bg-slate-700 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
                         <Icon
                           icon={provider.icon}
                           className="w-8 h-8 text-slate-700 dark:text-slate-300"
@@ -309,25 +297,25 @@ const ArchitectureDiagram: React.FC = () => {
             {[
               {
                 name: "Circuit Breaker",
-                IconComponent: Zap,
+                icon: "solar:restart-circle-bold-duotone",
                 desc: "Automatic failover protection",
                 color: "text-amber-500",
               },
               {
                 name: "Health Checks",
-                IconComponent: Activity,
+                icon: "solar:heart-pulse-bold-duotone",
                 desc: "Continuous monitoring",
                 color: "text-red-500",
               },
               {
                 name: "Rate Limiting",
-                IconComponent: Gauge,
+                icon: "solar:tuning-2-bold-duotone",
                 desc: "Traffic control & quotas",
                 color: "text-green-500",
               },
               {
                 name: "Analytics",
-                IconComponent: BarChart3,
+                icon: "solar:chart-square-bold-duotone",
                 desc: "Performance insights",
                 color: "text-blue-500",
               },
@@ -338,7 +326,7 @@ const ArchitectureDiagram: React.FC = () => {
               >
                 <div className="text-center">
                   <div className="flex justify-center mb-2">
-                    <feature.IconComponent className={`w-6 h-6 ${feature.color}`} />
+                    <Icon icon={feature.icon} className={`w-6 h-6 ${feature.color}`} />
                   </div>
                   <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
                     {feature.name}
@@ -353,7 +341,7 @@ const ArchitectureDiagram: React.FC = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="mt-8 bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
+        <div className="mt-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
           <div className="text-center mb-6">
             <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
               Live Performance Metrics

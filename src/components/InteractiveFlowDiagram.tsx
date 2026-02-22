@@ -18,7 +18,7 @@ import '@xyflow/react/dist/style.css';
 
 // Custom Node Components
 const RequestNode = ({ data }: { data: any }) => (
-  <div className="px-4 py-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full font-bold text-sm shadow-lg">
+  <div className="px-4 py-3 bg-blue-600 text-white rounded-full font-bold text-sm">
     <Handle type="target" position={Position.Left} />
     {data.label}
     <Handle type="source" position={Position.Right} />
@@ -26,7 +26,7 @@ const RequestNode = ({ data }: { data: any }) => (
 );
 
 const GatewayNode = ({ data }: { data: any }) => (
-  <div className="px-6 py-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg font-semibold shadow-lg border-2 border-purple-400">
+  <div className="px-6 py-4 bg-brand-600 text-white rounded-lg font-semibold border-2 border-brand-400">
     <Handle type="target" position={Position.Left} />
     <div className="text-center">
       <div className="font-bold">{data.label}</div>
@@ -37,7 +37,7 @@ const GatewayNode = ({ data }: { data: any }) => (
 );
 
 const ProviderNode = ({ data }: { data: any }) => (
-  <div className={`w-32 px-4 py-3 text-white rounded-lg font-semibold shadow-lg ${data.bgColor} border-2 ${data.borderColor}`}>
+  <div className={`w-32 px-4 py-3 text-white rounded-lg font-semibold ${data.bgColor} border-2 ${data.borderColor}`}>
     <Handle type="target" position={Position.Left} />
     <div className="text-center">
       <div className="flex items-center justify-center mb-2">
@@ -54,12 +54,12 @@ const ProviderNode = ({ data }: { data: any }) => (
 );
 
 const CircuitBreakerNode = ({ data }: { data: any }) => (
-  <div className="w-32 px-4 py-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-lg font-semibold shadow-lg border-2 border-red-400">
+  <div className="w-32 px-4 py-3 bg-red-600 text-white rounded-lg font-semibold border-2 border-red-400">
     <Handle type="target" position={Position.Left} />
     <div className="text-center">
       <div className="font-bold text-sm">{data.label}</div>
       <div className="flex justify-center items-center mt-2">
-        <div className={`w-3 h-3 rounded-full ${data.active ? 'bg-red-300' : 'bg-gray-300'} animate-pulse`}></div>
+        <div className={`w-3 h-3 rounded-full ${data.active ? 'bg-red-300' : 'bg-gray-300'}`}></div>
       </div>
     </div>
   </div>
@@ -96,7 +96,7 @@ const initialNodes: Node[] = [
       label: 'OpenAI', 
       icon: 'simple-icons:openai',
       status: 'healthy',
-      bgColor: 'bg-gradient-to-br from-green-500 to-green-600',
+      bgColor: 'bg-green-600',
       borderColor: 'border-green-400'
     },
     targetPosition: Position.Left,
@@ -110,7 +110,7 @@ const initialNodes: Node[] = [
       label: 'Anthropic', 
       icon: 'simple-icons:anthropic',
       status: 'degraded',
-      bgColor: 'bg-gradient-to-br from-orange-500 to-orange-600',
+      bgColor: 'bg-orange-600',
       borderColor: 'border-orange-400'
     },
     targetPosition: Position.Left,
@@ -124,7 +124,7 @@ const initialNodes: Node[] = [
       label: 'Google', 
       icon: 'simple-icons:google',
       status: 'healthy',
-      bgColor: 'bg-gradient-to-br from-blue-500 to-blue-600',
+      bgColor: 'bg-blue-600',
       borderColor: 'border-blue-400'
     },
     targetPosition: Position.Left,
@@ -250,16 +250,16 @@ const InteractiveFlowDiagram: React.FC = () => {
         nodes.map((node) => {
           if (node.type === 'provider') {
             let newStatus = 'healthy';
-            let newBgColor = 'bg-gradient-to-br from-green-500 to-green-600';
+            let newBgColor = 'bg-green-600';
             let newBorderColor = 'border-green-400';
 
             if (simulationMode === 'degraded' && node.id === '3') {
               newStatus = 'degraded';
-              newBgColor = 'bg-gradient-to-br from-orange-500 to-orange-600';
+              newBgColor = 'bg-orange-600';
               newBorderColor = 'border-orange-400';
             } else if (simulationMode === 'failed' && (node.id === '3' || node.id === '4')) {
               newStatus = 'failed';
-              newBgColor = 'bg-gradient-to-br from-red-500 to-red-600';
+              newBgColor = 'bg-red-600';
               newBorderColor = 'border-red-400';
             }
 
@@ -338,7 +338,7 @@ const InteractiveFlowDiagram: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-[500px] bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-600 overflow-hidden transition-colors duration-200">
+    <div className="w-full h-[500px] bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-colors duration-200">
       <div className="h-full relative">
         <ReactFlow
           nodes={nodes}
@@ -356,7 +356,8 @@ const InteractiveFlowDiagram: React.FC = () => {
           zoomOnDoubleClick={false}
           panOnScroll={false}
           panOnDrag={false}
-          className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 transition-colors duration-200"
+          proOptions={{ hideAttribution: true }}
+          className="bg-slate-50 dark:bg-slate-700 transition-colors duration-200"
         >
           <Background color="#e2e8f0" gap={20} />
         </ReactFlow>

@@ -1,46 +1,31 @@
 import React from 'react';
-import {
-  Plug,
-  Globe,
-  Target,
-  Rocket,
-  Shield,
-  DollarSign,
-  Zap,
-  HardDrive,
-  Timer,
-  Activity,
-  Lock,
-  Layers,
-  BarChart3,
-  type LucideIcon,
-} from 'lucide-react';
+import { Icon } from '@iconify/react';
 
-// Feature icons mapping (replaces emojis)
+// Solar bold-duotone icon mapping with per-concept colors
 export const FeatureIconMap = {
-  compatibility: Plug,
-  multiProvider: Globe,
-  routing: Target,
-  performance: Rocket,
-  security: Shield,
-  cost: DollarSign,
-  latency: Zap,
-  memory: HardDrive,
-  startup: Timer,
-  circuitBreaker: Activity,
-  auth: Lock,
-  cache: Layers,
-  analytics: BarChart3,
+  compatibility: { icon: 'solar:plug-circle-bold-duotone', color: 'text-brand-600 dark:text-brand-400' },
+  multiProvider: { icon: 'solar:earth-bold-duotone', color: 'text-blue-600 dark:text-blue-400' },
+  routing: { icon: 'solar:routing-2-bold-duotone', color: 'text-emerald-600 dark:text-emerald-400' },
+  performance: { icon: 'solar:rocket-bold-duotone', color: 'text-amber-600 dark:text-amber-400' },
+  security: { icon: 'solar:shield-check-bold-duotone', color: 'text-rose-600 dark:text-rose-400' },
+  cost: { icon: 'solar:wallet-money-bold-duotone', color: 'text-emerald-600 dark:text-emerald-400' },
+  latency: { icon: 'solar:bolt-circle-bold-duotone', color: 'text-amber-600 dark:text-amber-400' },
+  memory: { icon: 'solar:cpu-bolt-bold-duotone', color: 'text-blue-600 dark:text-blue-400' },
+  startup: { icon: 'solar:stopwatch-bold-duotone', color: 'text-brand-600 dark:text-brand-400' },
+  circuitBreaker: { icon: 'solar:restart-circle-bold-duotone', color: 'text-rose-600 dark:text-rose-400' },
+  auth: { icon: 'solar:lock-keyhole-bold-duotone', color: 'text-brand-600 dark:text-brand-400' },
+  cache: { icon: 'solar:layers-bold-duotone', color: 'text-blue-600 dark:text-blue-400' },
+  analytics: { icon: 'solar:chart-square-bold-duotone', color: 'text-emerald-600 dark:text-emerald-400' },
 } as const;
 
 export type FeatureIconName = keyof typeof FeatureIconMap;
 
 // Size mappings
 const sizeMap = {
-  sm: 'w-5 h-5',
-  md: 'w-6 h-6',
-  lg: 'w-7 h-7',
-  xl: 'w-8 h-8',
+  sm: 20,
+  md: 24,
+  lg: 28,
+  xl: 32,
 };
 
 interface FeatureIconProps {
@@ -54,24 +39,23 @@ export const FeatureIcon: React.FC<FeatureIconProps> = ({
   size = 'md',
   className = '',
 }) => {
-  const IconComponent = FeatureIconMap[name];
-  return <IconComponent className={`${sizeMap[size]} ${className}`} strokeWidth={1.5} />;
+  const entry = FeatureIconMap[name];
+  return (
+    <Icon
+      icon={entry.icon}
+      width={sizeMap[size]}
+      height={sizeMap[size]}
+      className={`${entry.color} ${className}`}
+    />
+  );
 };
 
 // Icon with box container
 interface IconBoxProps {
   name: FeatureIconName;
   size?: 'sm' | 'md' | 'lg';
-  variant?: 'brand' | 'accent' | 'success' | 'warning';
   className?: string;
 }
-
-const variantStyles = {
-  brand: 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400',
-  accent: 'bg-accent-100 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400',
-  success: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400',
-  warning: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
-};
 
 const boxSizeMap = {
   sm: 'w-10 h-10',
@@ -88,12 +72,11 @@ const iconInBoxSizeMap = {
 export const IconBox: React.FC<IconBoxProps> = ({
   name,
   size = 'md',
-  variant = 'brand',
   className = '',
 }) => {
   return (
     <div
-      className={`flex items-center justify-center rounded-xl ${boxSizeMap[size]} ${variantStyles[variant]} ${className}`}
+      className={`flex items-center justify-center rounded-lg ${boxSizeMap[size]} ${className}`}
     >
       <FeatureIcon name={name} size={iconInBoxSizeMap[size]} />
     </div>

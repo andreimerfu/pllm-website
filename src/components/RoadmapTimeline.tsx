@@ -17,9 +17,9 @@ const roadmapData: RoadmapItem[] = [
     id: '1',
     title: 'Key Rotation & Secret Management',
     description: 'Automated key rotation and integration with external secret managers for enhanced security.',
-    quarter: 'Q1 2025',
+    quarter: 'Q1 2026',
     status: 'in-progress',
-    icon: 'mdi:key-variant',
+    icon: 'solar:key-bold-duotone',
     priority: 'high',
     features: [
       'Automated API key rotation',
@@ -33,9 +33,9 @@ const roadmapData: RoadmapItem[] = [
     id: '2',
     title: 'Advanced Guardrails',
     description: 'Pluggable content guardrails with pre-call, post-call, during-call, and logging-only modes. Marketplace with Presidio PII detection and more.',
-    quarter: 'Q1 2025',
+    quarter: 'Q4 2025',
     status: 'completed',
-    icon: 'mdi:shield-check',
+    icon: 'solar:shield-check-bold-duotone',
     priority: 'high',
     features: [
       'PII detection & masking (Presidio)',
@@ -49,9 +49,9 @@ const roadmapData: RoadmapItem[] = [
     id: '3',
     title: 'Enhanced Audit & Logging',
     description: 'Comprehensive audit trails with retention policies and compliance reporting.',
-    quarter: 'Q2 2025',
+    quarter: 'Q2 2026',
     status: 'planned',
-    icon: 'mdi:file-document-outline',
+    icon: 'solar:document-text-bold-duotone',
     priority: 'high',
     features: [
       'Detailed audit logs',
@@ -90,21 +90,21 @@ const RoadmapTimeline: React.FC = () => {
       case 'completed':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 transition-colors duration-200">
-            <Icon icon="mdi:check-circle" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:check-circle-bold-duotone" className="w-3 h-3 mr-1" />
             Completed
           </span>
         );
       case 'in-progress':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300 transition-colors duration-200">
-            <Icon icon="mdi:progress-clock" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:clock-circle-bold-duotone" className="w-3 h-3 mr-1" />
             In Progress
           </span>
         );
       case 'planned':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300 transition-colors duration-200">
-            <Icon icon="mdi:calendar-clock" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:calendar-bold-duotone" className="w-3 h-3 mr-1" />
             Planned
           </span>
         );
@@ -130,7 +130,7 @@ const RoadmapTimeline: React.FC = () => {
   return (
     <div className="relative max-w-7xl mx-auto">
       {/* Timeline line */}
-      <div className="absolute left-1/2 transform -translate-x-0.5 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-slate-300 dark:to-slate-600 transition-colors duration-300"></div>
+      <div className="absolute left-1/2 transform -translate-x-0.5 top-0 bottom-0 w-1 bg-slate-300 dark:bg-slate-600 transition-colors duration-200"></div>
 
       <div className="space-y-20">
         {roadmapData.map((item, index) => {
@@ -148,7 +148,7 @@ const RoadmapTimeline: React.FC = () => {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {/* Timeline dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 top-10 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border-4 border-slate-300 dark:border-slate-600 shadow-lg z-10 transition-colors duration-200">
+              <div className="absolute left-1/2 transform -translate-x-1/2 top-10 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border-4 border-slate-300 dark:border-slate-600 z-10 transition-colors duration-200">
                 <div className={`absolute inset-1 rounded-full ${getTimelineColor(item.status)}`}>
                   {item.status === 'in-progress' && (
                     <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping"></div>
@@ -160,8 +160,8 @@ const RoadmapTimeline: React.FC = () => {
               <div className={`flex ${isLeft ? 'justify-start pr-12' : 'justify-end pl-12'}`}>
                 <div className="w-full max-w-lg">
                   <div 
-                    className={`bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer relative ${
-                      activeItem === item.id ? 'border-blue-300 dark:border-blue-500 shadow-2xl' : 'border-slate-200 dark:border-slate-600'
+                    className={`bg-white dark:bg-slate-800 rounded-xl p-6 transition-colors duration-200 border-2 cursor-pointer relative ${
+                      activeItem === item.id ? 'border-brand-300 dark:border-brand-500' : 'border-slate-200 dark:border-slate-700'
                     }`}
                     onClick={() => setActiveItem(activeItem === item.id ? null : item.id)}
                   >
@@ -189,7 +189,7 @@ const RoadmapTimeline: React.FC = () => {
                         </div>
                       </div>
                       <Icon 
-                        icon={activeItem === item.id ? "mdi:chevron-up" : "mdi:chevron-down"}
+                        icon={activeItem === item.id ? "solar:alt-arrow-up-bold-duotone" : "solar:alt-arrow-down-bold-duotone"}
                         className="w-5 h-5 text-slate-400 dark:text-slate-500 transition-all duration-200"
                       />
                     </div>
@@ -213,7 +213,7 @@ const RoadmapTimeline: React.FC = () => {
                                 animation: activeItem === item.id ? 'fadeInUp 0.3s ease-out forwards' : 'none'
                               }}
                             >
-                              <Icon icon="mdi:check-circle" className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                              <Icon icon="solar:check-circle-bold-duotone" className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                               {feature}
                             </div>
                           ))}

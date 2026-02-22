@@ -54,7 +54,7 @@ const faqData: FAQItem[] = [
   {
     id: '8',
     question: 'Is there a community or documentation available?',
-    answer: 'Yes! We have comprehensive documentation, GitHub discussions for community support, Discord server for real-time help, and regular updates on our roadmap. The open-source community actively contributes features and bug fixes. For enterprise customers, we provide dedicated documentation, training materials, and direct access to our engineering team.',
+    answer: 'Yes! We have comprehensive documentation, GitHub discussions for community support, and regular updates on our roadmap. The open-source community actively contributes features and bug fixes. For enterprise customers, we provide dedicated documentation, training materials, and direct access to our engineering team.',
     category: 'general'
   }
 ];
@@ -124,7 +124,7 @@ const FAQSection: React.FC = () => {
               </div>
               <div className="flex-shrink-0">
                 <Icon 
-                  icon={openItems.has(item.id) ? "mdi:chevron-up" : "mdi:chevron-down"}
+                  icon={openItems.has(item.id) ? "solar:alt-arrow-up-bold-duotone" : "solar:alt-arrow-down-bold-duotone"}
                   className="w-6 h-6 text-slate-400 dark:text-slate-300 transition-all duration-200"
                 />
               </div>

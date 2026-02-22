@@ -1,11 +1,6 @@
 ---
 import InteractiveFlowDiagram from "./InteractiveFlowDiagram.tsx";
 import ArchitectureDiagram from "./ArchitectureDiagram.tsx";
-import {
-    RoundRobinIcon,
-    AnalyticsIcon,
-    LoadBalancerIcon,
-} from "./CustomIcons.tsx";
 
 const architectureLayers = [
     {
@@ -30,37 +25,37 @@ const architectureLayers = [
 const loadBalancingStrategies = [
     {
         name: "Round Robin",
-        iconComponent: "RoundRobinIcon",
+        solarIcon: "solar:sort-by-time-bold-duotone",
         description: "Even distribution across all providers",
         useCase: "Balanced load scenarios",
     },
     {
         name: "Least Busy",
-        iconComponent: "AnalyticsIcon",
+        solarIcon: "solar:chart-square-bold-duotone",
         description: "Routes to least loaded provider",
         useCase: "Variable workloads",
     },
     {
         name: "Weighted",
-        iconComponent: "LoadBalancerIcon",
+        solarIcon: "solar:tuning-2-bold-duotone",
         description: "Custom weight distribution",
         useCase: "Tiered provider setups",
     },
     {
         name: "Priority",
-        iconComponent: "RoundRobinIcon",
+        solarIcon: "solar:arrow-to-top-right-bold-duotone",
         description: "Prefers high-priority providers",
         useCase: "Cost optimization",
     },
     {
         name: "Latency-Based",
-        iconComponent: "AnalyticsIcon",
+        solarIcon: "solar:bolt-circle-bold-duotone",
         description: "Routes to fastest responding provider",
         useCase: "Performance critical",
     },
     {
         name: "Usage-Based",
-        iconComponent: "LoadBalancerIcon",
+        solarIcon: "solar:wallet-money-bold-duotone",
         description: "Respects rate limits and quotas",
         useCase: "Token management",
     },
@@ -69,7 +64,7 @@ const loadBalancingStrategies = [
 
 <section
     id="architecture"
-    class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-dark-primary dark:to-dark-secondary"
+    class="section bg-slate-50 dark:bg-slate-900 transition-colors duration-200"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section header -->
@@ -107,21 +102,10 @@ const loadBalancingStrategies = [
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     loadBalancingStrategies.map((strategy) => (
-                        <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200 dark:border-slate-700">
+                        <div class="card card-hover p-6">
                             <div class="flex items-center mb-4">
-                                <div class="mr-3 text-blue-600">
-                                    {strategy.iconComponent ===
-                                        "RoundRobinIcon" && (
-                                        <RoundRobinIcon size={28} />
-                                    )}
-                                    {strategy.iconComponent ===
-                                        "AnalyticsIcon" && (
-                                        <AnalyticsIcon size={28} />
-                                    )}
-                                    {strategy.iconComponent ===
-                                        "LoadBalancerIcon" && (
-                                        <LoadBalancerIcon size={28} />
-                                    )}
+                                <div class="mr-3 text-blue-600 dark:text-blue-400">
+                                    <iconify-icon icon={strategy.solarIcon} width="28" height="28"></iconify-icon>
                                 </div>
                                 <h4 class="text-lg font-bold text-slate-900 dark:text-white">
                                     {strategy.name}
@@ -142,7 +126,7 @@ const loadBalancingStrategies = [
         </div>
 
         <!-- Tech stack -->
-        <div class="bg-white dark:bg-dark-tertiary rounded-3xl shadow-lg p-8 lg:p-12">
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
             <div class="text-center mb-12">
                 <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Production-Ready Stack

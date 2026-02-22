@@ -1,7 +1,6 @@
 ---
 import PerformanceChart from './PerformanceChart';
 import { IconBox } from './FeatureIcons.tsx';
-import { Rocket, Zap, HardDrive, Timer, Check, AlertTriangle } from 'lucide-react';
 import type { FeatureIconName } from './FeatureIcons.tsx';
 
 const benchmarkStats = [
@@ -76,7 +75,7 @@ const scalabilityFeatures = [
       {benchmarkStats.map((stat) => (
         <div class="card p-6">
           <div class="flex items-center justify-between mb-4">
-            <IconBox name={stat.icon} size="sm" variant="brand" client:load />
+            <IconBox name={stat.icon} size="sm" client:load />
             <span class="badge-success text-xs font-semibold">
               {stat.improvement} faster
             </span>
@@ -115,7 +114,7 @@ const scalabilityFeatures = [
           <!-- Test configuration -->
           <div class="space-y-6">
             <h4 class="text-xl font-bold text-slate-900 dark:text-white">Test Configuration</h4>
-            <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+            <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
               <div class="space-y-4">
                 <div class="flex justify-between">
                   <span class="text-slate-600 dark:text-slate-400">Concurrent Users:</span>
@@ -145,7 +144,7 @@ const scalabilityFeatures = [
           <div class="space-y-6">
             <h4 class="text-xl font-bold text-slate-900 dark:text-white">Results</h4>
             <div class="space-y-4">
-              <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl p-5">
+              <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-5">
                 <div class="flex items-center mb-2">
                   <div class="w-2.5 h-2.5 bg-green-500 rounded-full mr-3"></div>
                   <span class="font-semibold text-green-800 dark:text-green-300">Success Rate</span>
@@ -154,7 +153,7 @@ const scalabilityFeatures = [
                 <p class="text-sm text-green-700 dark:text-green-400/80">Zero failed requests under normal conditions</p>
               </div>
 
-              <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-5">
+              <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-5">
                 <div class="flex items-center mb-2">
                   <div class="w-2.5 h-2.5 bg-blue-500 rounded-full mr-3"></div>
                   <span class="font-semibold text-blue-800 dark:text-blue-300">Average Response Time</span>
@@ -163,7 +162,7 @@ const scalabilityFeatures = [
                 <p class="text-sm text-blue-700 dark:text-blue-400/80">Gateway overhead only, excluding LLM processing</p>
               </div>
 
-              <div class="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-2xl p-5">
+              <div class="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-5">
                 <div class="flex items-center mb-2">
                   <div class="w-2.5 h-2.5 bg-purple-500 rounded-full mr-3"></div>
                   <span class="font-semibold text-purple-800 dark:text-purple-300">Memory Usage</span>
@@ -193,7 +192,7 @@ const scalabilityFeatures = [
             <p class="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">{feature.description}</p>
             <div class="bg-brand-50 dark:bg-brand-900/20 rounded-xl p-4 border border-brand-100 dark:border-brand-800">
               <div class="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" class="text-green-500 mr-3 mt-0.5 flex-shrink-0"></iconify-icon>
                 <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{feature.benefit}</span>
               </div>
             </div>
@@ -206,7 +205,7 @@ const scalabilityFeatures = [
         <div class="flex items-start gap-6">
           <div class="flex-shrink-0">
             <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center">
-              <AlertTriangle className="w-6 h-6 text-white" />
+              <iconify-icon icon="solar:danger-triangle-bold-duotone" width="24" height="24" class="text-white"></iconify-icon>
             </div>
           </div>
           <div>
