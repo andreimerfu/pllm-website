@@ -122,16 +122,30 @@ const categoryColors: Record<string, string> = {
             </p>
         </div>
 
-        <!-- Main features grid -->
-        <div class="grid-features mb-20">
+        <!-- Top 2 features: full-width horizontal cards -->
+        <div class="space-y-6 mb-8">
             {
-                mainFeatures.map((feature) => (
-                    <div class="card card-hover relative p-6">
-                        {feature.badge && (
-                            <div class="absolute -top-3 -right-3 badge-brand text-xs font-semibold shadow-sm">
-                                {feature.badge}
-                            </div>
-                        )}
+                mainFeatures.slice(0, 2).map((feature) => (
+                    <div class="card card-hover p-6 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center">
+                        <div class="flex items-center gap-4">
+                            <IconBox name={feature.icon} size="md" variant="brand" client:load />
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                                {feature.title}
+                            </h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {feature.description}
+                        </p>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Remaining 4 features: 2x2 grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
+            {
+                mainFeatures.slice(2).map((feature) => (
+                    <div class="card card-hover p-6">
                         <div class="flex items-start gap-4 mb-4">
                             <IconBox name={feature.icon} size="md" variant="brand" client:load />
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
@@ -147,7 +161,7 @@ const categoryColors: Record<string, string> = {
         </div>
 
         <!-- Technical features -->
-        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
             <div class="text-center mb-12">
                 <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Technical Excellence

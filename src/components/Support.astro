@@ -3,14 +3,14 @@ import SupportTiers from './SupportTiers.tsx';
 import FAQSection from './FAQSection.tsx';
 ---
 
-<section id="support" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="support" class="section bg-white dark:bg-slate-900 transition-colors duration-200">
+  <div class="container-page">
     <!-- Section header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6 transition-colors duration-200">
+    <div class="section-header">
+      <h2 class="section-title">
         Enterprise Support
       </h2>
-      <p class="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto transition-colors duration-200">
+      <p class="section-description">
         While pLLM is open source and free, we offer professional support and custom solutions for enterprises with mission-critical requirements.
       </p>
     </div>
@@ -20,119 +20,130 @@ import FAQSection from './FAQSection.tsx';
 
     <!-- Enterprise contact section -->
     <div class="mt-20">
-      <div class="bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 dark:from-slate-950 dark:via-blue-950 dark:to-purple-950 rounded-3xl p-8 lg:p-12 relative overflow-hidden transition-colors duration-300">
-        <!-- Background pattern -->
-        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        
-        <div class="relative z-10">
-          <div class="text-center mb-8">
-            <h3 class="text-3xl font-bold text-white mb-4">
-              Ready for Enterprise Deployment?
-            </h3>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto">
-              Contact our team for custom integrations, dedicated support, and enterprise-grade deployment assistance.
+      <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <div class="mb-8">
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+            Ready for Enterprise Deployment?
+          </h3>
+          <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl">
+            Contact our team for custom integrations, dedicated support, and enterprise-grade deployment assistance.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <!-- Professional Consultation -->
+          <div class="card p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+              </div>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">Professional Consultation</h4>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              Architecture review, deployment planning, and best practices guidance from our core team.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            <!-- Professional Consultation -->
-            <div class="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-white/10 transition-colors duration-200">
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mr-4">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                  </svg>
-                </div>
-                <h4 class="text-lg font-bold text-white">Professional Consultation</h4>
+          <!-- Custom Development -->
+          <div class="card p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                </svg>
               </div>
-              <p class="text-slate-300 dark:text-slate-400 text-sm transition-colors duration-200">
-                Architecture review, deployment planning, and best practices guidance from our core team.
-              </p>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">Custom Development</h4>
             </div>
-
-            <!-- Custom Development -->
-            <div class="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-white/10 transition-colors duration-200">
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mr-4">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                  </svg>
-                </div>
-                <h4 class="text-lg font-bold text-white">Custom Development</h4>
-              </div>
-              <p class="text-slate-300 dark:text-slate-400 text-sm transition-colors duration-200">
-                Tailored features, custom integrations, and specialized deployment configurations for your use case.
-              </p>
-            </div>
-
-            <!-- Dedicated Support -->
-            <div class="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/20 dark:border-white/10 transition-colors duration-200">
-              <div class="flex items-center mb-4">
-                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-lg flex items-center justify-center mr-4">
-                  <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div>
-                <h4 class="text-lg font-bold text-white">Dedicated Support</h4>
-              </div>
-              <p class="text-slate-300 dark:text-slate-400 text-sm transition-colors duration-200">
-                Priority support channels, SLA guarantees, and direct access to our engineering team.
-              </p>
-            </div>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              Tailored features, custom integrations, and specialized deployment configurations for your use case.
+            </p>
           </div>
 
-          <!-- Contact methods with anti-spam -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Schedule consultation -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <h4 class="text-lg font-semibold text-white mb-3">Schedule a Consultation</h4>
-              <p class="text-slate-300 text-sm mb-4">
-                Book a 30-minute call to discuss your requirements and explore how pLLM can fit your enterprise needs.
-              </p>
-              <a
-                href="https://calendly.com/andrei-amgital/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-200 text-sm"
-              >
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          <!-- Dedicated Support -->
+          <div class="card p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 rounded-lg flex items-center justify-center mr-4">
+                <svg class="w-6 h-6 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Book Consultation
-              </a>
+              </div>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white">Dedicated Support</h4>
             </div>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              Priority support channels, SLA guarantees, and direct access to our engineering team.
+            </p>
+          </div>
+        </div>
 
-            <!-- Enterprise inquiry -->
-            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-              <h4 class="text-lg font-semibold text-white mb-3">Enterprise Inquiry</h4>
-              <p class="text-slate-300 text-sm mb-4">
-                Submit a detailed inquiry for custom features, deployment assistance, or partnership opportunities.
-              </p>
-              <a
-                href="https://tally.so/r/nreKO2"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center bg-white/20 text-white px-4 py-2 rounded-lg font-semibold hover:bg-white/30 transition-all duration-200 text-sm border border-white/30"
-              >
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                Submit Inquiry Form
-              </a>
-            </div>
+        <!-- Contact methods -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Schedule consultation -->
+          <div class="card p-6">
+            <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Schedule a Consultation</h4>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+              Book a 30-minute call to discuss your requirements and explore how pLLM can fit your enterprise needs.
+            </p>
+            <a
+              href="https://calendly.com/andrei-amgital/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary text-sm py-2 px-4"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Book Consultation
+            </a>
           </div>
 
+          <!-- Enterprise inquiry -->
+          <div class="card p-6">
+            <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Enterprise Inquiry</h4>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+              Submit a detailed inquiry for custom features, deployment assistance, or partnership opportunities.
+            </p>
+            <a
+              href="https://tally.so/r/nreKO2"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-secondary text-sm py-2 px-4"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              Submit Inquiry Form
+            </a>
+          </div>
+
+          <!-- Email contact -->
+          <div class="card p-6">
+            <h4 class="text-lg font-semibold text-slate-900 dark:text-white mb-3">Email Us Directly</h4>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+              Prefer email? Reach out directly for enterprise inquiries, procurement, or partnership discussions.
+            </p>
+            <a
+              href="mailto:enterprise@pllm.dev"
+              class="btn-secondary text-sm py-2 px-4"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              enterprise@pllm.dev
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- FAQ section -->
     <div class="mt-20">
-      <div class="text-center mb-12">
-        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-200">
+      <div class="mb-12">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
           Frequently Asked Questions
         </h3>
-        <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto transition-colors duration-200">
+        <p class="text-slate-600 dark:text-slate-400 max-w-2xl">
           Everything you need to know about pLLM, from technical details to enterprise support options.
         </p>
       </div>
@@ -143,12 +154,3 @@ import FAQSection from './FAQSection.tsx';
     </div>
   </div>
 </section>
-
-<style>
-  .bg-grid-pattern {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-</style>

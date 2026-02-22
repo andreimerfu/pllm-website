@@ -65,13 +65,7 @@ module.exports = {
       // Shadow scale (subtle, modern)
       boxShadow: {
         'card': '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08)',
-        'card-hover': '0 4px 12px -2px rgb(0 0 0 / 0.12), 0 2px 6px -2px rgb(0 0 0 / 0.08)',
         'elevated': '0 8px 24px -4px rgb(0 0 0 / 0.12), 0 4px 8px -4px rgb(0 0 0 / 0.08)',
-      },
-
-      // Border radius scale
-      borderRadius: {
-        '4xl': '2rem',
       },
 
       // Animation timing

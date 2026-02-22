@@ -67,10 +67,10 @@ interface IconBoxProps {
 }
 
 const variantStyles = {
-  brand: 'bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400',
-  accent: 'bg-accent-100 dark:bg-accent-900/30 text-accent-600 dark:text-accent-400',
-  success: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400',
-  warning: 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
+  brand: 'text-slate-700 dark:text-slate-300',
+  accent: 'text-slate-700 dark:text-slate-300',
+  success: 'text-slate-700 dark:text-slate-300',
+  warning: 'text-slate-700 dark:text-slate-300',
 };
 
 const boxSizeMap = {
@@ -93,7 +93,7 @@ export const IconBox: React.FC<IconBoxProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center justify-center rounded-xl ${boxSizeMap[size]} ${variantStyles[variant]} ${className}`}
+      className={`flex items-center justify-center rounded-lg ${boxSizeMap[size]} ${variantStyles[variant]} ${className}`}
     >
       <FeatureIcon name={name} size={iconInBoxSizeMap[size]} />
     </div>

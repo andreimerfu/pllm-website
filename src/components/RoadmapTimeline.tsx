@@ -17,7 +17,7 @@ const roadmapData: RoadmapItem[] = [
     id: '1',
     title: 'Key Rotation & Secret Management',
     description: 'Automated key rotation and integration with external secret managers for enhanced security.',
-    quarter: 'Q1 2025',
+    quarter: 'Q1 2026',
     status: 'in-progress',
     icon: 'mdi:key-variant',
     priority: 'high',
@@ -33,7 +33,7 @@ const roadmapData: RoadmapItem[] = [
     id: '2',
     title: 'Advanced Guardrails',
     description: 'Pluggable content guardrails with pre-call, post-call, during-call, and logging-only modes. Marketplace with Presidio PII detection and more.',
-    quarter: 'Q1 2025',
+    quarter: 'Q4 2025',
     status: 'completed',
     icon: 'mdi:shield-check',
     priority: 'high',
@@ -49,7 +49,7 @@ const roadmapData: RoadmapItem[] = [
     id: '3',
     title: 'Enhanced Audit & Logging',
     description: 'Comprehensive audit trails with retention policies and compliance reporting.',
-    quarter: 'Q2 2025',
+    quarter: 'Q2 2026',
     status: 'planned',
     icon: 'mdi:file-document-outline',
     priority: 'high',
@@ -130,7 +130,7 @@ const RoadmapTimeline: React.FC = () => {
   return (
     <div className="relative max-w-7xl mx-auto">
       {/* Timeline line */}
-      <div className="absolute left-1/2 transform -translate-x-0.5 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-slate-300 dark:to-slate-600 transition-colors duration-300"></div>
+      <div className="absolute left-1/2 transform -translate-x-0.5 top-0 bottom-0 w-1 bg-slate-300 dark:bg-slate-600 transition-colors duration-200"></div>
 
       <div className="space-y-20">
         {roadmapData.map((item, index) => {
@@ -148,7 +148,7 @@ const RoadmapTimeline: React.FC = () => {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               {/* Timeline dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 top-10 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border-4 border-slate-300 dark:border-slate-600 shadow-lg z-10 transition-colors duration-200">
+              <div className="absolute left-1/2 transform -translate-x-1/2 top-10 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border-4 border-slate-300 dark:border-slate-600 z-10 transition-colors duration-200">
                 <div className={`absolute inset-1 rounded-full ${getTimelineColor(item.status)}`}>
                   {item.status === 'in-progress' && (
                     <div className="absolute inset-0 rounded-full bg-blue-500 animate-ping"></div>
@@ -160,8 +160,8 @@ const RoadmapTimeline: React.FC = () => {
               <div className={`flex ${isLeft ? 'justify-start pr-12' : 'justify-end pl-12'}`}>
                 <div className="w-full max-w-lg">
                   <div 
-                    className={`bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer relative ${
-                      activeItem === item.id ? 'border-blue-300 dark:border-blue-500 shadow-2xl' : 'border-slate-200 dark:border-slate-600'
+                    className={`bg-white dark:bg-slate-800 rounded-xl p-6 transition-colors duration-200 border-2 cursor-pointer relative ${
+                      activeItem === item.id ? 'border-brand-300 dark:border-brand-500' : 'border-slate-200 dark:border-slate-700'
                     }`}
                     onClick={() => setActiveItem(activeItem === item.id ? null : item.id)}
                   >

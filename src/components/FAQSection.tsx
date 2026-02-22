@@ -54,7 +54,7 @@ const faqData: FAQItem[] = [
   {
     id: '8',
     question: 'Is there a community or documentation available?',
-    answer: 'Yes! We have comprehensive documentation, GitHub discussions for community support, Discord server for real-time help, and regular updates on our roadmap. The open-source community actively contributes features and bug fixes. For enterprise customers, we provide dedicated documentation, training materials, and direct access to our engineering team.',
+    answer: 'Yes! We have comprehensive documentation, GitHub discussions for community support, and regular updates on our roadmap. The open-source community actively contributes features and bug fixes. For enterprise customers, we provide dedicated documentation, training materials, and direct access to our engineering team.',
     category: 'general'
   }
 ];

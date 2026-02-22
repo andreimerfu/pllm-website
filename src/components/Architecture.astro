@@ -69,7 +69,7 @@ const loadBalancingStrategies = [
 
 <section
     id="architecture"
-    class="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-dark-primary dark:to-dark-secondary"
+    class="section bg-slate-50 dark:bg-slate-900 transition-colors duration-200"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section header -->
@@ -107,7 +107,7 @@ const loadBalancingStrategies = [
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
                     loadBalancingStrategies.map((strategy) => (
-                        <div class="bg-white dark:bg-dark-tertiary rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-200 dark:border-slate-700">
+                        <div class="card card-hover p-6">
                             <div class="flex items-center mb-4">
                                 <div class="mr-3 text-blue-600">
                                     {strategy.iconComponent ===
@@ -142,7 +142,7 @@ const loadBalancingStrategies = [
         </div>
 
         <!-- Tech stack -->
-        <div class="bg-white dark:bg-dark-tertiary rounded-3xl shadow-lg p-8 lg:p-12">
+        <div class="bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
             <div class="text-center mb-12">
                 <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                     Production-Ready Stack

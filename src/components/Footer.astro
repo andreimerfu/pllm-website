@@ -40,8 +40,8 @@ const footerLinks = {
             href: "https://hub.docker.com/r/amerfu/pllm",
             external: true,
         },
-        { name: "Kubernetes", href: "#deployment" },
-        { name: "Docker Compose", href: "#deployment" },
+        { name: "Kubernetes", href: "#quick-start" },
+        { name: "Docker Compose", href: "#quick-start" },
     ],
     Community: [
         {
@@ -88,9 +88,7 @@ const socialLinks = [
             <!-- Brand -->
             <div class="lg:col-span-1">
                 <div class="flex items-center space-x-2 mb-4">
-                    <div class="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">p</span>
-                    </div>
+                    <img src="/robot.png" alt="pLLM" class="w-8 h-8 rounded-lg" />
                     <span class="text-xl font-bold text-white dark:text-slate-100 transition-colors duration-200">pLLM</span>
                 </div>
                 <p class="text-slate-400 dark:text-slate-500 mb-6 max-w-sm transition-colors duration-200">
@@ -108,7 +106,7 @@ const socialLinks = [
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={link.name}
-                                class="bg-slate-800 dark:bg-slate-900 hover:bg-slate-700 dark:hover:bg-slate-800 w-12 h-12 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                                class="bg-slate-800 dark:bg-slate-900 hover:bg-slate-700 dark:hover:bg-slate-800 w-10 h-10 rounded-lg transition-colors duration-200 flex items-center justify-center"
                             >
                                 <iconify-icon
                                     icon={link.icon}
@@ -174,7 +172,7 @@ const socialLinks = [
             <div class="flex flex-col sm:flex-row justify-between items-center">
                 <!-- Copyright -->
                 <div class="text-slate-400 dark:text-slate-500 text-sm mb-4 sm:mb-0 transition-colors duration-200">
-                    © 2025 pLLM. Released under the MIT License.
+                    © {new Date().getFullYear()} pLLM. Released under the MIT License.
                 </div>
 
                 <!-- Version info -->

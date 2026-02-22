@@ -1,98 +1,55 @@
 ---
 import HeroIllustration from "./HeroIllustration.tsx";
-import { Zap, Github } from "lucide-react";
-import {
-    PerformanceIcon,
-    CostIcon,
-    LatencyIcon,
-    CompatibilityIcon,
-} from "./CustomIcons.tsx";
+import { Github } from "lucide-react";
 ---
 
-<section class="relative pt-24 pb-12 sm:pb-16 overflow-hidden">
-    <!-- Background - clean gradient without blobs -->
-    <div
-        class="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 -z-10"
-    >
-    </div>
-
-    <!-- Subtle grid pattern -->
-    <div
-        class="absolute inset-0 -z-10 opacity-[0.02] dark:opacity-[0.03]"
-        style="background-image: url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");"
-    >
-    </div>
-
+<section class="relative pt-28 pb-16 sm:pb-24">
     <div class="container-page">
-        <div class="text-center">
-            <!-- Badge -->
-            <div class="badge-brand mb-8">
-                <Zap className="w-4 h-4 mr-2" />
-                Enterprise-Grade Performance
-            </div>
-
-            <!-- Main headline -->
-            <h1 class="text-hero-sm sm:text-hero font-bold text-slate-900 dark:text-white mb-6">
-                <span class="bg-gradient-to-r from-brand-500 to-brand-700 bg-clip-text text-transparent">
-                    pLLM
-                </span>
-                <br />
-                <span class="text-3xl sm:text-4xl lg:text-5xl text-slate-900 dark:text-white">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Text content — left-aligned -->
+            <div>
+                <h1 class="text-hero-sm sm:text-hero font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+                    <span class="text-brand-600 dark:text-brand-400">pLLM</span>
+                </h1>
+                <p class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
                     High-Performance LLM Gateway
-                </span>
-            </h1>
+                </p>
 
-            <!-- Subtitle -->
-            <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-3xl mx-auto leading-relaxed">
-                Drop-in OpenAI replacement built in Go. Handle thousands of
-                concurrent requests with
-                <span class="font-semibold text-slate-800 dark:text-slate-200">adaptive routing</span>,
-                <span class="font-semibold text-slate-800 dark:text-slate-200">multi-provider support</span>, and
-                <span class="font-semibold text-slate-800 dark:text-slate-200">enterprise-grade reliability</span>.
-            </p>
+                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-lg leading-relaxed">
+                    Drop-in OpenAI replacement built in Go. Handle thousands of
+                    concurrent requests with adaptive routing, multi-provider
+                    support, and enterprise-grade reliability.
+                </p>
 
-            <!-- Key features pills -->
-            <div class="flex flex-wrap justify-center gap-3 mb-8">
-                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
-                    <PerformanceIcon size={18} className="mr-2 text-brand-500" />
-                    High Performance
+                <!-- Feature pills -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">High Performance</span>
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">Cost Efficient</span>
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">Low Latency</span>
+                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">OpenAI Compatible</span>
                 </div>
-                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
-                    <CostIcon size={18} className="mr-2 text-green-500" />
-                    Cost Efficient
-                </div>
-                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
-                    <LatencyIcon size={18} className="mr-2 text-amber-500" />
-                    Low Latency
-                </div>
-                <div class="px-4 py-2 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm font-medium flex items-center shadow-sm">
-                    <CompatibilityIcon size={18} className="mr-2 text-purple-500" />
-                    100% OpenAI Compatible
+
+                <!-- CTA buttons — left-aligned -->
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#quick-start" class="btn-primary">
+                        Get Started
+                    </a>
+                    <a
+                        href="https://github.com/andreimerfu/pllm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-secondary flex items-center"
+                    >
+                        <Github className="w-5 h-5 mr-2" />
+                        View on GitHub
+                    </a>
                 </div>
             </div>
 
-            <!-- CTA buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-                <a
-                    href="#quick-start"
-                    class="btn-primary flex items-center"
-                >
-                    <Zap className="w-4 h-4 mr-2" />
-                    Get Started
-                </a>
-                <a
-                    href="https://github.com/andreimerfu/pllm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-secondary flex items-center"
-                >
-                    <Github className="w-5 h-5 mr-2" />
-                    View on GitHub
-                </a>
+            <!-- Terminal illustration — right side -->
+            <div class="flex justify-center lg:justify-end">
+                <HeroIllustration client:load />
             </div>
-
-            <!-- Hero Illustration -->
-            <HeroIllustration client:load />
         </div>
     </div>
 </section>
