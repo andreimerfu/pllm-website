@@ -32,12 +32,12 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language = 'bash', classNam
   };
 
   return (
-    <div className={`bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex flex-col ${className}`}>
-      <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800/50 border-b border-slate-700/50">
-        <span className="text-slate-500 text-xs font-mono uppercase tracking-wider">{language}</span>
+    <div className={`bg-slate-50 dark:bg-slate-900 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col ${className}`}>
+      <div className="flex items-center justify-between px-4 py-2.5 bg-slate-100 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700/50">
+        <span className="text-slate-400 dark:text-slate-500 text-xs font-mono uppercase tracking-wider">{language}</span>
         <button
           onClick={handleCopy}
-          className="flex items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-colors text-xs"
+          className="flex items-center gap-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 transition-colors text-xs"
           aria-label="Copy code"
         >
           {copied ? (
