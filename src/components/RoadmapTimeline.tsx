@@ -32,17 +32,17 @@ const roadmapData: RoadmapItem[] = [
   {
     id: '2',
     title: 'Advanced Guardrails',
-    description: 'Content filtering, rate limiting, and safety mechanisms to ensure responsible AI usage.',
+    description: 'Pluggable content guardrails with pre-call, post-call, during-call, and logging-only modes. Marketplace with Presidio PII detection and more.',
     quarter: 'Q1 2025',
-    status: 'planned',
+    status: 'completed',
     icon: 'mdi:shield-check',
     priority: 'high',
     features: [
-      'Content filtering & moderation',
-      'PII detection & redaction',
-      'Toxicity & bias detection',
-      'Custom prompt validation',
-      'Usage policy enforcement'
+      'PII detection & masking (Presidio)',
+      'Pre-call, post-call, during-call & logging modes',
+      'Guardrails marketplace',
+      'YAML-based configuration',
+      'Per-guardrail stats & health checks'
     ]
   },
   {
