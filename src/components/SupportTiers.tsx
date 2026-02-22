@@ -122,7 +122,7 @@ const SupportTiers: React.FC = () => {
                 {tier.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-start text-sm text-slate-700 dark:text-slate-300 transition-colors duration-200">
                     <Icon 
-                      icon="mdi:check-circle" 
+                      icon="solar:check-circle-bold-duotone" 
                       className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" 
                     />
                     {feature}
@@ -139,7 +139,7 @@ const SupportTiers: React.FC = () => {
                   {tier.limitations.map((limitation, limitationIndex) => (
                     <li key={limitationIndex} className="flex items-start text-sm text-slate-500 dark:text-slate-400 transition-colors duration-200">
                       <Icon 
-                        icon="mdi:minus-circle" 
+                        icon="solar:minus-circle-bold-duotone" 
                         className="w-5 h-5 text-slate-400 dark:text-slate-500 mr-3 flex-shrink-0 mt-0.5 transition-colors duration-200" 
                       />
                       {limitation}
@@ -163,7 +163,7 @@ const SupportTiers: React.FC = () => {
               >
                 {tier.cta.text}
                 {tier.cta.external && (
-                  <Icon icon="mdi:external-link" className="w-4 h-4 ml-2" />
+                  <Icon icon="solar:square-arrow-right-up-bold-duotone" className="w-4 h-4 ml-2" />
                 )}
               </a>
             </div>

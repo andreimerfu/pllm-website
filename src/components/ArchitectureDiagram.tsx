@@ -1,6 +1,5 @@
 import React from "react";
 import { Icon } from "@iconify/react";
-import { Zap, Activity, Gauge, BarChart3 } from "lucide-react";
 
 const ArchitectureDiagram: React.FC = () => {
   return (
@@ -298,25 +297,25 @@ const ArchitectureDiagram: React.FC = () => {
             {[
               {
                 name: "Circuit Breaker",
-                IconComponent: Zap,
+                icon: "solar:restart-circle-bold-duotone",
                 desc: "Automatic failover protection",
                 color: "text-amber-500",
               },
               {
                 name: "Health Checks",
-                IconComponent: Activity,
+                icon: "solar:heart-pulse-bold-duotone",
                 desc: "Continuous monitoring",
                 color: "text-red-500",
               },
               {
                 name: "Rate Limiting",
-                IconComponent: Gauge,
+                icon: "solar:tuning-2-bold-duotone",
                 desc: "Traffic control & quotas",
                 color: "text-green-500",
               },
               {
                 name: "Analytics",
-                IconComponent: BarChart3,
+                icon: "solar:chart-square-bold-duotone",
                 desc: "Performance insights",
                 color: "text-blue-500",
               },
@@ -327,7 +326,7 @@ const ArchitectureDiagram: React.FC = () => {
               >
                 <div className="text-center">
                   <div className="flex justify-center mb-2">
-                    <feature.IconComponent className={`w-6 h-6 ${feature.color}`} />
+                    <Icon icon={feature.icon} className={`w-6 h-6 ${feature.color}`} />
                   </div>
                   <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
                     {feature.name}

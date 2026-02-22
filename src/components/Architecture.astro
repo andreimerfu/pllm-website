@@ -1,11 +1,6 @@
 ---
 import InteractiveFlowDiagram from "./InteractiveFlowDiagram.tsx";
 import ArchitectureDiagram from "./ArchitectureDiagram.tsx";
-import {
-    RoundRobinIcon,
-    AnalyticsIcon,
-    LoadBalancerIcon,
-} from "./CustomIcons.tsx";
 
 const architectureLayers = [
     {
@@ -30,37 +25,37 @@ const architectureLayers = [
 const loadBalancingStrategies = [
     {
         name: "Round Robin",
-        iconComponent: "RoundRobinIcon",
+        solarIcon: "solar:sort-by-time-bold-duotone",
         description: "Even distribution across all providers",
         useCase: "Balanced load scenarios",
     },
     {
         name: "Least Busy",
-        iconComponent: "AnalyticsIcon",
+        solarIcon: "solar:chart-square-bold-duotone",
         description: "Routes to least loaded provider",
         useCase: "Variable workloads",
     },
     {
         name: "Weighted",
-        iconComponent: "LoadBalancerIcon",
+        solarIcon: "solar:tuning-2-bold-duotone",
         description: "Custom weight distribution",
         useCase: "Tiered provider setups",
     },
     {
         name: "Priority",
-        iconComponent: "RoundRobinIcon",
+        solarIcon: "solar:arrow-to-top-right-bold-duotone",
         description: "Prefers high-priority providers",
         useCase: "Cost optimization",
     },
     {
         name: "Latency-Based",
-        iconComponent: "AnalyticsIcon",
+        solarIcon: "solar:bolt-circle-bold-duotone",
         description: "Routes to fastest responding provider",
         useCase: "Performance critical",
     },
     {
         name: "Usage-Based",
-        iconComponent: "LoadBalancerIcon",
+        solarIcon: "solar:wallet-money-bold-duotone",
         description: "Respects rate limits and quotas",
         useCase: "Token management",
     },
@@ -109,19 +104,8 @@ const loadBalancingStrategies = [
                     loadBalancingStrategies.map((strategy) => (
                         <div class="card card-hover p-6">
                             <div class="flex items-center mb-4">
-                                <div class="mr-3 text-blue-600">
-                                    {strategy.iconComponent ===
-                                        "RoundRobinIcon" && (
-                                        <RoundRobinIcon size={28} />
-                                    )}
-                                    {strategy.iconComponent ===
-                                        "AnalyticsIcon" && (
-                                        <AnalyticsIcon size={28} />
-                                    )}
-                                    {strategy.iconComponent ===
-                                        "LoadBalancerIcon" && (
-                                        <LoadBalancerIcon size={28} />
-                                    )}
+                                <div class="mr-3 text-blue-600 dark:text-blue-400">
+                                    <iconify-icon icon={strategy.solarIcon} width="28" height="28"></iconify-icon>
                                 </div>
                                 <h4 class="text-lg font-bold text-slate-900 dark:text-white">
                                     {strategy.name}

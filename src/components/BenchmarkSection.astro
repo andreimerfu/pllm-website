@@ -1,7 +1,6 @@
 ---
 import PerformanceChart from './PerformanceChart';
 import { IconBox } from './FeatureIcons.tsx';
-import { Rocket, Zap, HardDrive, Timer, Check, AlertTriangle } from 'lucide-react';
 import type { FeatureIconName } from './FeatureIcons.tsx';
 
 const benchmarkStats = [
@@ -76,7 +75,7 @@ const scalabilityFeatures = [
       {benchmarkStats.map((stat) => (
         <div class="card p-6">
           <div class="flex items-center justify-between mb-4">
-            <IconBox name={stat.icon} size="sm" variant="brand" client:load />
+            <IconBox name={stat.icon} size="sm" client:load />
             <span class="badge-success text-xs font-semibold">
               {stat.improvement} faster
             </span>
@@ -193,7 +192,7 @@ const scalabilityFeatures = [
             <p class="text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">{feature.description}</p>
             <div class="bg-brand-50 dark:bg-brand-900/20 rounded-xl p-4 border border-brand-100 dark:border-brand-800">
               <div class="flex items-start">
-                <Check className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                <iconify-icon icon="solar:check-circle-bold-duotone" width="20" height="20" class="text-green-500 mr-3 mt-0.5 flex-shrink-0"></iconify-icon>
                 <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{feature.benefit}</span>
               </div>
             </div>
@@ -206,7 +205,7 @@ const scalabilityFeatures = [
         <div class="flex items-start gap-6">
           <div class="flex-shrink-0">
             <div class="w-12 h-12 bg-amber-500 rounded-xl flex items-center justify-center">
-              <AlertTriangle className="w-6 h-6 text-white" />
+              <iconify-icon icon="solar:danger-triangle-bold-duotone" width="24" height="24" class="text-white"></iconify-icon>
             </div>
           </div>
           <div>

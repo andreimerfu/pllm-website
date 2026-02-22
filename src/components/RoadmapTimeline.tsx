@@ -19,7 +19,7 @@ const roadmapData: RoadmapItem[] = [
     description: 'Automated key rotation and integration with external secret managers for enhanced security.',
     quarter: 'Q1 2026',
     status: 'in-progress',
-    icon: 'mdi:key-variant',
+    icon: 'solar:key-bold-duotone',
     priority: 'high',
     features: [
       'Automated API key rotation',
@@ -35,7 +35,7 @@ const roadmapData: RoadmapItem[] = [
     description: 'Pluggable content guardrails with pre-call, post-call, during-call, and logging-only modes. Marketplace with Presidio PII detection and more.',
     quarter: 'Q4 2025',
     status: 'completed',
-    icon: 'mdi:shield-check',
+    icon: 'solar:shield-check-bold-duotone',
     priority: 'high',
     features: [
       'PII detection & masking (Presidio)',
@@ -51,7 +51,7 @@ const roadmapData: RoadmapItem[] = [
     description: 'Comprehensive audit trails with retention policies and compliance reporting.',
     quarter: 'Q2 2026',
     status: 'planned',
-    icon: 'mdi:file-document-outline',
+    icon: 'solar:document-text-bold-duotone',
     priority: 'high',
     features: [
       'Detailed audit logs',
@@ -90,21 +90,21 @@ const RoadmapTimeline: React.FC = () => {
       case 'completed':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300 transition-colors duration-200">
-            <Icon icon="mdi:check-circle" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:check-circle-bold-duotone" className="w-3 h-3 mr-1" />
             Completed
           </span>
         );
       case 'in-progress':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-300 transition-colors duration-200">
-            <Icon icon="mdi:progress-clock" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:clock-circle-bold-duotone" className="w-3 h-3 mr-1" />
             In Progress
           </span>
         );
       case 'planned':
         return (
           <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300 transition-colors duration-200">
-            <Icon icon="mdi:calendar-clock" className="w-3 h-3 mr-1" />
+            <Icon icon="solar:calendar-bold-duotone" className="w-3 h-3 mr-1" />
             Planned
           </span>
         );
@@ -189,7 +189,7 @@ const RoadmapTimeline: React.FC = () => {
                         </div>
                       </div>
                       <Icon 
-                        icon={activeItem === item.id ? "mdi:chevron-up" : "mdi:chevron-down"}
+                        icon={activeItem === item.id ? "solar:alt-arrow-up-bold-duotone" : "solar:alt-arrow-down-bold-duotone"}
                         className="w-5 h-5 text-slate-400 dark:text-slate-500 transition-all duration-200"
                       />
                     </div>
@@ -213,7 +213,7 @@ const RoadmapTimeline: React.FC = () => {
                                 animation: activeItem === item.id ? 'fadeInUp 0.3s ease-out forwards' : 'none'
                               }}
                             >
-                              <Icon icon="mdi:check-circle" className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                              <Icon icon="solar:check-circle-bold-duotone" className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                               {feature}
                             </div>
                           ))}

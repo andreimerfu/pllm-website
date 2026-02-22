@@ -124,7 +124,7 @@ const FAQSection: React.FC = () => {
               </div>
               <div className="flex-shrink-0">
                 <Icon 
-                  icon={openItems.has(item.id) ? "mdi:chevron-up" : "mdi:chevron-down"}
+                  icon={openItems.has(item.id) ? "solar:alt-arrow-up-bold-duotone" : "solar:alt-arrow-down-bold-duotone"}
                   className="w-6 h-6 text-slate-400 dark:text-slate-300 transition-all duration-200"
                 />
               </div>

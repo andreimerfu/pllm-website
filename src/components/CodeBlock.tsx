@@ -6,7 +6,7 @@ import 'prismjs/components/prism-python';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import '../styles/prism.css';
-import { Copy, Check } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 interface CodeBlockProps {
   code: string;
@@ -32,7 +32,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language = 'bash', classNam
   };
 
   return (
-    <div className={`bg-slate-900 rounded-xl overflow-hidden border border-slate-800 ${className}`}>
+    <div className={`bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex flex-col ${className}`}>
       <div className="flex items-center justify-between px-4 py-2.5 bg-slate-800/50 border-b border-slate-700/50">
         <span className="text-slate-500 text-xs font-mono uppercase tracking-wider">{language}</span>
         <button
@@ -42,18 +42,18 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language = 'bash', classNam
         >
           {copied ? (
             <>
-              <Check className="w-3.5 h-3.5" />
+              <Icon icon="solar:check-circle-bold-duotone" width={14} height={14} />
               <span>Copied</span>
             </>
           ) : (
             <>
-              <Copy className="w-3.5 h-3.5" />
+              <Icon icon="solar:copy-bold-duotone" width={14} height={14} />
               <span>Copy</span>
             </>
           )}
         </button>
       </div>
-      <div className="p-4 overflow-x-auto">
+      <div className="p-4 overflow-x-auto flex-1">
         <pre className="text-sm">
           <code className={`language-${language}`}>{code}</code>
         </pre>

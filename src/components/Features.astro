@@ -1,6 +1,5 @@
 ---
 import { IconBox } from "./FeatureIcons.tsx";
-import { Check } from "lucide-react";
 import type { FeatureIconName } from "./FeatureIcons.tsx";
 
 interface Feature {
@@ -128,7 +127,7 @@ const categoryColors: Record<string, string> = {
                 mainFeatures.slice(0, 2).map((feature) => (
                     <div class="card card-hover p-6 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-6 items-center">
                         <div class="flex items-center gap-4">
-                            <IconBox name={feature.icon} size="md" variant="brand" client:load />
+                            <IconBox name={feature.icon} size="md" client:load />
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">
                                 {feature.title}
                             </h3>
@@ -147,7 +146,7 @@ const categoryColors: Record<string, string> = {
                 mainFeatures.slice(2).map((feature) => (
                     <div class="card card-hover p-6">
                         <div class="flex items-start gap-4 mb-4">
-                            <IconBox name={feature.icon} size="md" variant="brand" client:load />
+                            <IconBox name={feature.icon} size="md" client:load />
                             <h3 class="text-lg font-bold text-slate-900 dark:text-white pt-2">
                                 {feature.title}
                             </h3>
@@ -183,7 +182,7 @@ const categoryColors: Record<string, string> = {
                             <ul class="space-y-3">
                                 {category.features.map((feature) => (
                                     <li class="text-slate-600 dark:text-slate-400 text-sm flex items-start">
-                                        <Check className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                                        <iconify-icon icon="solar:check-circle-bold-duotone" width="16" height="16" class="text-green-500 mr-2 mt-0.5 flex-shrink-0"></iconify-icon>
                                         {feature}
                                     </li>
                                 ))}
