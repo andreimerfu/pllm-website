@@ -1,0 +1,532 @@
+---
+const personas = [
+  {
+    name: "Sarah · Analyst",
+    avatar: "solar:user-bold-duotone",
+    groups: ["ad:Analysts", "ad:All-Employees"],
+    allows: [
+      { label: "claude-4.6-sonnet", icon: "solar:cpu-bolt-bold-duotone" },
+      { label: "mcp://snowflake", icon: "solar:database-bold-duotone" },
+      { label: "agents/sql-analyst", icon: "solar:robot-bold-duotone" },
+    ],
+    denies: [
+      { label: "mcp://sap", icon: "solar:database-bold-duotone" },
+      { label: "agents/finance-bot", icon: "solar:robot-bold-duotone" },
+    ],
+  },
+  {
+    name: "Marcus · Engineer",
+    avatar: "solar:user-bold-duotone",
+    groups: ["ad:Engineers", "ad:Developers"],
+    allows: [
+      { label: "claude-4.6-opus", icon: "solar:cpu-bolt-bold-duotone" },
+      { label: "mcp://github", icon: "solar:database-bold-duotone" },
+      { label: "agents/release-captain", icon: "solar:robot-bold-duotone" },
+      { label: "skills/code-reviewer", icon: "solar:magic-stick-3-bold-duotone" },
+    ],
+    denies: [
+      { label: "mcp://sap", icon: "solar:database-bold-duotone" },
+      { label: "agents/finance-bot", icon: "solar:robot-bold-duotone" },
+    ],
+  },
+  {
+    name: "Priya · Finance Ops",
+    avatar: "solar:user-bold-duotone",
+    groups: ["ad:Finance-Ops", "ad:All-Employees"],
+    allows: [
+      { label: "gpt-5", icon: "solar:cpu-bolt-bold-duotone" },
+      { label: "mcp://sap", icon: "solar:database-bold-duotone" },
+      { label: "agents/finance-bot", icon: "solar:robot-bold-duotone" },
+    ],
+    denies: [
+      { label: "mcp://github", icon: "solar:database-bold-duotone" },
+      { label: "agents/release-captain", icon: "solar:robot-bold-duotone" },
+    ],
+  },
+];
+
+const policyExamples = [
+  {
+    icon: "solar:dollar-bold-duotone",
+    title: "Budget ceilings",
+    description: "Hard and soft monthly spend limits per group, per key, or per project.",
+    example: "ad:Interns → $50 / month, throttle at 80%",
+  },
+  {
+    icon: "solar:cpu-bolt-bold-duotone",
+    title: "Model allow-lists",
+    description: "Pin which models each group can use. Block frontier models from unvetted teams.",
+    example: "ad:All-Employees → gpt-4.1-mini, claude-4.6-sonnet",
+  },
+  {
+    icon: "solar:server-square-bold-duotone",
+    title: "MCP tool scoping",
+    description: "Allow-list individual tools on an MCP server. Read-only by default.",
+    example: "ad:Contractors → github-mcp/search_* only",
+  },
+  {
+    icon: "solar:shield-warning-bold-duotone",
+    title: "Data egress rules",
+    description: "Block PII, secrets, or IP-classified data from leaving the gateway.",
+    example: "All groups → no raw customer PII to external providers",
+  },
+  {
+    icon: "solar:clock-circle-bold-duotone",
+    title: "Rate &amp; quota limits",
+    description: "Per-user, per-group, per-agent RPS and token quotas with burst controls.",
+    example: "ad:Engineering → 200 RPS, 10M tokens/day",
+  },
+  {
+    icon: "solar:document-text-bold-duotone",
+    title: "Audit &amp; retention",
+    description: "Every request, tool call, and agent step logged with redacted payloads.",
+    example: "PII masked · 18-month retention · SIEM-ready",
+  },
+];
+---
+
+<section id="governance" class="section bg-white dark:bg-slate-900 transition-colors duration-200 relative overflow-hidden">
+  <div class="pointer-events-none absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-brand-500/5 dark:bg-brand-500/10 blur-3xl"></div>
+  <div class="pointer-events-none absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-accent-500/5 dark:bg-accent-500/10 blur-3xl"></div>
+
+  <div class="container-page relative">
+    <!-- Section header -->
+    <div class="section-header">
+      <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+        <iconify-icon icon="solar:shield-keyhole-bold-duotone" width="16" height="16"></iconify-icon>
+        Governance
+      </div>
+      <h2 class="section-title">
+        Your AD groups are your AI access policy.
+      </h2>
+      <p class="section-description">
+        No new permission system. pLLM reads your existing AD / Entra / Okta groups and turns membership into
+        fine-grained, auditable policy on every model, MCP server, agent, and prompt.
+      </p>
+    </div>
+
+    <!-- Identity → Policy → Access flow -->
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-6 sm:p-10 mb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1.2fr_auto_1fr] gap-4 lg:gap-6 items-center">
+        <!-- Identity -->
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">01 · Identity</div>
+          <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                <iconify-icon icon="solar:shield-user-bold-duotone" width="20" height="20"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-slate-900 dark:text-white">SSO sign-in</div>
+                <div class="text-xs font-mono text-slate-500 dark:text-slate-400">AD / Entra / Okta</div>
+              </div>
+            </div>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 dark:text-slate-400">user</span>
+                <span class="text-slate-700 dark:text-slate-300">sarah@acme.com</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 dark:text-slate-400">oidc</span>
+                <span class="text-emerald-600 dark:text-emerald-400">✓ verified</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 dark:text-slate-400">mfa</span>
+                <span class="text-emerald-600 dark:text-emerald-400">✓ enforced</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="flex justify-center">
+          <svg class="w-8 h-8 text-slate-400 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </div>
+
+        <!-- Groups → Policy -->
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">02 · Groups &amp; Policy</div>
+          <div class="rounded-xl border-2 border-brand-500/40 dark:border-brand-400/40 bg-white dark:bg-slate-900 p-5 relative overflow-hidden">
+            <div class="absolute inset-0 bg-brand-500/5"></div>
+            <div class="relative">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center">
+                  <iconify-icon icon="solar:users-group-rounded-bold-duotone" width="20" height="20"></iconify-icon>
+                </div>
+                <div>
+                  <div class="text-sm font-bold text-slate-900 dark:text-white">pLLM policy engine</div>
+                  <div class="text-xs font-mono text-brand-600 dark:text-brand-400">evaluating groups → rules</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mb-3">
+                <div class="bg-slate-100 dark:bg-slate-800 rounded px-2 py-1.5 text-center">
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">groups</div>
+                  <div class="text-xs font-bold text-slate-900 dark:text-white font-mono">2</div>
+                </div>
+                <div class="bg-slate-100 dark:bg-slate-800 rounded px-2 py-1.5 text-center">
+                  <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400">rules matched</div>
+                  <div class="text-xs font-bold text-slate-900 dark:text-white font-mono">14</div>
+                </div>
+              </div>
+              <div class="space-y-1.5 text-xs font-mono">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span class="text-slate-600 dark:text-slate-400">ad:Analysts</span>
+                  <span class="ml-auto text-emerald-600 dark:text-emerald-400">allow</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span class="text-slate-600 dark:text-slate-400">ad:All-Employees</span>
+                  <span class="ml-auto text-emerald-600 dark:text-emerald-400">allow</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  <span class="text-slate-600 dark:text-slate-400">ad:Finance-Ops</span>
+                  <span class="ml-auto text-red-600 dark:text-red-400">deny</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-center">
+          <svg class="w-8 h-8 text-slate-400 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </div>
+
+        <!-- Access decision -->
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">03 · Access</div>
+          <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-lg bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                <iconify-icon icon="solar:check-square-bold-duotone" width="20" height="20"></iconify-icon>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-slate-900 dark:text-white">Resolved scope</div>
+                <div class="text-xs font-mono text-slate-500 dark:text-slate-400">what sarah can use</div>
+              </div>
+            </div>
+            <div class="space-y-1.5 text-xs font-mono">
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:cpu-bolt-bold-duotone" width="12" height="12" class="text-brand-500 flex-shrink-0"></iconify-icon>
+                <span class="text-slate-600 dark:text-slate-400 truncate">claude-4.6-sonnet</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:database-bold-duotone" width="12" height="12" class="text-brand-500 flex-shrink-0"></iconify-icon>
+                <span class="text-slate-600 dark:text-slate-400 truncate">mcp://snowflake</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:robot-bold-duotone" width="12" height="12" class="text-brand-500 flex-shrink-0"></iconify-icon>
+                <span class="text-slate-600 dark:text-slate-400 truncate">agents/sql-analyst</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <iconify-icon icon="solar:magic-stick-3-bold-duotone" width="12" height="12" class="text-brand-500 flex-shrink-0"></iconify-icon>
+                <span class="text-slate-600 dark:text-slate-400 truncate">skills/summarize-document</span>
+              </div>
+              <div class="border-t border-slate-200 dark:border-slate-700 pt-1.5 mt-2">
+                <div class="flex items-center gap-2">
+                  <iconify-icon icon="solar:close-circle-bold-duotone" width="12" height="12" class="text-red-500 flex-shrink-0"></iconify-icon>
+                  <span class="text-slate-400 line-through truncate">mcp://sap</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <iconify-icon icon="solar:close-circle-bold-duotone" width="12" height="12" class="text-red-500 flex-shrink-0"></iconify-icon>
+                  <span class="text-slate-400 line-through truncate">agents/finance-bot</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer bar -->
+      <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:lock-keyhole-minimalistic-bold-duotone" width="14" height="14"></iconify-icon>
+          policy evaluated per request · &lt; 2ms overhead
+        </span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:document-text-bold-duotone" width="14" height="14"></iconify-icon>
+          every decision logged to audit trail
+        </span>
+      </div>
+    </div>
+
+    <!-- Identity providers strip -->
+    <div class="mb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-1">works with what you have</div>
+          <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Identity providers</h3>
+        </div>
+        <span class="text-xs font-mono text-slate-500 dark:text-slate-400">OIDC · SAML · LDAP · OAuth 2.0</span>
+      </div>
+
+      <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3">
+        {[
+          { name: "Entra ID", icon: "logos:microsoft-icon" },
+          { name: "Active Directory", icon: "solar:server-square-bold-duotone", fallback: true },
+          { name: "Okta", icon: "logos:okta-icon" },
+          { name: "Auth0", icon: "logos:auth0-icon" },
+          { name: "Google", icon: "logos:google-icon" },
+          { name: "GitHub", icon: "logos:github-icon" },
+          { name: "AWS IAM", icon: "logos:aws" },
+          { name: "Keycloak", icon: "solar:key-bold-duotone", fallback: true },
+          { name: "LDAP", icon: "solar:users-group-rounded-bold-duotone", fallback: true },
+        ].map((p) => (
+          <div class="card p-3 flex flex-col items-center justify-center gap-2 aspect-square sm:aspect-auto sm:py-4">
+            {p.fallback ? (
+              <iconify-icon icon={p.icon} width="24" height="24" class="text-slate-600 dark:text-slate-400"></iconify-icon>
+            ) : (
+              <iconify-icon icon={p.icon} width="24" height="24"></iconify-icon>
+            )}
+            <div class="text-[11px] font-medium text-slate-700 dark:text-slate-300 text-center leading-tight">{p.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Persona cards -->
+    <div class="mb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            Different groups, different gateways.
+          </h3>
+          <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+            Three people hit the same URL — three completely different surfaces. Scope is derived from AD groups,
+            not hand-maintained lists.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {personas.map((p) => (
+          <div class="card p-6">
+            <div class="flex items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center">
+                <iconify-icon icon={p.avatar} width="24" height="24" class="text-slate-700 dark:text-slate-300"></iconify-icon>
+              </div>
+              <div class="min-w-0">
+                <div class="font-bold text-slate-900 dark:text-white">{p.name}</div>
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {p.groups.map((g) => (
+                    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/10 text-brand-700 dark:text-brand-300">{g}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="text-xs font-mono tracking-wider uppercase text-emerald-600 dark:text-emerald-400 mb-2 flex items-center gap-1.5">
+                <iconify-icon icon="solar:check-square-bold-duotone" width="12" height="12"></iconify-icon>
+                can use
+              </div>
+              <div class="space-y-1.5">
+                {p.allows.map((item) => (
+                  <div class="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300">
+                    <iconify-icon icon={item.icon} width="14" height="14" class="text-slate-500 dark:text-slate-400 flex-shrink-0"></iconify-icon>
+                    <span class="truncate">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs font-mono tracking-wider uppercase text-red-500 dark:text-red-400 mb-2 flex items-center gap-1.5">
+                <iconify-icon icon="solar:close-square-bold-duotone" width="12" height="12"></iconify-icon>
+                blocked
+              </div>
+              <div class="space-y-1.5">
+                {p.denies.map((item) => (
+                  <div class="flex items-center gap-2 text-xs font-mono text-slate-400 dark:text-slate-500 line-through">
+                    <iconify-icon icon={item.icon} width="14" height="14" class="flex-shrink-0"></iconify-icon>
+                    <span class="truncate">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Policy catalog -->
+    <div class="mb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            Policies, not snowflakes.
+          </h3>
+          <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+            Six core policy primitives cover 95% of what enterprises actually need. Compose them.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {policyExamples.map((policy) => (
+          <div class="card card-hover p-6 group">
+            <div class="flex items-start gap-4 mb-3">
+              <div class="w-11 h-11 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 group-hover:bg-brand-500/15 transition-colors">
+                <iconify-icon icon={policy.icon} width="22" height="22" class="text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors"></iconify-icon>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-bold text-slate-900 dark:text-white mb-1" set:html={policy.title}></h4>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed" set:html={policy.description}></p>
+              </div>
+            </div>
+            <div class="mt-3 px-3 py-2 rounded-md bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+              <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-1">example</div>
+              <code class="text-xs font-mono text-slate-700 dark:text-slate-300">{policy.example}</code>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Policy-as-code + instrumentation -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Policy YAML -->
+      <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-900 dark:bg-slate-950 overflow-hidden">
+        <div class="flex items-center justify-between bg-slate-800/50 border-b border-slate-700 px-4 py-2.5">
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-400/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400/70"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/70"></span>
+            </div>
+            <span class="ml-3 text-xs font-mono text-slate-400">policies/org.yaml</span>
+          </div>
+          <span class="text-xs font-mono text-brand-400">policy-as-code</span>
+        </div>
+        <pre class="text-xs sm:text-sm leading-relaxed p-5 overflow-x-auto"><code class="font-mono"><span class="text-slate-500"># bind AD groups to capabilities</span>
+<span class="text-purple-400">policies</span><span class="text-slate-300">:</span>
+
+  - <span class="text-purple-400">match</span><span class="text-slate-300">: </span><span class="text-emerald-400">ad:Engineers</span>
+    <span class="text-purple-400">allow</span><span class="text-slate-300">:</span>
+      <span class="text-purple-400">models</span><span class="text-slate-300">: [</span><span class="text-amber-300">claude-4.6-*</span><span class="text-slate-300">, </span><span class="text-amber-300">gpt-5</span><span class="text-slate-300">]</span>
+      <span class="text-purple-400">mcp</span><span class="text-slate-300">:     [</span><span class="text-amber-300">github</span><span class="text-slate-300">, </span><span class="text-amber-300">jira</span><span class="text-slate-300">, </span><span class="text-amber-300">internal-rag</span><span class="text-slate-300">]</span>
+      <span class="text-purple-400">agents</span><span class="text-slate-300">:  [</span><span class="text-amber-300">release-captain</span><span class="text-slate-300">, </span><span class="text-amber-300">*</span><span class="text-slate-300">]</span>
+    <span class="text-purple-400">budget</span><span class="text-slate-300">: </span><span class="text-amber-300">$2000/month</span>
+    <span class="text-purple-400">rate</span><span class="text-slate-300">: </span><span class="text-amber-300">200rps</span>
+
+  - <span class="text-purple-400">match</span><span class="text-slate-300">: </span><span class="text-emerald-400">ad:Finance-Ops</span>
+    <span class="text-purple-400">allow</span><span class="text-slate-300">:</span>
+      <span class="text-purple-400">models</span><span class="text-slate-300">: [</span><span class="text-amber-300">gpt-5</span><span class="text-slate-300">, </span><span class="text-amber-300">claude-4.6-sonnet</span><span class="text-slate-300">]</span>
+      <span class="text-purple-400">mcp</span><span class="text-slate-300">:     [</span><span class="text-amber-300">sap</span><span class="text-slate-300">]</span>
+      <span class="text-purple-400">agents</span><span class="text-slate-300">:  [</span><span class="text-amber-300">finance-bot</span><span class="text-slate-300">]</span>
+    <span class="text-purple-400">guardrails</span><span class="text-slate-300">:</span>
+      - <span class="text-amber-300">presidio-pii</span>
+      - <span class="text-amber-300">sap-data-egress</span>
+
+  - <span class="text-purple-400">match</span><span class="text-slate-300">: </span><span class="text-emerald-400">ad:Contractors</span>
+    <span class="text-purple-400">allow</span><span class="text-slate-300">:</span>
+      <span class="text-purple-400">models</span><span class="text-slate-300">: [</span><span class="text-amber-300">gpt-4.1-mini</span><span class="text-slate-300">]</span>
+      <span class="text-purple-400">mcp</span><span class="text-slate-300">:     []  </span><span class="text-slate-500"># no tool access</span>
+    <span class="text-purple-400">budget</span><span class="text-slate-300">: </span><span class="text-amber-300">$25/month</span>
+</code></pre>
+      </div>
+
+      <!-- Instrumentation panel -->
+      <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 px-5 py-3">
+          <div class="flex items-center gap-2">
+            <iconify-icon icon="solar:graph-up-bold-duotone" width="18" height="18" class="text-brand-500"></iconify-icon>
+            <span class="font-semibold text-slate-900 dark:text-white text-sm">Live audit stream</span>
+          </div>
+          <span class="text-xs font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            streaming
+          </span>
+        </div>
+
+        <div class="p-5 space-y-3 font-mono text-xs">
+          <!-- Log row -->
+          <div class="flex items-start gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">ALLOW</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-slate-700 dark:text-slate-300">
+                <span class="text-slate-500 dark:text-slate-400">sarah@acme.com</span>
+                →
+                <span class="text-brand-600 dark:text-brand-400">agents/sql-analyst</span>
+              </div>
+              <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">matched ad:Analysts · p95=84ms · $0.0042</div>
+            </div>
+            <span class="text-slate-400 dark:text-slate-500 whitespace-nowrap">2s ago</span>
+          </div>
+
+          <div class="flex items-start gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-red-600 dark:text-red-400 mt-0.5">DENY&nbsp;</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-slate-700 dark:text-slate-300">
+                <span class="text-slate-500 dark:text-slate-400">sarah@acme.com</span>
+                →
+                <span class="text-brand-600 dark:text-brand-400">mcp://sap/get_invoice</span>
+              </div>
+              <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">not in ad:Finance-Ops · blocked by policy</div>
+            </div>
+            <span class="text-slate-400 dark:text-slate-500 whitespace-nowrap">4s ago</span>
+          </div>
+
+          <div class="flex items-start gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-amber-600 dark:text-amber-400 mt-0.5">MASK&nbsp;</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-slate-700 dark:text-slate-300">
+                <span class="text-slate-500 dark:text-slate-400">marcus@acme.com</span>
+                →
+                <span class="text-brand-600 dark:text-brand-400">claude-4.6-opus</span>
+              </div>
+              <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">presidio-pii masked 2 emails, 1 phone</div>
+            </div>
+            <span class="text-slate-400 dark:text-slate-500 whitespace-nowrap">6s ago</span>
+          </div>
+
+          <div class="flex items-start gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-emerald-600 dark:text-emerald-400 mt-0.5">ALLOW</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-slate-700 dark:text-slate-300">
+                <span class="text-slate-500 dark:text-slate-400">priya@acme.com</span>
+                →
+                <span class="text-brand-600 dark:text-brand-400">agents/finance-bot</span>
+              </div>
+              <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">matched ad:Finance-Ops · tool=mcp://sap/query_gl</div>
+            </div>
+            <span class="text-slate-400 dark:text-slate-500 whitespace-nowrap">9s ago</span>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <span class="text-amber-600 dark:text-amber-400 mt-0.5">QUOTA</span>
+            <div class="flex-1 min-w-0">
+              <div class="text-slate-700 dark:text-slate-300">
+                <span class="text-slate-500 dark:text-slate-400">ad:Contractors</span>
+                →
+                <span class="text-brand-600 dark:text-brand-400">budget=80%</span>
+              </div>
+              <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">soft limit hit · throttling to 50 rpm</div>
+            </div>
+            <span class="text-slate-400 dark:text-slate-500 whitespace-nowrap">12s ago</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 px-5 py-3 grid grid-cols-3 gap-3 text-center">
+          <div>
+            <div class="text-lg font-bold text-slate-900 dark:text-white">98.7%</div>
+            <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">allow rate</div>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900 dark:text-white">&lt;2ms</div>
+            <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">policy eval</div>
+          </div>
+          <div>
+            <div class="text-lg font-bold text-slate-900 dark:text-white">100%</div>
+            <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">audited</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,372 +1,361 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 
+interface Consumer {
+  name: string;
+  sub: string;
+  icon: string;
+}
+
+interface Resource {
+  name: string;
+  icon: string;
+  status?: "healthy" | "degraded" | "failed";
+  uptime?: string;
+}
+
+interface CoreLayer {
+  name: string;
+  icon: string;
+  note: string;
+}
+
+const consumers: Consumer[] = [
+  { name: "IDE agents", sub: "Cursor · Zed · Continue", icon: "solar:code-square-bold-duotone" },
+  { name: "Chat clients", sub: "Internal ChatGPT · Teams", icon: "solar:chat-round-dots-bold-duotone" },
+  { name: "Backend apps", sub: "Python · Node.js · Go", icon: "solar:programming-bold-duotone" },
+  { name: "Autonomous agents", sub: "LangGraph · CrewAI", icon: "solar:bolt-circle-bold-duotone" },
+];
+
+const coreLayers: CoreLayer[] = [
+  { name: "Auth", icon: "solar:shield-user-bold-duotone", note: "SSO · group sync" },
+  { name: "Policy", icon: "solar:shield-keyhole-bold-duotone", note: "AD-group RBAC" },
+  { name: "Registry", icon: "solar:widget-bold-duotone", note: "agents · skills · prompts" },
+  { name: "Router", icon: "solar:routing-2-bold-duotone", note: "latency-aware" },
+  { name: "Guardrails", icon: "solar:shield-check-bold-duotone", note: "PII · injection · moderation" },
+  { name: "Audit", icon: "solar:document-text-bold-duotone", note: "every call logged" },
+];
+
+const llmProviders: Resource[] = [
+  { name: "OpenAI", icon: "logos:openai-icon", status: "healthy", uptime: "99.9%" },
+  { name: "Anthropic", icon: "logos:anthropic-icon", status: "healthy", uptime: "99.9%" },
+  { name: "Azure OpenAI", icon: "logos:microsoft-azure", status: "degraded", uptime: "92.1%" },
+  { name: "AWS Bedrock", icon: "logos:aws", status: "healthy", uptime: "99.8%" },
+  { name: "Google Vertex", icon: "logos:google-cloud", status: "healthy", uptime: "99.7%" },
+  { name: "Meta Llama", icon: "logos:meta-icon", status: "healthy", uptime: "99.6%" },
+];
+
+const mcpServers: Resource[] = [
+  { name: "GitHub", icon: "logos:github-icon", status: "healthy" },
+  { name: "Jira", icon: "logos:jira", status: "healthy" },
+  { name: "Snowflake", icon: "logos:snowflake-icon", status: "degraded" },
+  { name: "PostgreSQL", icon: "logos:postgresql", status: "healthy" },
+];
+
+const idProviders: Resource[] = [
+  { name: "Entra ID", icon: "logos:microsoft-icon" },
+  { name: "Okta", icon: "logos:okta-icon" },
+  { name: "Active Directory", icon: "solar:server-square-bold-duotone" },
+];
+
+const statusDot: Record<string, string> = {
+  healthy: "bg-emerald-500",
+  degraded: "bg-amber-500",
+  failed: "bg-red-500",
+};
+
 const ArchitectureDiagram: React.FC = () => {
   return (
-    <div className="relative w-full max-w-6xl mx-auto bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
-      <div className="relative">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-200">
-            System Architecture
-          </h3>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto transition-colors duration-200">
-            Enterprise-grade architecture designed for high availability,
-            scalability, and performance
-          </p>
-        </div>
+    <div className="relative w-full max-w-7xl mx-auto">
+      {/* Background panel */}
+      <div className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white to-slate-50 dark:from-slate-900 dark:to-slate-950 p-6 sm:p-10 overflow-hidden">
+        {/* Grid pattern */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        {/* Glow */}
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full bg-brand-500/10 dark:bg-brand-500/20 blur-[100px]" />
 
-        {/* Architecture Flow */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-center">
-          {/* Client Layer */}
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
-                Client Layer
-              </h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
-                Applications & Services
-              </p>
+        <div className="relative">
+          {/* Label row */}
+          <div className="grid grid-cols-3 gap-4 lg:gap-8 mb-8">
+            <div>
+              <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-slate-500 dark:text-slate-400 mb-1">
+                01 · Consumers
+              </div>
+              <div className="h-px bg-gradient-to-r from-slate-300 to-transparent dark:from-slate-700"></div>
             </div>
+            <div className="text-center">
+              <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-brand-600 dark:text-brand-400 mb-1">
+                02 · pLLM Control Plane
+              </div>
+              <div className="h-px bg-gradient-to-r from-transparent via-brand-500/50 to-transparent"></div>
+            </div>
+            <div className="text-right">
+              <div className="text-[10px] font-mono tracking-[0.2em] uppercase text-slate-500 dark:text-slate-400 mb-1">
+                03 · Managed Resources
+              </div>
+              <div className="h-px bg-gradient-to-l from-slate-300 to-transparent dark:from-slate-700 ml-auto"></div>
+            </div>
+          </div>
 
-            <div className="space-y-4">
-              {[
-                {
-                  name: "Web Applications",
-                  icon: "🌐",
-                  desc: "React, Vue, Angular",
-                },
-                {
-                  name: "Mobile Apps",
-                  icon: "📱",
-                  desc: "iOS, Android, React Native",
-                },
-                {
-                  name: "Backend Services",
-                  icon: "⚙️",
-                  desc: "Node.js, Python, Go",
-                },
-                {
-                  name: "AI Platforms",
-                  icon: "🤖",
-                  desc: "LangChain, AutoGPT",
-                },
-              ].map((client, index) => (
+          {/* Main grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-10 items-start">
+            {/* Consumers column */}
+            <div className="space-y-2.5">
+              {consumers.map((c) => (
                 <div
-                  key={index}
-                  className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
+                  key={c.name}
+                  className="group relative flex items-center gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-3 hover:border-brand-500/50 dark:hover:border-brand-400/50 transition-colors"
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-blue-50 dark:bg-slate-700 rounded-xl flex items-center justify-center text-lg transition-colors duration-200">
-                      {client.icon}
+                  <div className="w-9 h-9 rounded-md bg-slate-50 dark:bg-slate-800/80 flex items-center justify-center flex-shrink-0 border border-slate-200/70 dark:border-slate-700/70">
+                    <Icon icon={c.icon} className="w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                      {c.name}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-slate-900 dark:text-white text-sm transition-colors duration-200">
-                        {client.name}
-                      </p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate transition-colors duration-200">
-                        {client.desc}
-                      </p>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate">
+                      {c.sub}
                     </div>
                   </div>
+                  {/* Connector dot → on wide screens */}
+                  <span className="hidden lg:block absolute -right-5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-brand-500/40 group-hover:bg-brand-500 transition-colors"></span>
                 </div>
               ))}
             </div>
 
-            {/* Arrow */}
-            <div className="hidden lg:block absolute left-full top-1/2 transform -translate-y-1/2 ml-4">
-              <div className="flex items-center">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500"></div>
-                <div className="w-3 h-3 bg-purple-500 rounded-full transform rotate-45 ml-2"></div>
-              </div>
-            </div>
-          </div>
+            {/* Center: pLLM core */}
+            <div className="relative lg:w-[280px]">
+              {/* Outer glow ring */}
+              <div className="absolute inset-0 -m-2 rounded-2xl bg-gradient-to-b from-brand-500/10 via-brand-500/5 to-accent-500/10 blur-xl"></div>
 
-          {/* pLLM Gateway Layer */}
-          <div className="relative">
-            <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
-                pLLM Gateway
-              </h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
-                Intelligent Routing Engine
-              </p>
-            </div>
-
-            <div className="bg-brand-600 rounded-xl p-8 text-white">
-              {/* Main Gateway */}
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-8 h-8"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 2L2 7v10c0 5.55 3.84 9.95 9 11 5.16-1.05 9-5.45 9-11V7l-10-5z" />
-                  </svg>
-                </div>
-                <h5 className="font-bold text-lg mb-2">Core Gateway</h5>
-                <p className="text-purple-100 text-sm">
-                  High-performance Go runtime
-                </p>
-              </div>
-
-              {/* Gateway Components */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                {[
-                  { name: "Router", desc: "Chi HTTP Router" },
-                  { name: "Auth", desc: "JWT & RBAC" },
-                  { name: "Cache", desc: "Redis Layer" },
-                  { name: "Monitor", desc: "Metrics & Logs" },
-                ].map((component, index) => (
-                  <div
-                    key={index}
-                    className="bg-white/10 rounded-xl p-3 "
-                  >
-                    <p className="font-semibold text-sm mb-1">
-                      {component.name}
-                    </p>
-                    <p className="text-xs text-purple-200">{component.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Load Balancer */}
-              <div className="bg-white/10 rounded-xl p-4 ">
-                <div className="flex items-center justify-center space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                    </svg>
-                  </div>
-                  <span className="font-semibold">
-                    Intelligent Load Balancer
-                  </span>
-                </div>
-                <div className="grid grid-cols-3 gap-2 text-xs">
-                  <div className="text-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full mx-auto mb-1"></div>
-                    <span className="text-purple-200">Round Robin</span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full mx-auto mb-1"></div>
-                    <span className="text-purple-200">Least Busy</span>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mx-auto mb-1"></div>
-                    <span className="text-purple-200">Weighted</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Arrow */}
-            <div className="hidden lg:block absolute left-full top-1/2 transform -translate-y-1/2 ml-4">
-              <div className="flex items-center">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-purple-500 to-green-400"></div>
-                <div className="w-3 h-3 bg-green-400 rounded-full transform rotate-45 ml-2"></div>
-              </div>
-            </div>
-          </div>
-
-          {/* Provider Layer */}
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-              <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
-                Provider Layer
-              </h4>
-              <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
-                LLM Service Providers
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                {
-                  name: "OpenAI",
-                  icon: "logos:openai-icon",
-                  color: "from-green-500 to-green-600",
-                  status: "healthy",
-                },
-                {
-                  name: "Anthropic",
-                  icon: "logos:anthropic-icon",
-                  color: "from-orange-500 to-orange-600",
-                  status: "healthy",
-                },
-                {
-                  name: "Azure OpenAI",
-                  icon: "logos:microsoft-azure",
-                  color: "from-blue-500 to-blue-600",
-                  status: "degraded",
-                },
-                {
-                  name: "AWS Bedrock",
-                  icon: "logos:aws",
-                  color: "from-yellow-500 to-orange-500",
-                  status: "healthy",
-                },
-                {
-                  name: "Google Vertex",
-                  icon: "logos:google-cloud",
-                  color: "from-blue-400 to-blue-500",
-                  status: "healthy",
-                },
-                {
-                  name: "Llama",
-                  icon: "logos:meta-icon",
-                  color: "from-purple-500 to-purple-600",
-                  status: "failed",
-                },
-              ].map((provider, index) => (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 hover:shadow-md transition-all duration-200"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-slate-50 dark:bg-slate-700 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-600 transition-colors duration-200">
-                        <Icon
-                          icon={provider.icon}
-                          className="w-8 h-8 text-slate-700 dark:text-slate-300"
-                        />
+              <div className="relative rounded-xl border-2 border-brand-500/40 dark:border-brand-400/40 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
+                {/* Header */}
+                <div className="relative bg-gradient-to-b from-brand-500/5 to-transparent dark:from-brand-500/15 border-b border-brand-500/20 dark:border-brand-400/20 px-5 py-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src="/robot.png"
+                      alt="pLLM"
+                      className="w-9 h-9 rounded-lg flex-shrink-0"
+                    />
+                    <div className="min-w-0">
+                      <div className="font-bold text-slate-900 dark:text-white">
+                        pLLM
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-slate-900 dark:text-white text-sm transition-colors duration-200">
-                          {provider.name}
-                        </p>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <div
-                            className={`w-2 h-2 rounded-full ${
-                              provider.status === "healthy"
-                                ? "bg-green-500"
-                                : provider.status === "degraded"
-                                  ? "bg-yellow-500"
-                                  : "bg-red-500"
-                            }`}
-                          ></div>
-                          <p
-                            className={`text-xs capitalize ${
-                              provider.status === "healthy"
-                                ? "text-green-600"
-                                : provider.status === "degraded"
-                                  ? "text-yellow-600"
-                                  : "text-red-600"
-                            }`}
-                          >
-                            {provider.status}
-                          </p>
+                      <div className="text-[10px] font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400">
+                        single Go binary
+                      </div>
+                    </div>
+                    <span className="ml-auto flex items-center gap-1 text-[10px] font-mono text-emerald-600 dark:text-emerald-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      live
+                    </span>
+                  </div>
+                </div>
+
+                {/* Core layers stack */}
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {coreLayers.map((layer, i) => (
+                    <div
+                      key={layer.name}
+                      className="flex items-center gap-3 px-5 py-3 hover:bg-brand-500/[0.03] dark:hover:bg-brand-500/[0.08] transition-colors"
+                    >
+                      <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 tabular-nums w-4">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <Icon
+                        icon={layer.icon}
+                        className="w-4 h-4 text-brand-600 dark:text-brand-400 flex-shrink-0"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                          {layer.name}
+                        </div>
+                        <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">
+                          {layer.note}
                         </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
-                        {provider.status === "healthy"
-                          ? "99.9%"
-                          : provider.status === "degraded"
-                            ? "85.2%"
-                            : "0%"}
-                      </p>
-                      <p className="text-xs text-slate-400 dark:text-slate-500 transition-colors duration-200">
-                        uptime
-                      </p>
+                  ))}
+                </div>
+
+                {/* Footer metrics */}
+                <div className="bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 px-5 py-3 grid grid-cols-3 gap-2 text-center">
+                  <div>
+                    <div className="text-sm font-bold text-slate-900 dark:text-white">
+                      &lt;1ms
+                    </div>
+                    <div className="text-[9px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+                      overhead
+                    </div>
+                  </div>
+                  <div className="border-x border-slate-200 dark:border-slate-700">
+                    <div className="text-sm font-bold text-slate-900 dark:text-white">
+                      12k+
+                    </div>
+                    <div className="text-[9px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+                      rps / node
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-slate-900 dark:text-white">
+                      65MB
+                    </div>
+                    <div className="text-[9px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+                      memory
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Left/right connector dots for wide screens */}
+              <span className="hidden lg:block absolute top-1/2 -left-3 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-brand-500 shadow-[0_0_12px_rgba(20,184,166,0.6)]"></span>
+              <span className="hidden lg:block absolute top-1/2 -right-3 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-brand-500 shadow-[0_0_12px_rgba(20,184,166,0.6)]"></span>
             </div>
-          </div>
-        </div>
 
-        {/* Data Flow Indicators */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-600 transition-colors duration-200">
-          <div className="text-center mb-6">
-            <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
-              Data Flow & Features
-            </h5>
-            <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
-              Real-time monitoring and intelligent routing
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                name: "Circuit Breaker",
-                icon: "solar:restart-circle-bold-duotone",
-                desc: "Automatic failover protection",
-                color: "text-amber-500",
-              },
-              {
-                name: "Health Checks",
-                icon: "solar:heart-pulse-bold-duotone",
-                desc: "Continuous monitoring",
-                color: "text-red-500",
-              },
-              {
-                name: "Rate Limiting",
-                icon: "solar:tuning-2-bold-duotone",
-                desc: "Traffic control & quotas",
-                color: "text-green-500",
-              },
-              {
-                name: "Analytics",
-                icon: "solar:chart-square-bold-duotone",
-                desc: "Performance insights",
-                color: "text-blue-500",
-              },
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-slate-800 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-600 transition-colors duration-200"
-              >
-                <div className="text-center">
-                  <div className="flex justify-center mb-2">
-                    <Icon icon={feature.icon} className={`w-6 h-6 ${feature.color}`} />
-                  </div>
-                  <p className="font-semibold text-slate-900 dark:text-white text-sm mb-1 transition-colors duration-200">
-                    {feature.name}
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
-                    {feature.desc}
-                  </p>
+            {/* Managed resources column */}
+            <div className="space-y-6">
+              {/* LLM providers */}
+              <div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-brand-500"></span>
+                  <span className="text-[10px] font-mono tracking-wider uppercase text-slate-600 dark:text-slate-300">
+                    LLM providers
+                  </span>
+                  <span className="ml-auto text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                    {llmProviders.length}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {llmProviders.map((p) => (
+                    <div
+                      key={p.name}
+                      className="group flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-2 hover:border-brand-500/50 dark:hover:border-brand-400/50 transition-colors relative"
+                    >
+                      {/* Connector dot ← */}
+                      <span className="hidden lg:block absolute -left-5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-brand-500/40 group-hover:bg-brand-500 transition-colors"></span>
+                      <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center flex-shrink-0 border border-slate-200 dark:border-slate-600">
+                        <Icon icon={p.icon} className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                          {p.name}
+                        </div>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${statusDot[p.status || "healthy"]}`}
+                          ></span>
+                          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                            {p.uptime}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Performance Metrics */}
-        <div className="mt-8 bg-slate-100 dark:bg-slate-800/50 rounded-xl p-6 border border-slate-200 dark:border-slate-700 transition-colors duration-200">
-          <div className="text-center mb-6">
-            <h5 className="text-lg font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200">
-              Live Performance Metrics
-            </h5>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                metric: "1000+",
-                label: "Requests/sec",
-                color: "text-blue-600",
-              },
-              { metric: "<1ms", label: "Latency", color: "text-green-600" },
-              { metric: "99.9%", label: "Uptime", color: "text-purple-600" },
-              { metric: "65MB", label: "Memory", color: "text-orange-600" },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className={`text-2xl font-bold ${stat.color} mb-1`}>
-                  {stat.metric}
-                </p>
-                <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-200">
-                  {stat.label}
-                </p>
+              {/* MCP servers */}
+              <div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-500"></span>
+                  <span className="text-[10px] font-mono tracking-wider uppercase text-slate-600 dark:text-slate-300">
+                    MCP servers
+                  </span>
+                  <span className="ml-auto text-[10px] font-mono text-slate-400 dark:text-slate-500">
+                    {mcpServers.length}+
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {mcpServers.map((p) => (
+                    <div
+                      key={p.name}
+                      className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-2.5 py-2 hover:border-accent-500/50 dark:hover:border-accent-400/50 transition-colors"
+                    >
+                      <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center flex-shrink-0 border border-slate-200 dark:border-slate-600">
+                        <Icon icon={p.icon} className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                          {p.name}
+                        </div>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${statusDot[p.status || "healthy"]}`}
+                          ></span>
+                          <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 capitalize">
+                            {p.status}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+
+              {/* Identity providers */}
+              <div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                  <span className="text-[10px] font-mono tracking-wider uppercase text-slate-600 dark:text-slate-300">
+                    Identity
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {idProviders.map((p) => (
+                    <div
+                      key={p.name}
+                      className="flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 pl-1.5 pr-2 py-1"
+                    >
+                      <div className="w-5 h-5 rounded bg-white flex items-center justify-center border border-slate-200 dark:border-slate-600">
+                        <Icon
+                          icon={p.icon}
+                          className="w-3 h-3 text-slate-700"
+                        />
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-700 dark:text-slate-300">
+                        {p.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom control-plane bar */}
+          <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <Icon
+                  icon="solar:cpu-bolt-bold-duotone"
+                  className="w-4 h-4 text-brand-500"
+                />
+                <span className="text-xs font-mono text-slate-600 dark:text-slate-400">
+                  single control plane · zero sidecars · zero python runtime
+                </span>
+              </div>
+              <div className="flex flex-wrap items-center gap-4 text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  healthy
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                  degraded
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                  failed
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

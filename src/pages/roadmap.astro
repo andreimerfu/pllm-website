@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import RoadmapQuarters from "../components/RoadmapQuarters.astro";
+import "../styles/global.css";
+---
+
+<Layout
+  title="Roadmap — pLLM"
+  description="pLLM 2026 roadmap: MCP Gateway GA, Agent Registry, Skills &amp; Prompt Registry, AD / Entra governance, Guardrails 2.0, unified observability."
+>
+  <Navigation />
+  <main>
+    <!-- Breadcrumb -->
+    <div class="pt-24 pb-0 bg-white dark:bg-slate-900">
+      <div class="container-page">
+        <nav class="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 pb-2">
+          <a href="/" class="hover:text-slate-900 dark:hover:text-white transition-colors">pLLM</a>
+          <span>/</span>
+          <span class="text-slate-900 dark:text-white">roadmap</span>
+        </nav>
+      </div>
+    </div>
+
+    <RoadmapQuarters />
+  </main>
+  <Footer />
+</Layout>

@@ -5,349 +5,541 @@ import '../styles/prism.css';
 const configExample = `guardrails:
   enabled: true
   guardrails:
-    # Pre-call: Mask PII before sending to LLM
-    - guardrail_name: "presidio-pii-detection"
+    # Pre-call: Mask PII before it reaches the model
+    - guardrail_name: "presidio-pii"
       provider: "presidio"
       mode: ["pre_call", "logging_only"]
       enabled: true
       config:
         analyzer_url: "http://presidio-analyzer:3000"
-        anonymizer_url: "http://presidio-anonymizer:3000"
-        entities:
-          - PERSON
-          - EMAIL_ADDRESS
-          - PHONE_NUMBER
-          - CREDIT_CARD
-          - SSN
+        entities: [PERSON, EMAIL_ADDRESS, PHONE_NUMBER, CREDIT_CARD, SSN]
         threshold: 0.7
         mask_pii: true
-        language: "en"
 
-    # Post-call: Detect PII leaked in responses
-    - guardrail_name: "presidio-pii-response-scan"
+    # Post-call: Scan model output for leaked PII
+    - guardrail_name: "presidio-response-scan"
       provider: "presidio"
       mode: ["post_call"]
       enabled: true
       config:
         threshold: 0.8`;
 
-const modes = [
+const scoreboard = [
+  { value: "148M", label: "requests scanned", sub: "last 30d", icon: "solar:shield-check-bold-duotone", accent: "brand" },
+  { value: "2.1M", label: "PII tokens masked", sub: "pre_call", icon: "solar:lock-keyhole-bold-duotone", accent: "brand" },
+  { value: "31.4k", label: "injections blocked", sub: "threat-classifier", icon: "solar:danger-triangle-bold-duotone", accent: "amber" },
+  { value: "482", label: "compliance hits", sub: "flagged for review", icon: "solar:document-text-bold-duotone", accent: "red" },
+  { value: "99.7%", label: "allow rate", sub: "clean traffic", icon: "solar:check-square-bold-duotone", accent: "emerald" },
+];
+
+const accentMap: Record<string, { bg: string; text: string }> = {
+  brand: { bg: "bg-brand-500/10", text: "text-brand-600 dark:text-brand-400" },
+  amber: { bg: "bg-amber-500/10", text: "text-amber-600 dark:text-amber-400" },
+  red: { bg: "bg-red-500/10", text: "text-red-600 dark:text-red-400" },
+  emerald: { bg: "bg-emerald-500/10", text: "text-emerald-600 dark:text-emerald-400" },
+};
+
+const modeMatrix = [
   {
-    name: "Pre-Call",
-    tag: "pre_call",
-    description: "Intercepts and validates requests before they reach the LLM. Mask PII, block prompt injections, enforce compliance policies — all before a single token is sent.",
-    example: "User sends credit card number → pLLM masks it as [CREDIT_CARD] → LLM never sees the original",
-    color: "from-blue-500 to-indigo-600",
-    solarIcon: "solar:lock-keyhole-bold-duotone",
-    timing: "Synchronous, blocking",
+    mode: "pre_call",
+    timing: "Before the LLM call",
+    blocks: true,
+    latency: "+20–50ms",
+    bestFor: "PII masking · prompt-injection blocking · compliance gates",
+    icon: "solar:lock-keyhole-bold-duotone",
   },
   {
-    name: "Post-Call",
-    tag: "post_call",
-    description: "Scans LLM responses before they reach your users. Detect hallucinated PII, toxic content, or compliance violations in model output.",
-    example: "LLM generates a fake SSN in output → pLLM detects and flags it → logged for review",
-    color: "from-emerald-500 to-teal-600",
-    solarIcon: "solar:check-circle-bold-duotone",
-    timing: "Synchronous, non-blocking",
+    mode: "post_call",
+    timing: "After the LLM responds",
+    blocks: true,
+    latency: "+30–80ms",
+    bestFor: "Output validation · hallucinated PII scan · toxic-content detection",
+    icon: "solar:check-circle-bold-duotone",
   },
   {
-    name: "During-Call",
-    tag: "during_call",
-    description: "Runs guardrails in parallel with the LLM call for zero-latency monitoring. Ideal for background security checks that don't need to block the response.",
-    example: "While LLM processes the request → pLLM runs threat detection in background → alerts on anomalies",
-    color: "from-amber-500 to-orange-600",
-    solarIcon: "solar:bolt-circle-bold-duotone",
-    timing: "Asynchronous, non-blocking",
+    mode: "during_call",
+    timing: "Parallel to the LLM call",
+    blocks: false,
+    latency: "0ms",
+    bestFor: "Background threat monitoring · anomaly alerts · audit telemetry",
+    icon: "solar:bolt-circle-bold-duotone",
   },
   {
-    name: "Logging-Only",
-    tag: "logging_only",
-    description: "Masks sensitive data before it's stored in logs or analytics. Ensures PII never reaches your database, audit trails, or monitoring systems.",
-    example: "Request contains email → stored in logs as [EMAIL] → analytics stay PII-free",
-    color: "from-purple-500 to-violet-600",
-    solarIcon: "solar:document-text-bold-duotone",
-    timing: "Before storage",
+    mode: "logging_only",
+    timing: "Before data hits storage",
+    blocks: false,
+    latency: "0ms",
+    bestFor: "Log redaction · analytics PII scrub · chargeback compliance",
+    icon: "solar:document-text-bold-duotone",
   },
 ];
 
-const marketplaceItems = [
+const catalogGroups = [
   {
-    name: "Presidio PII Detection",
-    provider: "Microsoft Presidio",
-    status: "Available",
-    statusColor: "bg-green-500",
-    description: "Detect and mask personally identifiable information including names, emails, phone numbers, credit cards, and SSNs using Microsoft's open-source PII engine.",
-    entities: ["PERSON", "EMAIL", "PHONE", "CREDIT_CARD", "SSN", "IP_ADDRESS"],
-    color: "from-blue-500 to-blue-600",
-    solarIcon: "solar:shield-check-bold-duotone",
+    name: "PII &amp; Data Protection",
+    icon: "solar:shield-keyhole-bold-duotone",
+    items: [
+      {
+        name: "Presidio",
+        provider: "Microsoft",
+        status: "available",
+        latency: "~35ms",
+        description: "Detect and mask personally identifiable information — open-source, self-hosted, OSS MIT.",
+        entities: ["PERSON", "EMAIL", "PHONE", "CREDIT_CARD", "SSN", "IP_ADDRESS"],
+      },
+      {
+        name: "Microsoft Purview",
+        provider: "Microsoft",
+        status: "planned",
+        latency: "~80ms",
+        description: "Enterprise data-loss prevention. Surfaces protected content based on your tenant's sensitivity labels.",
+        entities: ["CONFIDENTIAL", "HIGHLY_CONFIDENTIAL", "PII", "PHI"],
+      },
+    ],
   },
   {
-    name: "Lakera Guard",
-    provider: "Lakera AI",
-    status: "Coming Soon",
-    statusColor: "bg-amber-500",
-    description: "Protect against prompt injections, jailbreaks, and other LLM-specific attacks. Real-time threat detection purpose-built for AI security.",
-    entities: ["Prompt Injection", "Jailbreak", "Data Leakage", "Toxic Content"],
-    color: "from-red-500 to-rose-600",
-    solarIcon: "solar:danger-triangle-bold-duotone",
+    name: "Prompt Security",
+    icon: "solar:danger-triangle-bold-duotone",
+    items: [
+      {
+        name: "Lakera Guard",
+        provider: "Lakera AI",
+        status: "coming_soon",
+        latency: "~40ms",
+        description: "Real-time detection of prompt injection, jailbreaks, and data leakage. Purpose-built for LLM threats.",
+        entities: ["Prompt Injection", "Jailbreak", "Data Leakage"],
+      },
+      {
+        name: "Robust Intelligence",
+        provider: "Robust Intelligence",
+        status: "planned",
+        latency: "~60ms",
+        description: "Fine-tuned classifiers for adversarial inputs, supply-chain attacks, and known-bad prompt patterns.",
+        entities: ["Adversarial", "Known-Bad", "Anomalous"],
+      },
+    ],
   },
   {
-    name: "OpenAI Moderation",
-    provider: "OpenAI",
-    status: "Coming Soon",
-    statusColor: "bg-amber-500",
-    description: "Leverage OpenAI's moderation API to classify content across categories like hate speech, violence, self-harm, and sexual content.",
-    entities: ["Hate", "Violence", "Self-Harm", "Sexual", "Harassment"],
-    color: "from-slate-600 to-slate-700",
-    solarIcon: "solar:scale-bold-duotone",
+    name: "Content Moderation",
+    icon: "solar:scale-bold-duotone",
+    items: [
+      {
+        name: "OpenAI Moderation",
+        provider: "OpenAI",
+        status: "coming_soon",
+        latency: "~90ms",
+        description: "OpenAI's moderation API for content policy violations across standard safety categories.",
+        entities: ["Hate", "Violence", "Self-Harm", "Sexual", "Harassment"],
+      },
+      {
+        name: "Perspective API",
+        provider: "Jigsaw / Google",
+        status: "planned",
+        latency: "~120ms",
+        description: "Toxicity scoring across ~20 languages. Useful for moderation and trust &amp; safety workflows.",
+        entities: ["Toxicity", "Severe Toxicity", "Insult", "Threat"],
+      },
+    ],
   },
   {
-    name: "Aporia Guardrails",
-    provider: "Aporia",
-    status: "Coming Soon",
-    statusColor: "bg-amber-500",
-    description: "Enterprise ML security and compliance platform. Monitor model behavior, detect hallucinations, and enforce organizational policies.",
-    entities: ["Hallucination", "Bias", "Policy", "Compliance"],
-    color: "from-violet-500 to-purple-600",
-    solarIcon: "solar:eye-bold-duotone",
+    name: "Enterprise Policy",
+    icon: "solar:eye-bold-duotone",
+    items: [
+      {
+        name: "Aporia",
+        provider: "Aporia",
+        status: "coming_soon",
+        latency: "~70ms",
+        description: "ML security and compliance platform. Hallucination detection, bias scoring, org policy enforcement.",
+        entities: ["Hallucination", "Bias", "Policy", "Compliance"],
+      },
+      {
+        name: "WhyLabs",
+        provider: "WhyLabs",
+        status: "planned",
+        latency: "~50ms",
+        description: "Behavioral drift detection and prompt-output profiling. Flags when traffic looks off-spec.",
+        entities: ["Drift", "Anomaly", "Profile"],
+      },
+    ],
   },
 ];
+
+const statusBadge: Record<string, string> = {
+  available: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/40",
+  coming_soon: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40",
+  planned: "bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/40",
+};
+
+const statusDot: Record<string, string> = {
+  available: "bg-emerald-500",
+  coming_soon: "bg-amber-500",
+  planned: "bg-slate-400",
+};
+
+const statusLabel: Record<string, string> = {
+  available: "available",
+  coming_soon: "coming soon",
+  planned: "planned",
+};
 ---
 
 <section id="guardrails" class="section bg-white dark:bg-slate-900 transition-colors duration-200">
   <div class="container-page">
-    <!-- Section header -->
+    <!-- Header -->
     <div class="section-header">
       <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
         <iconify-icon icon="solar:shield-check-bold-duotone" width="16" height="16"></iconify-icon>
-        Content Guardrails
+        Guardrails
       </div>
       <h2 class="section-title">
-        Protect Every Request. Secure Every Response.
+        Protect every request. Secure every response.
       </h2>
       <p class="section-description">
-        Guardrails are pluggable security filters that validate, mask, and monitor content flowing through your LLM gateway.
-        Run them before the LLM call, after, in parallel, or at logging time — each with its own purpose and behavior.
+        Pluggable security filters that plug into four stages of the request lifecycle —
+        pre-call, post-call, parallel, or log-time. One config. Every provider. Every agent.
       </p>
     </div>
 
-    <!-- Pipeline flow visual -->
-    <div class="bg-slate-900 dark:bg-slate-950 rounded-xl p-8 lg:p-12 border border-slate-700 mb-20">
-      <div class="text-center mb-10">
-        <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">
-          Request Lifecycle
-        </h3>
-        <p class="text-lg text-slate-400 max-w-2xl mx-auto">
-          Guardrails plug into four stages of the request pipeline. Each stage has different behavior — choose what makes sense for your use case.
-        </p>
+    <!-- Scoreboard strip -->
+    <div class="mb-16 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 overflow-hidden">
+      <div class="flex items-center justify-between px-5 py-3 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center gap-2 text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Live · acme-corp/production
+        </div>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-400">last 30d</div>
       </div>
+      <div class="grid grid-cols-2 lg:grid-cols-5 divide-x divide-y lg:divide-y-0 divide-slate-200 dark:divide-slate-800">
+        {scoreboard.map((s) => {
+          const a = accentMap[s.accent];
+          return (
+            <div class="p-5 flex items-start gap-3">
+              <div class={`w-9 h-9 rounded-md ${a.bg} flex items-center justify-center flex-shrink-0`}>
+                <iconify-icon icon={s.icon} width="18" height="18" class={a.text}></iconify-icon>
+              </div>
+              <div class="min-w-0">
+                <div class="text-2xl font-bold text-slate-900 dark:text-white leading-none mb-1 tabular-nums">{s.value}</div>
+                <div class="text-xs font-medium text-slate-700 dark:text-slate-300 leading-tight">{s.label}</div>
+                <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mt-0.5">{s.sub}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
 
-      <!-- Flow diagram -->
-      <div class="flex flex-col lg:flex-row items-center justify-center gap-3 lg:gap-4 text-sm mb-10">
-        <!-- User Request -->
-        <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[180px] bg-slate-800 text-white rounded-xl px-5 py-4 text-center border border-slate-700">
-            <div class="text-xs text-slate-400 mb-1">Incoming</div>
-            <div class="font-bold">User Request</div>
-          </div>
+    <!-- Before / after lifecycle walkthrough -->
+    <div class="mb-20">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400 mb-2">See it work</div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Every request, scrubbed on the way in.
+          </h3>
         </div>
-
-        <svg class="w-6 h-6 text-slate-500 flex-shrink-0 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-        </svg>
-
-        <!-- Pre-Call -->
-        <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[180px] bg-brand-600 text-white rounded-xl px-5 py-4 text-center">
-            <div class="text-xs text-blue-200 mb-1">Stage 1</div>
-            <div class="font-bold">Pre-Call</div>
-            <div class="text-xs text-blue-200 mt-1">mask & validate</div>
-          </div>
-        </div>
-
-        <svg class="w-6 h-6 text-slate-500 flex-shrink-0 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-        </svg>
-
-        <!-- LLM Call -->
-        <div class="flex flex-col items-center gap-2 min-w-0 relative">
-          <div class="w-full max-w-[180px] bg-white dark:bg-slate-700 rounded-xl px-5 py-4 text-center border-2 border-brand-500">
-            <div class="text-xs text-slate-500 dark:text-slate-400 mb-1">Processing</div>
-            <div class="font-bold text-slate-900 dark:text-white">LLM Provider</div>
-            <div class="text-xs text-brand-600 dark:text-brand-400 mt-1">GPT-4o / Claude / etc.</div>
-          </div>
-          <!-- During-call indicator -->
-          <div class="hidden lg:block absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-            <span class="text-xs text-amber-400 font-mono flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-              during-call runs in parallel
-            </span>
-          </div>
-        </div>
-
-        <svg class="w-6 h-6 text-slate-500 flex-shrink-0 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-        </svg>
-
-        <!-- Post-Call -->
-        <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[180px] bg-emerald-600 text-white rounded-xl px-5 py-4 text-center">
-            <div class="text-xs text-emerald-200 mb-1">Stage 3</div>
-            <div class="font-bold">Post-Call</div>
-            <div class="text-xs text-emerald-200 mt-1">scan & detect</div>
-          </div>
-        </div>
-
-        <svg class="w-6 h-6 text-slate-500 flex-shrink-0 rotate-90 lg:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-        </svg>
-
-        <!-- Response -->
-        <div class="flex flex-col items-center gap-2 min-w-0">
-          <div class="w-full max-w-[180px] bg-slate-800 text-white rounded-xl px-5 py-4 text-center border border-slate-700">
-            <div class="text-xs text-slate-400 mb-1">Delivered</div>
-            <div class="font-bold">Response</div>
-          </div>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            detected
+          </span>
+          &nbsp;·&nbsp;
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            masked
+          </span>
         </div>
       </div>
 
-      <!-- Logging stage note -->
-      <div class="mt-12 bg-slate-800 rounded-xl p-4 border border-slate-700 max-w-2xl mx-auto">
-        <div class="flex items-start gap-3">
-          <iconify-icon icon="solar:document-text-bold-duotone" width="20" height="20" class="text-purple-400 flex-shrink-0 mt-0.5"></iconify-icon>
-          <p class="text-sm text-slate-300">
-            <strong class="text-white">Logging-only guardrails</strong> run separately before data reaches storage. They mask sensitive content in logs and analytics without affecting the live request/response flow.
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-3 lg:gap-5 items-stretch">
+        <!-- BEFORE -->
+        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded bg-slate-200 dark:bg-slate-700 flex items-center justify-center">
+                <iconify-icon icon="solar:user-bold-duotone" width="12" height="12" class="text-slate-600 dark:text-slate-400"></iconify-icon>
+              </div>
+              <span class="text-xs font-mono text-slate-700 dark:text-slate-300">user input</span>
+            </div>
+            <span class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">raw</span>
+          </div>
+          <div class="p-5 font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            Hey — please update my profile. My email is{" "}
+            <span class="rounded bg-red-500/15 text-red-700 dark:text-red-300 px-1.5 py-0.5 border border-red-500/30">john.doe@acme.com</span>,{" "}
+            phone{" "}
+            <span class="rounded bg-red-500/15 text-red-700 dark:text-red-300 px-1.5 py-0.5 border border-red-500/30">+1 (415) 555-0142</span>{" "}
+            and card ending{" "}
+            <span class="rounded bg-red-500/15 text-red-700 dark:text-red-300 px-1.5 py-0.5 border border-red-500/30">4242-4242-4242-4242</span>.{" "}
+            SSN is{" "}
+            <span class="rounded bg-red-500/15 text-red-700 dark:text-red-300 px-1.5 py-0.5 border border-red-500/30">123-45-6789</span>.
+          </div>
+        </div>
+
+        <!-- ARROW -->
+        <div class="flex lg:flex-col items-center justify-center gap-2">
+          <div class="flex-1 lg:flex-initial lg:h-16 h-px w-full lg:w-px bg-gradient-to-r lg:bg-gradient-to-b from-slate-300 via-brand-500 to-slate-300 dark:from-slate-700 dark:via-brand-400 dark:to-slate-700"></div>
+          <div class="rounded-full border border-brand-500/40 dark:border-brand-400/40 bg-white dark:bg-slate-900 px-3 py-1.5 text-[10px] font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400 whitespace-nowrap flex items-center gap-1.5">
+            <iconify-icon icon="solar:shield-check-bold-duotone" width="12" height="12"></iconify-icon>
+            pre_call · presidio
+          </div>
+          <div class="flex-1 lg:flex-initial lg:h-16 h-px w-full lg:w-px bg-gradient-to-r lg:bg-gradient-to-b from-slate-300 via-brand-500 to-slate-300 dark:from-slate-700 dark:via-brand-400 dark:to-slate-700"></div>
+        </div>
+
+        <!-- AFTER -->
+        <div class="rounded-xl border border-brand-500/40 dark:border-brand-400/40 bg-brand-500/[0.03] dark:bg-brand-500/[0.08] overflow-hidden">
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-brand-500/20 bg-brand-500/[0.05] dark:bg-brand-500/[0.1]">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 rounded bg-brand-500/20 flex items-center justify-center">
+                <iconify-icon icon="solar:cpu-bolt-bold-duotone" width="12" height="12" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+              </div>
+              <span class="text-xs font-mono text-slate-700 dark:text-slate-300">what the LLM sees</span>
+            </div>
+            <span class="text-[10px] font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400">masked · 4 entities</span>
+          </div>
+          <div class="p-5 font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            Hey — please update my profile. My email is{" "}
+            <span class="rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 border border-emerald-500/30">[EMAIL_ADDRESS]</span>,{" "}
+            phone{" "}
+            <span class="rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 border border-emerald-500/30">[PHONE_NUMBER]</span>{" "}
+            and card ending{" "}
+            <span class="rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 border border-emerald-500/30">[CREDIT_CARD]</span>.{" "}
+            SSN is{" "}
+            <span class="rounded bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 px-1.5 py-0.5 border border-emerald-500/30">[SSN]</span>.
+          </div>
+        </div>
+      </div>
+
+      <!-- Lifecycle strip under the diff -->
+      <div class="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-4 sm:p-5">
+        <div class="text-[10px] font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">
+          full lifecycle
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          <div class="rounded-md border border-brand-500/30 bg-brand-500/[0.06] dark:bg-brand-500/[0.12] px-3 py-2.5 flex items-start gap-2">
+            <span class="text-[10px] font-mono tabular-nums text-brand-600 dark:text-brand-400 mt-0.5">01</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">pre_call</div>
+              <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">mask · validate · block</div>
+            </div>
+          </div>
+          <div class="rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-start gap-2">
+            <span class="text-[10px] font-mono tabular-nums text-slate-500 dark:text-slate-400 mt-0.5">02</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">LLM call</div>
+              <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">provider routes here</div>
+            </div>
+          </div>
+          <div class="rounded-md border border-emerald-500/30 bg-emerald-500/[0.06] dark:bg-emerald-500/[0.12] px-3 py-2.5 flex items-start gap-2">
+            <span class="text-[10px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400 mt-0.5">03</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">post_call</div>
+              <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">scan · detect · redact</div>
+            </div>
+          </div>
+          <div class="rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2.5 flex items-start gap-2">
+            <span class="text-[10px] font-mono tabular-nums text-slate-500 dark:text-slate-400 mt-0.5">04</span>
+            <div class="min-w-0">
+              <div class="text-xs font-bold text-slate-900 dark:text-white">response</div>
+              <div class="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate">delivered clean</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-4 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+          <span class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+            during_call runs in parallel with step 02 — zero latency impact
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+            logging_only runs offline before data reaches storage
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode decision matrix -->
+    <div class="mb-20">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400 mb-2">Decision guide</div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Which mode do you need?
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 mt-1">
+            A guardrail can run in one or more modes. Pick based on whether you need to block or just observe.
           </p>
         </div>
       </div>
+
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+              <tr class="text-left text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+                <th class="px-5 py-3 font-medium">Mode</th>
+                <th class="px-5 py-3 font-medium">Timing</th>
+                <th class="px-5 py-3 font-medium">Blocks?</th>
+                <th class="px-5 py-3 font-medium">Latency</th>
+                <th class="px-5 py-3 font-medium">Best for</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              {modeMatrix.map((m) => (
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                  <td class="px-5 py-4">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-7 h-7 rounded-md bg-brand-500/10 flex items-center justify-center flex-shrink-0">
+                        <iconify-icon icon={m.icon} width="14" height="14" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+                      </div>
+                      <code class="text-xs font-mono font-bold text-slate-900 dark:text-white">{m.mode}</code>
+                    </div>
+                  </td>
+                  <td class="px-5 py-4 text-slate-600 dark:text-slate-300">{m.timing}</td>
+                  <td class="px-5 py-4">
+                    {m.blocks ? (
+                      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-red-600 dark:text-red-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                        yes · synchronous
+                      </span>
+                    ) : (
+                      <span class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-600 dark:text-emerald-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        no · async
+                      </span>
+                    )}
+                  </td>
+                  <td class="px-5 py-4">
+                    <span class="inline-flex font-mono text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">{m.latency}</span>
+                  </td>
+                  <td class="px-5 py-4 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{m.bestFor}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
-    <!-- Four execution modes -->
+    <!-- Catalog -->
     <div class="mb-20">
-      <div class="text-center mb-12">
-        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-          Four Execution Modes
-        </h3>
-        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Each guardrail can run in one or more modes. The same guardrail — like PII detection — can mask data pre-call, scan responses post-call, and redact logs simultaneously.
-        </p>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+        <div>
+          <div class="text-xs font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400 mb-2">Catalog</div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Pre-built guardrails, grouped by what they protect.
+          </h3>
+          <p class="text-slate-600 dark:text-slate-400 mt-1">
+            Plug any item into any execution mode. Mix and match — most teams run 2–3 in production.
+          </p>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {modes.map((mode) => (
-          <div class="card card-hover p-6 border-l-4 border-l-brand-500">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
-                <iconify-icon icon={mode.solarIcon} width="24" height="24" class="text-slate-700 dark:text-slate-300"></iconify-icon>
+      <div class="space-y-6">
+        {catalogGroups.map((group) => (
+          <div>
+            <div class="flex items-center gap-2.5 mb-3">
+              <div class="w-7 h-7 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                <iconify-icon icon={group.icon} width="14" height="14" class="text-slate-700 dark:text-slate-300"></iconify-icon>
               </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-3 mb-1 flex-wrap">
-                  <h4 class="text-lg font-bold text-slate-900 dark:text-white">{mode.name}</h4>
-                  <code class="text-xs font-mono bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded">{mode.tag}</code>
-                </div>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3">{mode.description}</p>
-              </div>
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white" set:html={group.name}></h4>
+              <div class="flex-1 h-px bg-slate-200 dark:bg-slate-800"></div>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400">{group.items.length}</span>
             </div>
-            <div class="flex items-start gap-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl px-4 py-3">
-              <iconify-icon icon="solar:info-circle-bold-duotone" width="16" height="16" class="text-brand-500 flex-shrink-0 mt-0.5"></iconify-icon>
-              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{mode.example}</p>
-            </div>
-            <div class="mt-3 flex items-center gap-2">
-              <span class="text-xs font-medium text-slate-500 dark:text-slate-400">Execution:</span>
-              <span class="text-xs font-mono bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded">{mode.timing}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Guardrails Marketplace -->
-    <div class="mb-20">
-      <div class="text-center mb-12">
-        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-          Guardrails Marketplace
-        </h3>
-        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Choose from pre-built guardrails for common security and compliance needs. Each integrates with a leading provider and plugs into any execution mode.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {marketplaceItems.map((item) => (
-          <div class="card card-hover p-6">
-            <div class="flex items-start gap-4 mb-4">
-              <div class="w-12 h-12 rounded-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
-                <iconify-icon icon={item.solarIcon} width="24" height="24" class="text-slate-700 dark:text-slate-300"></iconify-icon>
-              </div>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-3 mb-1 flex-wrap">
-                  <h4 class="text-lg font-bold text-slate-900 dark:text-white">{item.name}</h4>
-                  <div class="flex items-center gap-1.5">
-                    <div class={`w-2 h-2 rounded-full ${item.statusColor}`}></div>
-                    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{item.status}</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {group.items.map((item) => (
+                <div class="card card-hover p-5">
+                  <div class="flex items-start justify-between gap-3 mb-2">
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap mb-1">
+                        <h5 class="font-bold text-slate-900 dark:text-white">{item.name}</h5>
+                        <span class={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${statusBadge[item.status]}`}>
+                          <span class={`w-1 h-1 rounded-full ${statusDot[item.status]}`}></span>
+                          {statusLabel[item.status]}
+                        </span>
+                      </div>
+                      <div class="text-xs font-mono text-slate-500 dark:text-slate-400">by {item.provider}</div>
+                    </div>
+                    <span class="inline-flex font-mono text-[10px] px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 whitespace-nowrap">{item.latency}</span>
+                  </div>
+                  <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-3" set:html={item.description}></p>
+                  <div class="flex flex-wrap gap-1">
+                    {item.entities.map((e) => (
+                      <span class="text-[10px] font-mono bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.5 rounded">{e}</span>
+                    ))}
                   </div>
                 </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">by {item.provider}</p>
-                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.description}</p>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-1.5 mt-3">
-              {item.entities.map((entity) => (
-                <span class="text-xs font-mono bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded">{entity}</span>
               ))}
             </div>
           </div>
         ))}
       </div>
-
-      <!-- Custom connector callout -->
-      <div class="mt-8 bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div class="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/40 flex items-center justify-center flex-shrink-0">
-            <iconify-icon icon="solar:widget-add-bold-duotone" width="24" height="24" class="text-brand-600 dark:text-brand-400"></iconify-icon>
-          </div>
-          <div class="flex-1">
-            <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Build Your Own Guardrail</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              A custom connector interface is on the roadmap — bring your own guardrail provider by implementing a simple HTTP interface. Plug in internal compliance tools, custom ML models, or any third-party service.
-            </p>
-          </div>
-          <span class="badge-brand text-xs font-semibold whitespace-nowrap">Coming Soon</span>
-        </div>
-      </div>
     </div>
 
-    <!-- Configuration example -->
-    <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-      <div class="bg-slate-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 px-6 py-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
-            <iconify-icon icon="solar:settings-bold-duotone" width="20" height="20" class="text-brand-600 dark:text-brand-400"></iconify-icon>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-slate-900 dark:text-white">Simple YAML Configuration</h4>
-            <p class="text-sm text-slate-500 dark:text-slate-400">Enable guardrails with a few lines in your config — no code changes needed</p>
-          </div>
+    <!-- Config + BYO grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <!-- YAML config -->
+      <div class="lg:col-span-3">
+        <div class="flex items-center gap-2 mb-3">
+          <iconify-icon icon="solar:settings-bold-duotone" width="16" height="16" class="text-brand-500"></iconify-icon>
+          <span class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">Configuration</span>
         </div>
-      </div>
-      <div class="p-4 sm:p-6">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
+          A few lines of YAML. No code.
+        </h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+          Enable guardrails by adding them to your <code class="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">config.yaml</code>.
+          Same guardrail, multiple modes — no duplication.
+        </p>
         <CodeBlock code={configExample} language="yaml" client:load />
       </div>
-    </div>
 
-    <!-- Key metrics -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-      <div class="card p-6 text-center">
-        <div class="text-3xl font-bold text-slate-900 dark:text-white mb-1">4</div>
-        <div class="text-sm text-slate-600 dark:text-slate-400">Execution Modes</div>
-      </div>
-      <div class="card p-6 text-center">
-        <div class="text-3xl font-bold text-slate-900 dark:text-white mb-1">&lt;50ms</div>
-        <div class="text-sm text-slate-600 dark:text-slate-400">Avg. Guardrail Latency</div>
-      </div>
-      <div class="card p-6 text-center">
-        <div class="text-3xl font-bold text-slate-900 dark:text-white mb-1">0</div>
-        <div class="text-sm text-slate-600 dark:text-slate-400">Lines of Security Code in Your App</div>
+      <!-- BYO card -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2 mb-3">
+          <iconify-icon icon="solar:widget-add-bold-duotone" width="16" height="16" class="text-accent-500"></iconify-icon>
+          <span class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">Build your own</span>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
+          Bring your own guardrail.
+        </h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+          Have an internal compliance service, a custom ML classifier, or a niche third-party provider?
+          Implement a simple HTTP interface and pLLM plugs it into the same pipeline as the built-ins.
+        </p>
+
+        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-4 space-y-3">
+          <div class="flex items-start gap-2.5">
+            <iconify-icon icon="solar:check-square-bold-duotone" width="16" height="16" class="text-brand-500 flex-shrink-0 mt-0.5"></iconify-icon>
+            <div>
+              <div class="text-sm font-semibold text-slate-900 dark:text-white">Single HTTP endpoint</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-mono">POST /check → {"{ action, entities }"}</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <iconify-icon icon="solar:check-square-bold-duotone" width="16" height="16" class="text-brand-500 flex-shrink-0 mt-0.5"></iconify-icon>
+            <div>
+              <div class="text-sm font-semibold text-slate-900 dark:text-white">Any mode</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400">Pre-call, post-call, during-call, logging-only</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5">
+            <iconify-icon icon="solar:check-square-bold-duotone" width="16" height="16" class="text-brand-500 flex-shrink-0 mt-0.5"></iconify-icon>
+            <div>
+              <div class="text-sm font-semibold text-slate-900 dark:text-white">Same telemetry</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400">Prometheus metrics and audit trail included</div>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://github.com/andreimerfu/pllm/tree/main/docs"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300"
+        >
+          Custom connector guide
+          <iconify-icon icon="solar:arrow-right-up-linear" width="14" height="14"></iconify-icon>
+        </a>
       </div>
     </div>
   </div>

@@ -2,34 +2,51 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Hero from '../components/Hero.astro';
-import Features from '../components/Features.astro';
-import AuthenticationSection from '../components/AuthenticationSection.astro';
+import PlatformPillars from '../components/PlatformPillars.astro';
 import Architecture from '../components/Architecture.astro';
-import DashboardSection from '../components/DashboardSection.astro';
-import Roadmap from '../components/Roadmap.astro';
-import Support from '../components/Support.astro';
-import BenchmarkSection from '../components/BenchmarkSection.astro';
-import IntelligentRouting from '../components/IntelligentRouting.astro';
-import GuardrailsSection from '../components/GuardrailsSection.astro';
 import QuickStart from '../components/QuickStart.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 ---
 
-<Layout title="pLLM - Enterprise-Grade LLM Gateway Built in Go">
+<Layout
+	title="pLLM — AI Control Plane for LLMs, MCP Servers &amp; Agents"
+	description="pLLM is a Go-based AI control plane. Front every LLM provider, manage MCP server lifecycle, version agents and prompts, and govern access via your existing AD / Entra ID groups."
+>
 	<Navigation />
 	<main>
 		<Hero />
-		<Features />
-		<IntelligentRouting />
-		<GuardrailsSection />
-		<AuthenticationSection />
+		<PlatformPillars />
 		<Architecture />
-		<DashboardSection />
-		<BenchmarkSection />
 		<QuickStart />
-		<Support />
-		<Roadmap />
+
+		<!-- Final CTA band -->
+		<section class="section bg-slate-900 dark:bg-slate-950 relative overflow-hidden">
+			<div class="pointer-events-none absolute inset-0 opacity-[0.06]"
+			     style="background-image: linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px); background-size: 48px 48px;"></div>
+			<div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-500/15 blur-3xl"></div>
+
+			<div class="container-page relative text-center max-w-3xl">
+				<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-400/30 bg-brand-500/10 mb-6">
+					<span class="text-xs font-mono tracking-wider uppercase text-brand-300">Open source · Self-hosted</span>
+				</div>
+				<h2 class="text-section-sm sm:text-section font-bold text-white mb-4 tracking-tight">
+					Start shipping AI your security team can approve.
+				</h2>
+				<p class="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
+					One gateway. One audit trail. Policies that live in the identity system you already trust.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a href="#quick-start" class="btn-primary">
+						Deploy pLLM
+					</a>
+					<a href="/roadmap" class="btn-secondary flex items-center bg-white/5 text-white border-white/20 hover:bg-white/10 hover:border-white/30">
+						<iconify-icon icon="solar:map-arrow-up-bold-duotone" width="18" height="18" class="mr-2"></iconify-icon>
+						See the 2026 roadmap
+					</a>
+				</div>
+			</div>
+		</section>
 	</main>
 	<Footer />
 </Layout>

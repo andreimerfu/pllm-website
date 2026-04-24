@@ -1,0 +1,359 @@
+---
+const lifecycleStages = [
+  {
+    step: "01",
+    name: "Register",
+    description: "Onboard an MCP server — GitHub, Jira, Postgres, custom — by URL, binary, or container. pLLM validates the manifest and pulls its tool catalog.",
+    icon: "solar:database-bold-duotone",
+    accent: "brand",
+  },
+  {
+    step: "02",
+    name: "Scope",
+    description: "Bind the server to AD / Entra ID groups, projects, or specific keys. Restrict individual tools with allow-lists.",
+    icon: "solar:users-group-two-rounded-bold-duotone",
+    accent: "accent",
+  },
+  {
+    step: "03",
+    name: "Deploy",
+    description: "pLLM spins up and health-checks the server. Version pinning and blue/green rollout are built in.",
+    icon: "solar:rocket-bold-duotone",
+    accent: "brand",
+  },
+  {
+    step: "04",
+    name: "Instrument",
+    description: "Per-tool latency, error rate, token &amp; cost attribution, and a full audit trail of every call — who invoked what, when, and why.",
+    icon: "solar:chart-square-bold-duotone",
+    accent: "accent",
+  },
+  {
+    step: "05",
+    name: "Retire",
+    description: "Deprecate, archive, or migrate servers with one-click rollback. Consumers are notified before any breaking change.",
+    icon: "solar:archive-down-bold-duotone",
+    accent: "brand",
+  },
+];
+
+const mcpServers = [
+  {
+    name: "github-mcp",
+    uri: "mcp://github",
+    version: "v2.1.4",
+    tools: 18,
+    status: "healthy",
+    owner: "platform-eng",
+    scope: "ad:Developers, ad:SRE",
+    qps: "412",
+    p95: "84ms",
+  },
+  {
+    name: "jira-mcp",
+    uri: "mcp://jira",
+    version: "v1.8.0",
+    tools: 12,
+    status: "healthy",
+    owner: "productivity",
+    scope: "ad:All-Employees",
+    qps: "98",
+    p95: "142ms",
+  },
+  {
+    name: "snowflake-mcp",
+    uri: "mcp://snowflake",
+    version: "v0.9.2",
+    tools: 7,
+    status: "degraded",
+    owner: "data-platform",
+    scope: "ad:Analysts, ad:Data-Eng",
+    qps: "34",
+    p95: "1.2s",
+  },
+  {
+    name: "internal-rag",
+    uri: "mcp://internal-rag",
+    version: "v3.0.1",
+    tools: 4,
+    status: "healthy",
+    owner: "ai-platform",
+    scope: "ad:Engineers",
+    qps: "276",
+    p95: "61ms",
+  },
+  {
+    name: "sap-mcp",
+    uri: "mcp://sap",
+    version: "v0.4.0-beta",
+    tools: 23,
+    status: "staging",
+    owner: "finance-eng",
+    scope: "ad:Finance-Ops",
+    qps: "—",
+    p95: "—",
+  },
+];
+
+const statusStyles = {
+  healthy: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/30",
+  degraded: "bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/30",
+  staging: "bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/30",
+};
+
+const statusDot = {
+  healthy: "bg-emerald-500",
+  degraded: "bg-amber-500",
+  staging: "bg-slate-400",
+};
+---
+
+<section id="mcp-gateway" class="section bg-white dark:bg-slate-900 transition-colors duration-200">
+  <div class="container-page">
+    <!-- Section header -->
+    <div class="section-header">
+      <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+        <iconify-icon icon="solar:server-square-bold-duotone" width="16" height="16"></iconify-icon>
+        MCP Gateway
+      </div>
+      <h2 class="section-title">
+        One gateway for every MCP server.
+      </h2>
+      <p class="section-description">
+        Register once, govern everywhere. pLLM handles discovery, lifecycle, auth, per-tool policy, and
+        observability — so teams ship AI features instead of connectors.
+      </p>
+    </div>
+
+    <!-- Hero panel: the gateway topology -->
+    <div class="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-950 p-6 sm:p-10 mb-16 overflow-hidden">
+      <!-- Grid pattern inside -->
+      <div class="pointer-events-none absolute inset-0 opacity-[0.04] dark:opacity-[0.12]"
+           style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+      <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-12 items-center">
+        <!-- Left: consumers -->
+        <div class="space-y-3">
+          <p class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">Consumers</p>
+          {[
+            { icon: "solar:code-square-bold-duotone", name: "IDE agents", meta: "Cursor, Zed, Continue" },
+            { icon: "solar:chat-round-dots-bold-duotone", name: "Chat apps", meta: "Internal ChatGPT, Teams" },
+            { icon: "solar:programming-bold-duotone", name: "Custom apps", meta: "OpenAI / Anthropic SDK" },
+            { icon: "solar:robot-bold-duotone", name: "Autonomous agents", meta: "LangGraph, CrewAI" },
+          ].map((c) => (
+            <div class="flex items-center gap-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
+              <div class="w-9 h-9 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
+                <iconify-icon icon={c.icon} width="18" height="18" class="text-slate-600 dark:text-slate-300"></iconify-icon>
+              </div>
+              <div class="min-w-0">
+                <div class="text-sm font-semibold text-slate-900 dark:text-white">{c.name}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-mono">{c.meta}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Center: pLLM gateway -->
+        <div class="flex flex-col items-center">
+          <!-- Arrow in (mobile hidden) -->
+          <svg class="hidden lg:block w-10 h-4 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+
+          <div class="relative">
+            <!-- Glow -->
+            <div class="absolute inset-0 rounded-2xl bg-brand-500/20 blur-2xl"></div>
+            <div class="relative rounded-2xl border-2 border-brand-500/40 dark:border-brand-400/50 bg-white dark:bg-slate-900 p-6 shadow-xl min-w-[240px]">
+              <div class="flex items-center gap-2 mb-3">
+                <img src="/robot.png" alt="pLLM" class="w-8 h-8 rounded-md" />
+                <div>
+                  <div class="text-sm font-bold text-slate-900 dark:text-white">pLLM</div>
+                  <div class="text-[10px] font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400">AI Control Plane</div>
+                </div>
+              </div>
+              <div class="space-y-1.5 text-xs font-mono text-slate-600 dark:text-slate-400">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  auth · AD / Entra / SAML
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  policy · group-based RBAC
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  router · LLM + MCP + tools
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  guardrails · pre/post/during
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  audit · every call logged
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <svg class="hidden lg:block w-10 h-4 text-slate-400 mt-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"/>
+          </svg>
+        </div>
+
+        <!-- Right: managed servers -->
+        <div class="space-y-3">
+          <p class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 mb-3">Managed by pLLM</p>
+          <div class="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+              <iconify-icon icon="solar:cpu-bolt-bold-duotone" width="16" height="16" class="text-brand-500"></iconify-icon>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white">LLM providers</span>
+            </div>
+            <div class="text-xs font-mono text-slate-500 dark:text-slate-400">OpenAI · Anthropic · Azure · Bedrock · Vertex · Llama</div>
+          </div>
+          <div class="rounded-lg border border-brand-500/40 dark:border-brand-400/40 bg-brand-500/[0.03] dark:bg-brand-500/[0.08] px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+              <iconify-icon icon="solar:server-square-bold-duotone" width="16" height="16" class="text-brand-500"></iconify-icon>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white">MCP servers</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-700 dark:text-brand-300">new</span>
+            </div>
+            <div class="text-xs font-mono text-slate-500 dark:text-slate-400">GitHub · Jira · Snowflake · SAP · custom</div>
+          </div>
+          <div class="rounded-lg border border-brand-500/40 dark:border-brand-400/40 bg-brand-500/[0.03] dark:bg-brand-500/[0.08] px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+              <iconify-icon icon="solar:robot-bold-duotone" width="16" height="16" class="text-brand-500"></iconify-icon>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white">Agents &amp; skills</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-500/20 text-brand-700 dark:text-brand-300">new</span>
+            </div>
+            <div class="text-xs font-mono text-slate-500 dark:text-slate-400">Versioned prompts, skill packs, agent manifests</div>
+          </div>
+          <div class="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3">
+            <div class="flex items-center gap-2 mb-1">
+              <iconify-icon icon="solar:shield-keyhole-bold-duotone" width="16" height="16" class="text-brand-500"></iconify-icon>
+              <span class="text-sm font-semibold text-slate-900 dark:text-white">Identity &amp; policy</span>
+            </div>
+            <div class="text-xs font-mono text-slate-500 dark:text-slate-400">Active Directory · Entra ID · Okta · Keycloak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lifecycle: 5 stages -->
+    <div class="mb-16">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+            Full lifecycle management
+          </h3>
+          <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+            Every MCP server, agent, and skill moves through the same five stages — from registration to retirement.
+          </p>
+        </div>
+        <div class="text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400">
+          mcp-lifecycle · 5 stages
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {lifecycleStages.map((stage) => (
+          <div class="group relative card card-hover p-5 overflow-hidden">
+            <div class={`absolute -top-10 -right-10 w-24 h-24 rounded-full blur-2xl ${stage.accent === 'brand' ? 'bg-brand-500/10' : 'bg-accent-500/10'} transition-opacity group-hover:opacity-100 opacity-60`}></div>
+            <div class="relative">
+              <div class="flex items-start justify-between mb-4">
+                <div class={`w-11 h-11 rounded-lg flex items-center justify-center ${stage.accent === 'brand' ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400' : 'bg-accent-500/10 text-accent-600 dark:text-accent-400'}`}>
+                  <iconify-icon icon={stage.icon} width="22" height="22"></iconify-icon>
+                </div>
+                <span class="text-xs font-mono tracking-widest text-slate-400 dark:text-slate-500">{stage.step}</span>
+              </div>
+              <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{stage.name}</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed" set:html={stage.description}></p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- MCP Server Registry view -->
+    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden bg-white dark:bg-slate-900">
+      <!-- Header bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 px-5 py-4">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400/70"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/70"></span>
+          </div>
+          <div class="h-5 w-px bg-slate-300 dark:bg-slate-700"></div>
+          <span class="font-mono text-xs text-slate-500 dark:text-slate-400">~/</span>
+          <span class="font-mono text-sm font-semibold text-slate-900 dark:text-white">mcp-registry</span>
+        </div>
+        <div class="flex items-center gap-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            4 healthy
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+            1 degraded
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+            1 staging
+          </span>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-left text-xs font-mono tracking-wider uppercase text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+              <th class="px-5 py-3 font-medium">Server</th>
+              <th class="px-5 py-3 font-medium">Version</th>
+              <th class="px-5 py-3 font-medium">Tools</th>
+              <th class="px-5 py-3 font-medium">Owner</th>
+              <th class="px-5 py-3 font-medium">Scope</th>
+              <th class="px-5 py-3 font-medium text-right">QPS</th>
+              <th class="px-5 py-3 font-medium text-right">p95</th>
+              <th class="px-5 py-3 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+            {mcpServers.map((s) => (
+              <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                <td class="px-5 py-4">
+                  <div class="font-semibold text-slate-900 dark:text-white">{s.name}</div>
+                  <div class="text-xs font-mono text-slate-500 dark:text-slate-400">{s.uri}</div>
+                </td>
+                <td class="px-5 py-4">
+                  <span class="inline-flex font-mono text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">{s.version}</span>
+                </td>
+                <td class="px-5 py-4 text-slate-700 dark:text-slate-300 font-mono">{s.tools}</td>
+                <td class="px-5 py-4 font-mono text-xs text-slate-600 dark:text-slate-400">{s.owner}</td>
+                <td class="px-5 py-4 font-mono text-xs text-slate-600 dark:text-slate-400 whitespace-nowrap">{s.scope}</td>
+                <td class="px-5 py-4 text-right font-mono text-slate-700 dark:text-slate-300">{s.qps}</td>
+                <td class="px-5 py-4 text-right font-mono text-slate-700 dark:text-slate-300">{s.p95}</td>
+                <td class="px-5 py-4">
+                  <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${statusStyles[s.status as keyof typeof statusStyles]}`}>
+                    <span class={`w-1.5 h-1.5 rounded-full ${statusDot[s.status as keyof typeof statusDot]} ${s.status === 'healthy' ? 'animate-pulse' : ''}`}></span>
+                    {s.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 px-5 py-3 text-xs font-mono text-slate-500 dark:text-slate-400">
+        <span>Showing 5 of 5 servers · org: acme-corp</span>
+        <span class="flex items-center gap-2">
+          <iconify-icon icon="solar:refresh-circle-bold-duotone" width="14" height="14"></iconify-icon>
+          live · updated 2s ago
+        </span>
+      </div>
+    </div>
+
+  </div>
+</section>

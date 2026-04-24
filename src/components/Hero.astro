@@ -2,33 +2,37 @@
 import HeroIllustration from "./HeroIllustration.tsx";
 ---
 
-<section class="relative pt-28 pb-16 sm:pb-24">
-    <div class="container-page">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <!-- Text content — left-aligned -->
+<section class="relative pt-28 pb-20 sm:pb-28 overflow-hidden">
+    <!-- Decorative grid backdrop -->
+    <div class="pointer-events-none absolute inset-0 opacity-[0.035] dark:opacity-[0.07]"
+         style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div class="pointer-events-none absolute -top-24 -left-24 w-[520px] h-[520px] rounded-full bg-brand-500/10 blur-3xl"></div>
+
+    <div class="container-page relative">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-16 items-center">
+            <!-- Text content -->
             <div>
-                <h1 class="text-hero-sm sm:text-hero font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-                    <span class="text-brand-600 dark:text-brand-400">pLLM</span>
-                </h1>
-                <p class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-                    High-Performance LLM Gateway
-                </p>
-
-                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 max-w-lg leading-relaxed">
-                    Drop-in OpenAI replacement built in Go. Handle thousands of
-                    concurrent requests with adaptive routing, multi-provider
-                    support, and enterprise-grade reliability.
-                </p>
-
-                <!-- Feature pills -->
-                <div class="flex flex-wrap gap-2 mb-8">
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">High Performance</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">Cost Efficient</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">Low Latency</span>
-                    <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-md text-xs font-medium text-slate-600 dark:text-slate-400">OpenAI Compatible</span>
+                <div class="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full border border-brand-500/30 bg-brand-500/5 dark:bg-brand-500/10">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                    </span>
+                    <span class="text-xs font-mono tracking-wider uppercase text-brand-700 dark:text-brand-300">
+                        AI Control Plane
+                    </span>
                 </div>
 
-                <!-- CTA buttons — left-aligned -->
+                <h1 class="text-hero-sm sm:text-hero font-bold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.05]">
+                    The gateway for
+                    <span class="block mt-1">
+                        <span class="bg-gradient-to-r from-brand-600 via-brand-500 to-accent-500 bg-clip-text text-transparent">LLMs, MCP &amp; Agents</span>
+                    </span>
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
+                    Governed by the AD groups you already have.
+                </p>
+
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="#quick-start" class="btn-primary">
                         Get Started
@@ -45,7 +49,7 @@ import HeroIllustration from "./HeroIllustration.tsx";
                 </div>
             </div>
 
-            <!-- Terminal illustration — right side -->
+            <!-- Terminal illustration -->
             <div class="flex justify-center lg:justify-end">
                 <HeroIllustration client:load />
             </div>

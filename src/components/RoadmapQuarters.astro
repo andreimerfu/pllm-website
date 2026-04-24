@@ -1,0 +1,296 @@
+---
+interface Item {
+  title: string;
+  description: string;
+  icon: string;
+  status: "completed" | "in-progress" | "planned";
+  features: string[];
+}
+
+interface Quarter {
+  key: string;
+  label: string;
+  period: string;
+  theme: string;
+  items: Item[];
+}
+
+const quarters: Quarter[] = [
+  {
+    key: "q4-2025",
+    label: "Q4 2025",
+    period: "shipped",
+    theme: "The foundation",
+    items: [
+      {
+        title: "Advanced Guardrails",
+        icon: "solar:shield-check-bold-duotone",
+        status: "completed",
+        description: "Pluggable guardrails with pre-call, post-call, during-call, and logging-only modes.",
+        features: [
+          "Presidio PII detection",
+          "Four execution modes",
+          "YAML configuration",
+          "Per-guardrail metrics",
+        ],
+      },
+    ],
+  },
+  {
+    key: "q1-2026",
+    label: "Q1 2026",
+    period: "shipping",
+    theme: "MCP foundation",
+    items: [
+      {
+        title: "MCP Gateway (alpha)",
+        icon: "solar:server-square-bold-duotone",
+        status: "in-progress",
+        description: "Turn pLLM into the control plane for every MCP server in the org.",
+        features: [
+          "Server registry with manifests",
+          "Per-tool allow-listing",
+          "Health checks & circuit breakers",
+          "Version pinning & blue/green",
+        ],
+      },
+    ],
+  },
+  {
+    key: "q2-2026",
+    label: "Q2 2026",
+    period: "in progress",
+    theme: "Identity &amp; registry",
+    items: [
+      {
+        title: "AD / Entra Governance",
+        icon: "solar:users-group-rounded-bold-duotone",
+        status: "in-progress",
+        description: "Native AD / Entra / Okta group sync. Policy-as-code driven by existing identity.",
+        features: [
+          "Group sync (AD, Entra, Okta)",
+          "Model &amp; MCP allow-lists",
+          "Per-group budgets &amp; quotas",
+          "SIEM-ready audit streaming",
+        ],
+      },
+      {
+        title: "Agent Registry",
+        icon: "solar:robot-bold-duotone",
+        status: "planned",
+        description: "First-class agent artifacts with bound tools, guardrails, models, and AD scope.",
+        features: [
+          "Agent manifests (YAML)",
+          "Bound MCP tools",
+          "Canary &amp; weighted rollout",
+          "Per-agent cost attribution",
+        ],
+      },
+    ],
+  },
+  {
+    key: "q3-2026",
+    label: "Q3 2026",
+    period: "planned",
+    theme: "GA &amp; polish",
+    items: [
+      {
+        title: "Skills &amp; Prompt Registry",
+        icon: "solar:magic-stick-3-bold-duotone",
+        status: "planned",
+        description: "Versioned skills and prompt templates with rollout controls and evals.",
+        features: [
+          "Semver prompt versioning",
+          "Skill packs with intent triggers",
+          "Built-in eval harness",
+          "A/B tests across versions",
+        ],
+      },
+      {
+        title: "MCP Gateway (GA)",
+        icon: "solar:cpu-bolt-bold-duotone",
+        status: "planned",
+        description: "Production-grade MCP control plane with sandboxed runtime and SLAs.",
+        features: [
+          "Sandboxed MCP runtime",
+          "Multi-tenant isolation",
+          "MCP-to-MCP composition",
+          "Pre-built connector marketplace",
+        ],
+      },
+      {
+        title: "Guardrails 2.0",
+        icon: "solar:shield-plus-bold-duotone",
+        status: "planned",
+        description: "Self-hostable classifiers, custom DSL, closed-loop eval from incidents.",
+        features: [
+          "Custom guardrail DSL",
+          "Fine-tuned on-prem classifiers",
+          "Incident → rule feedback loop",
+          "Per-agent guardrail bindings",
+        ],
+      },
+    ],
+  },
+  {
+    key: "q4-2026",
+    label: "Q4 2026",
+    period: "planned",
+    theme: "Observability",
+    items: [
+      {
+        title: "Cost Center &amp; Observability",
+        icon: "solar:chart-square-bold-duotone",
+        status: "planned",
+        description: "Unified OpenTelemetry traces, per-group cost rollups, chargeback exports.",
+        features: [
+          "OTel traces across the stack",
+          "Per-group &amp; per-agent cost",
+          "Chargeback exports",
+          "Anomaly detection on spend",
+        ],
+      },
+    ],
+  },
+];
+
+const statusStyles = {
+  completed: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/40",
+  "in-progress": "bg-brand-500/15 text-brand-700 dark:text-brand-300 border-brand-500/40",
+  planned: "bg-slate-500/15 text-slate-600 dark:text-slate-400 border-slate-500/40",
+};
+
+const statusDot = {
+  completed: "bg-emerald-500",
+  "in-progress": "bg-brand-500",
+  planned: "bg-slate-400",
+};
+
+const statusLabel = {
+  completed: "shipped",
+  "in-progress": "in progress",
+  planned: "planned",
+};
+---
+
+<section class="section bg-slate-50 dark:bg-slate-900/50">
+  <div class="container-page">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-14">
+      <div>
+        <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+          <iconify-icon icon="solar:map-arrow-up-bold-duotone" width="16" height="16"></iconify-icon>
+          2026 Roadmap
+        </div>
+        <h1 class="text-hero-sm font-bold text-slate-900 dark:text-white mb-4 tracking-tight leading-[1.1]">
+          From LLM gateway to AI control plane.
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+          One seam between your org and every AI capability. Shipping in quarterly drops — here's what's landing when.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 text-xs font-mono">
+        <span class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          shipped
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+          in progress
+        </span>
+        <span class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+          planned
+        </span>
+      </div>
+    </div>
+
+    <!-- Quarter columns -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      {quarters.map((q, qi) => (
+        <div class="relative flex flex-col">
+          <!-- Quarter header -->
+          <div class="mb-4">
+            <div class="flex items-baseline gap-2 mb-1">
+              <span class="text-[11px] font-mono tracking-widest uppercase text-slate-400 dark:text-slate-500">{String(qi + 1).padStart(2, "0")}</span>
+              <span class="text-sm font-bold text-slate-900 dark:text-white">{q.label}</span>
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400" set:html={q.theme}></div>
+            <!-- Connector bar -->
+            <div class="mt-3 relative h-0.5">
+              <div class={`absolute inset-0 ${q.period === "shipped" ? "bg-emerald-500" : q.period === "shipping" || q.period === "in progress" ? "bg-brand-500" : "bg-slate-300 dark:bg-slate-700"}`}></div>
+              {qi < quarters.length - 1 && (
+                <div class="hidden lg:block absolute left-full top-0 h-0.5 w-4 bg-slate-300 dark:bg-slate-700"></div>
+              )}
+            </div>
+          </div>
+
+          <!-- Items -->
+          <div class="space-y-3 flex-1">
+            {q.items.map((item) => (
+              <div class="card card-hover p-4 group">
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <div class="w-9 h-9 rounded-lg bg-brand-500/10 flex items-center justify-center flex-shrink-0">
+                    <iconify-icon icon={item.icon} width="18" height="18" class="text-brand-600 dark:text-brand-400"></iconify-icon>
+                  </div>
+                  <span class={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium border ${statusStyles[item.status]}`}>
+                    <span class={`w-1 h-1 rounded-full ${statusDot[item.status]}`}></span>
+                    {statusLabel[item.status]}
+                  </span>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1.5 leading-tight" set:html={item.title}></h3>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3" set:html={item.description}></p>
+                <ul class="space-y-1 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  {item.features.map((f) => (
+                    <li class="flex items-start gap-1.5 text-[11px] text-slate-600 dark:text-slate-400">
+                      <iconify-icon icon="solar:check-circle-linear" width="11" height="11" class="text-slate-400 dark:text-slate-500 mt-0.5 flex-shrink-0"></iconify-icon>
+                      <span set:html={f}></span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Shape the roadmap CTA -->
+    <div class="mt-14 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 relative overflow-hidden">
+      <div class="pointer-events-none absolute -bottom-20 -right-20 w-[320px] h-[320px] rounded-full bg-brand-500/10 blur-3xl"></div>
+      <div class="relative flex flex-col md:flex-row items-start md:items-center gap-5">
+        <div class="w-12 h-12 rounded-xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center flex-shrink-0">
+          <iconify-icon icon="solar:chat-round-dots-bold-duotone" width="22" height="22"></iconify-icon>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+            Shape this roadmap.
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Vote on features, file requests, or propose a new capability. The roadmap is driven by what our users actually need.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+          <a
+            href="https://github.com/andreimerfu/pllm/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary flex items-center justify-center whitespace-nowrap"
+          >
+            <iconify-icon icon="solar:chat-round-dots-bold-duotone" width="16" height="16" class="mr-2"></iconify-icon>
+            Join discussion
+          </a>
+          <a
+            href="https://github.com/andreimerfu/pllm/issues/new"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary flex items-center justify-center whitespace-nowrap"
+          >
+            <iconify-icon icon="solar:add-circle-bold-duotone" width="16" height="16" class="mr-2"></iconify-icon>
+            Request a feature
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -15,22 +15,6 @@ interface RoadmapItem {
 const roadmapData: RoadmapItem[] = [
   {
     id: '1',
-    title: 'Key Rotation & Secret Management',
-    description: 'Automated key rotation and integration with external secret managers for enhanced security.',
-    quarter: 'Q1 2026',
-    status: 'in-progress',
-    icon: 'solar:key-bold-duotone',
-    priority: 'high',
-    features: [
-      'Automated API key rotation',
-      'AWS Secrets Manager integration',
-      'Azure Key Vault support',
-      'HashiCorp Vault connector',
-      'Secret versioning & rollback'
-    ]
-  },
-  {
-    id: '2',
     title: 'Advanced Guardrails',
     description: 'Pluggable content guardrails with pre-call, post-call, during-call, and logging-only modes. Marketplace with Presidio PII detection and more.',
     quarter: 'Q4 2025',
@@ -46,19 +30,115 @@ const roadmapData: RoadmapItem[] = [
     ]
   },
   {
-    id: '3',
-    title: 'Enhanced Audit & Logging',
-    description: 'Comprehensive audit trails with retention policies and compliance reporting.',
-    quarter: 'Q2 2026',
-    status: 'planned',
-    icon: 'solar:document-text-bold-duotone',
+    id: '2',
+    title: 'MCP Gateway (alpha)',
+    description: 'Turn pLLM into the control plane for every MCP server in the org. Registry, health, versioning, and per-tool scoping.',
+    quarter: 'Q1 2026',
+    status: 'in-progress',
+    icon: 'solar:server-square-bold-duotone',
     priority: 'high',
     features: [
-      'Detailed audit logs',
-      'Log retention policies',
-      'Compliance reporting',
-      'Real-time log streaming',
-      'Custom log formats'
+      'MCP server registry with manifests',
+      'Per-tool allow-listing',
+      'Health checks & circuit breakers',
+      'Version pinning & blue/green rollout',
+      'Unified tool catalog across servers'
+    ]
+  },
+  {
+    id: '3',
+    title: 'AD / Entra Group Governance',
+    description: 'Native Active Directory and Entra ID group sync. Use the identity system you already have to drive AI access policy.',
+    quarter: 'Q2 2026',
+    status: 'in-progress',
+    icon: 'solar:users-group-rounded-bold-duotone',
+    priority: 'high',
+    features: [
+      'AD / Entra / Okta group sync',
+      'Group-based model & MCP allow-lists',
+      'Policy-as-code (YAML) with diffs',
+      'Per-group budgets, quotas, and guardrails',
+      'SIEM-ready audit streaming'
+    ]
+  },
+  {
+    id: '4',
+    title: 'Agent Registry',
+    description: 'First-class agent artifacts: manifest-driven agents with bound tools, guardrails, models, and AD-group scope.',
+    quarter: 'Q2 2026',
+    status: 'planned',
+    icon: 'solar:robot-bold-duotone',
+    priority: 'high',
+    features: [
+      'Agent manifests (YAML)',
+      'Bound MCP tools & guardrails',
+      'Canary & weighted rollout',
+      'Run history with trace replay',
+      'Per-agent cost & token attribution'
+    ]
+  },
+  {
+    id: '5',
+    title: 'Skills & Prompt Registry',
+    description: 'Versioned skills and prompt templates with rollout controls, evals, and group scoping. Stop treating prompts like snippets.',
+    quarter: 'Q3 2026',
+    status: 'planned',
+    icon: 'solar:magic-stick-3-bold-duotone',
+    priority: 'high',
+    features: [
+      'Semver-versioned prompt templates',
+      'Skill packs with intent triggers',
+      'Built-in eval harness',
+      'A/B tests across versions',
+      'Registry UI + REST/CLI API'
+    ]
+  },
+  {
+    id: '6',
+    title: 'MCP Gateway (GA)',
+    description: 'Production-grade MCP control plane with full lifecycle management, sandboxed runtime, and enterprise SLAs.',
+    quarter: 'Q3 2026',
+    status: 'planned',
+    icon: 'solar:cpu-bolt-bold-duotone',
+    priority: 'high',
+    features: [
+      'Sandboxed MCP server runtime',
+      'Multi-tenant isolation',
+      'Usage-based rate limits per tool',
+      'MCP-to-MCP composition',
+      'Marketplace of pre-built connectors'
+    ]
+  },
+  {
+    id: '7',
+    title: 'Guardrails 2.0 & Eval Loop',
+    description: 'Self-hostable guardrail models, custom rule DSL, and a closed-loop eval system that turns incidents into new rules.',
+    quarter: 'Q3 2026',
+    status: 'planned',
+    icon: 'solar:shield-plus-bold-duotone',
+    priority: 'medium',
+    features: [
+      'Custom guardrail DSL',
+      'Fine-tuned on-prem classifiers',
+      'Incident → rule feedback loop',
+      'Shadow-mode testing',
+      'Per-agent guardrail bindings'
+    ]
+  },
+  {
+    id: '8',
+    title: 'Observability & Cost Center',
+    description: 'Unified OpenTelemetry traces across LLM, MCP, and agent steps. Cost attribution down to individual users and AD groups.',
+    quarter: 'Q4 2026',
+    status: 'planned',
+    icon: 'solar:chart-square-bold-duotone',
+    priority: 'medium',
+    features: [
+      'OTel traces across the full stack',
+      'Per-group & per-agent cost rollups',
+      'Chargeback-ready billing exports',
+      'Anomaly detection on spend',
+      'Grafana & Datadog integrations'
     ]
   },
 ];

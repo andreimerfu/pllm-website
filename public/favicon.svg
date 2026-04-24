@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="6" fill="url(#gradient)" />
-  <text x="16" y="22" font-family="Inter, system-ui, sans-serif" font-weight="700" font-size="18" text-anchor="middle" fill="white">p</text>
+  <rect width="32" height="32" rx="7" fill="url(#pllm-grad)" />
+  <text x="16" y="22" font-family="Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif" font-weight="800" font-size="18" text-anchor="middle" fill="white" letter-spacing="-0.5">p</text>
   <defs>
-    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+    <linearGradient id="pllm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#14b8a6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2dd4bf;stop-opacity:1" />
     </linearGradient>
   </defs>
 </svg>

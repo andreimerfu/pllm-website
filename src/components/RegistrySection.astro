@@ -1,0 +1,147 @@
+---
+import RegistryTabs from "./RegistryTabs.tsx";
+---
+
+<section id="registry" class="section bg-slate-50 dark:bg-slate-900/50 transition-colors duration-200">
+  <div class="container-page">
+    <!-- Section header -->
+    <div class="section-header">
+      <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+        <iconify-icon icon="solar:widget-bold-duotone" width="16" height="16"></iconify-icon>
+        Unified Registry
+      </div>
+      <h2 class="section-title">
+        Agents, skills &amp; prompts as real artifacts.
+      </h2>
+      <p class="section-description">
+        Semver-versioned. Owned by a team. Scoped to AD groups. Rolled out like code — with evals, canaries,
+        and one-click rollback.
+      </p>
+    </div>
+
+    <!-- Split: left explainer + right CTA cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-14">
+      <div class="lg:col-span-1 card p-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl"></div>
+        <div class="relative">
+          <div class="w-12 h-12 rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4">
+            <iconify-icon icon="solar:branching-paths-up-bold-duotone" width="24" height="24"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Versioned like code</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Every change is a new semver release. Pin consumers to <span class="font-mono text-xs">v1.2.x</span> or
+            ride the <span class="font-mono text-xs">latest</span> tag. Rollback is one API call.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-1 card p-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-accent-500/10 rounded-full blur-3xl"></div>
+        <div class="relative">
+          <div class="w-12 h-12 rounded-lg bg-accent-500/15 text-accent-600 dark:text-accent-400 flex items-center justify-center mb-4">
+            <iconify-icon icon="solar:users-group-rounded-bold-duotone" width="24" height="24"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Group-scoped by default</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Bind artifacts to AD / Entra groups. The <span class="font-mono text-xs">finance-bot</span> agent is
+            invisible to anyone outside <span class="font-mono text-xs">ad:Finance-Ops</span>.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-1 card p-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl"></div>
+        <div class="relative">
+          <div class="w-12 h-12 rounded-lg bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4">
+            <iconify-icon icon="solar:test-tube-bold-duotone" width="24" height="24"></iconify-icon>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Eval &amp; canary built-in</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Promote a prompt from <span class="font-mono text-xs">beta</span> to <span class="font-mono text-xs">stable</span>
+            after evals pass. Ship to 5% of traffic, watch metrics, then scale.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The interactive registry browser -->
+    <RegistryTabs client:load />
+
+    <!-- Registry manifest example -->
+    <div class="mt-14 grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div class="lg:col-span-2 flex flex-col justify-center">
+        <div class="text-xs font-mono tracking-wider uppercase text-brand-600 dark:text-brand-400 mb-2">declarative</div>
+        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+          Every artifact is a manifest.
+        </h3>
+        <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+          YAML in, governed service out. Drop a manifest into the registry and pLLM handles validation, versioning,
+          group binding, guardrail wiring, and rollout. No custom glue code.
+        </p>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2">
+            <iconify-icon icon="solar:check-circle-bold-duotone" width="18" height="18" class="text-brand-500 mt-0.5 flex-shrink-0"></iconify-icon>
+            <span class="text-slate-700 dark:text-slate-300">Schema-validated on upload</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <iconify-icon icon="solar:check-circle-bold-duotone" width="18" height="18" class="text-brand-500 mt-0.5 flex-shrink-0"></iconify-icon>
+            <span class="text-slate-700 dark:text-slate-300">Diffable across versions</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <iconify-icon icon="solar:check-circle-bold-duotone" width="18" height="18" class="text-brand-500 mt-0.5 flex-shrink-0"></iconify-icon>
+            <span class="text-slate-700 dark:text-slate-300">Auto-bound to AD / Entra groups</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <iconify-icon icon="solar:check-circle-bold-duotone" width="18" height="18" class="text-brand-500 mt-0.5 flex-shrink-0"></iconify-icon>
+            <span class="text-slate-700 dark:text-slate-300">Guardrails attached per-artifact</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-900 dark:bg-slate-950 overflow-hidden">
+          <div class="flex items-center justify-between bg-slate-800/50 border-b border-slate-700 px-4 py-2.5">
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-400/70"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400/70"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400/70"></span>
+              </div>
+              <span class="ml-3 text-xs font-mono text-slate-400">agents/support-triage/v1.4.2.yaml</span>
+            </div>
+            <span class="text-xs font-mono text-slate-500">YAML</span>
+          </div>
+          <pre class="text-xs sm:text-sm leading-relaxed p-5 overflow-x-auto"><code class="font-mono"><span class="text-slate-500"># agent manifest — registry: acme-corp</span>
+<span class="text-purple-400">kind</span><span class="text-slate-300">: Agent</span>
+<span class="text-purple-400">name</span><span class="text-slate-300">: support-triage</span>
+<span class="text-purple-400">version</span><span class="text-slate-300">: 1.4.2</span>
+<span class="text-purple-400">owner</span><span class="text-slate-300">: support-platform</span>
+
+<span class="text-purple-400">scope</span><span class="text-slate-300">:</span>
+  <span class="text-purple-400">allow_groups</span><span class="text-slate-300">:</span>
+    - <span class="text-emerald-400">ad:Support-Agents</span>
+    - <span class="text-emerald-400">ad:Support-Leads</span>
+  <span class="text-purple-400">deny_groups</span><span class="text-slate-300">:</span>
+    - <span class="text-emerald-400">ad:Contractors</span>
+
+<span class="text-purple-400">model</span><span class="text-slate-300">:</span>
+  <span class="text-purple-400">primary</span><span class="text-slate-300">: </span><span class="text-amber-300">claude-4.6-sonnet</span>
+  <span class="text-purple-400">fallback</span><span class="text-slate-300">: </span><span class="text-amber-300">gpt-5</span>
+
+<span class="text-purple-400">tools</span><span class="text-slate-300">:</span>
+  - <span class="text-emerald-400">mcp://jira/*</span>
+  - <span class="text-emerald-400">mcp://github/search_*</span>      <span class="text-slate-500"># read-only</span>
+  - <span class="text-emerald-400">mcp://internal-rag/query</span>
+
+<span class="text-purple-400">guardrails</span><span class="text-slate-300">:</span>
+  - <span class="text-amber-300">presidio-pii</span>        <span class="text-slate-500"># pre_call, logging_only</span>
+  - <span class="text-amber-300">prompt-injection</span>    <span class="text-slate-500"># pre_call</span>
+
+<span class="text-purple-400">rollout</span><span class="text-slate-300">:</span>
+  <span class="text-purple-400">strategy</span><span class="text-slate-300">: </span><span class="text-amber-300">canary</span>
+  <span class="text-purple-400">stable_weight</span><span class="text-slate-300">: </span><span class="text-cyan-300">95</span>
+  <span class="text-purple-400">canary_weight</span><span class="text-slate-300">: </span><span class="text-cyan-300">5</span>
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

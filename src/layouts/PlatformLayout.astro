@@ -1,0 +1,74 @@
+---
+import Layout from "./Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  slug: string;
+}
+
+const { title, description, slug } = Astro.props;
+
+const allPages = [
+  { slug: "mcp-gateway", name: "MCP Gateway", icon: "solar:server-square-bold-duotone", blurb: "Registry, lifecycle &amp; per-tool policy" },
+  { slug: "registry", name: "Registry", icon: "solar:widget-bold-duotone", blurb: "Agents, skills &amp; prompts as artifacts" },
+  { slug: "governance", name: "Governance", icon: "solar:shield-keyhole-bold-duotone", blurb: "AD-group policies &amp; audit" },
+  { slug: "guardrails", name: "Guardrails", icon: "solar:shield-check-bold-duotone", blurb: "Pre / post / during / logging filters" },
+  { slug: "routing", name: "Routing", icon: "solar:routing-2-bold-duotone", blurb: "Latency-aware routing &amp; failover" },
+];
+
+const related = allPages.filter((p) => p.slug !== slug);
+const current = allPages.find((p) => p.slug === slug);
+---
+
+<Layout title={title} description={description}>
+  <Navigation />
+  <main>
+    <!-- Breadcrumb bar -->
+    <div class="pt-24 pb-0 bg-white dark:bg-slate-900">
+      <div class="container-page">
+        <nav class="flex items-center gap-1.5 text-xs font-mono text-slate-500 dark:text-slate-400 pb-2">
+          <a href="/" class="hover:text-slate-900 dark:hover:text-white transition-colors">pLLM</a>
+          <span>/</span>
+          <a href="/#platform" class="hover:text-slate-900 dark:hover:text-white transition-colors">platform</a>
+          <span>/</span>
+          <span class="text-slate-900 dark:text-white">{current?.name.toLowerCase().replace(" ", "-") ?? slug}</span>
+        </nav>
+      </div>
+    </div>
+
+    <slot />
+
+    <!-- Related platform pages -->
+    <section class="section bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+      <div class="container-page">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Keep exploring
+          </h2>
+          <a href="/#platform" class="text-sm font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 inline-flex items-center gap-1.5">
+            All platform pillars
+            <iconify-icon icon="solar:arrow-right-bold-duotone" width="14" height="14"></iconify-icon>
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {related.map((p) => (
+            <a href={`/platform/${p.slug}`} class="card card-hover p-5 group">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-brand-500/15 transition-colors">
+                  <iconify-icon icon={p.icon} width="20" height="20" class="text-slate-700 dark:text-slate-300 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors"></iconify-icon>
+                </div>
+                <h3 class="font-bold text-slate-900 dark:text-white">{p.name}</h3>
+              </div>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed" set:html={p.blurb}></p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

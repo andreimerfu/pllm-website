@@ -8,7 +8,7 @@ export interface Props {
   image?: string;
 }
 
-const { title, description = "pLLM - Enterprise-Grade LLM Gateway Built in Go. High-performance, OpenAI compatible, multi-provider support with adaptive routing and cost optimization.", canonical, image = "/og-image.jpg" } = Astro.props;
+const { title, description = "pLLM is a Go-based AI control plane. Front every LLM provider, manage MCP server lifecycle, version agents and prompts, and govern access via your existing AD / Entra ID groups.", canonical, image = "/og-image.jpg" } = Astro.props;
 
 const canonicalURL = new URL(canonical || Astro.url.pathname, Astro.site);
 const socialImageURL = new URL(image, Astro.site);
@@ -20,7 +20,12 @@ const socialImageURL = new URL(image, Astro.site);
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/robot.png" />
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/robot.png" />
+    <link rel="apple-touch-icon" href="/robot.png" />
+    <meta name="theme-color" content="#14b8a6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Canonical URL -->
@@ -44,7 +49,7 @@ const socialImageURL = new URL(image, Astro.site);
     <!-- Additional SEO -->
     <meta name="robots" content="index, follow" />
     <meta name="author" content="pLLM Team" />
-    <meta name="keywords" content="LLM Gateway, OpenAI, API Gateway, Go, Performance, Enterprise, AI, Machine Learning, Claude, GPT" />
+    <meta name="keywords" content="AI control plane, LLM gateway, MCP gateway, MCP registry, agent registry, prompt registry, AI governance, Active Directory AI policy, Entra ID, OpenAI compatible, LiteLLM alternative, AI access control, Go AI gateway" />
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -52,8 +57,8 @@ const socialImageURL = new URL(image, Astro.site);
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "pLLM",
-        "description": "Enterprise-Grade LLM Gateway Built in Go",
-        "applicationCategory": "API Gateway",
+        "description": "AI control plane for LLMs, MCP servers, and agents — governed by your existing AD / Entra ID groups",
+        "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform",
         "offers": {
           "@type": "Offer",

@@ -1,0 +1,119 @@
+---
+interface Pillar {
+  name: string;
+  tagline: string;
+  description: string;
+  href: string;
+  icon: string;
+  accent: "brand" | "accent";
+  bullets: string[];
+}
+
+const pillars: Pillar[] = [
+  {
+    name: "MCP Gateway",
+    tagline: "One gateway for every MCP server.",
+    description: "Register MCP servers once, govern them everywhere. Health, versioning, per-tool policy, observability.",
+    href: "/platform/mcp-gateway",
+    icon: "solar:server-square-bold-duotone",
+    accent: "brand",
+    bullets: ["Server registry", "Per-tool scoping", "Lifecycle management"],
+  },
+  {
+    name: "Registry",
+    tagline: "Agents, skills &amp; prompts as real artifacts.",
+    description: "Semver-versioned. Team-owned. AD-scoped. Canaries, evals, and rollback — like you'd expect for code.",
+    href: "/platform/registry",
+    icon: "solar:widget-bold-duotone",
+    accent: "accent",
+    bullets: ["Agent manifests", "Skill packs", "Prompt templates"],
+  },
+  {
+    name: "Governance",
+    tagline: "Your AD groups are your AI access policy.",
+    description: "No new permission system. pLLM reads Entra / AD / Okta and turns membership into fine-grained rules.",
+    href: "/platform/governance",
+    icon: "solar:shield-keyhole-bold-duotone",
+    accent: "brand",
+    bullets: ["Policy-as-code", "Budgets &amp; quotas", "SIEM-ready audit"],
+  },
+  {
+    name: "Guardrails",
+    tagline: "Protect every request and response.",
+    description: "Pluggable filters at four stages — pre, post, during, and logging. PII masking, prompt-injection, moderation.",
+    href: "/platform/guardrails",
+    icon: "solar:shield-check-bold-duotone",
+    accent: "accent",
+    bullets: ["Pre &amp; post-call", "Presidio PII", "Marketplace"],
+  },
+  {
+    name: "Routing",
+    tagline: "Your app calls one slug. pLLM picks the model.",
+    description: "Real-time latency-aware routing, three-layer failover, self-healing circuit breakers. No retry code in your app.",
+    href: "/platform/routing",
+    icon: "solar:routing-2-bold-duotone",
+    accent: "brand",
+    bullets: ["Least-latency", "Three-layer failover", "Cost tiers"],
+  },
+];
+---
+
+<section id="platform" class="section bg-slate-50 dark:bg-slate-900/50 transition-colors duration-200">
+  <div class="container-page">
+    <!-- Section header -->
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+      <div>
+        <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+          <iconify-icon icon="solar:layers-minimalistic-bold-duotone" width="16" height="16"></iconify-icon>
+          The Platform
+        </div>
+        <h2 class="text-section-sm sm:text-section font-bold text-slate-900 dark:text-white tracking-tight">
+          Five primitives. One control plane.
+        </h2>
+      </div>
+      <p class="text-slate-600 dark:text-slate-400 max-w-md">
+        Every capability is a first-class registry managed by pLLM. Click any pillar to dive deeper.
+      </p>
+    </div>
+
+    <!-- Pillars grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {pillars.map((pillar, i) => (
+        <a
+          href={pillar.href}
+          class={`group relative card card-hover p-7 overflow-hidden transition-transform hover:-translate-y-0.5 ${i === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
+        >
+          <!-- Accent glow -->
+          <div class={`absolute -top-16 -right-16 w-40 h-40 rounded-full blur-3xl transition-opacity opacity-60 group-hover:opacity-100 ${pillar.accent === "brand" ? "bg-brand-500/10" : "bg-accent-500/10"}`}></div>
+
+          <div class="relative">
+            <div class="flex items-start justify-between mb-5">
+              <div class={`w-12 h-12 rounded-lg flex items-center justify-center ${pillar.accent === "brand" ? "bg-brand-500/15 text-brand-600 dark:text-brand-400" : "bg-accent-500/15 text-accent-600 dark:text-accent-400"}`}>
+                <iconify-icon icon={pillar.icon} width="24" height="24"></iconify-icon>
+              </div>
+              <iconify-icon
+                icon="solar:arrow-right-up-bold-duotone"
+                width="20"
+                height="20"
+                class="text-slate-400 group-hover:text-brand-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+              ></iconify-icon>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{pillar.name}</h3>
+            <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3" set:html={pillar.tagline}></p>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+              {pillar.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5">
+              {pillar.bullets.map((b) => (
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400" set:html={b}></span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+
+    </div>
+  </div>
+</section>

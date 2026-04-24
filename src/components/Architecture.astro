@@ -1,197 +1,44 @@
 ---
 import InteractiveFlowDiagram from "./InteractiveFlowDiagram.tsx";
 import ArchitectureDiagram from "./ArchitectureDiagram.tsx";
-
-const architectureLayers = [
-    {
-        title: "Load Balancer",
-        description: "Request distribution and traffic management",
-        color: "from-blue-500 to-blue-600",
-    },
-    {
-        title: "pLLM Gateway",
-        description: "Chi Router • Auth Layer • Cache Layer",
-        color: "from-purple-500 to-purple-600",
-        components: ["Chi Router", "Auth Layer", "Cache Layer"],
-    },
-    {
-        title: "Provider Abstraction",
-        description: "Unified interface for all LLM providers",
-        color: "from-green-500 to-green-600",
-        providers: ["OpenAI", "Claude", "Azure", "Vertex", "Bedrock", "Llama"],
-    },
-];
-
-const loadBalancingStrategies = [
-    {
-        name: "Round Robin",
-        solarIcon: "solar:sort-by-time-bold-duotone",
-        description: "Even distribution across all providers",
-        useCase: "Balanced load scenarios",
-    },
-    {
-        name: "Least Busy",
-        solarIcon: "solar:chart-square-bold-duotone",
-        description: "Routes to least loaded provider",
-        useCase: "Variable workloads",
-    },
-    {
-        name: "Weighted",
-        solarIcon: "solar:tuning-2-bold-duotone",
-        description: "Custom weight distribution",
-        useCase: "Tiered provider setups",
-    },
-    {
-        name: "Priority",
-        solarIcon: "solar:arrow-to-top-right-bold-duotone",
-        description: "Prefers high-priority providers",
-        useCase: "Cost optimization",
-    },
-    {
-        name: "Latency-Based",
-        solarIcon: "solar:bolt-circle-bold-duotone",
-        description: "Routes to fastest responding provider",
-        useCase: "Performance critical",
-    },
-    {
-        name: "Usage-Based",
-        solarIcon: "solar:wallet-money-bold-duotone",
-        description: "Respects rate limits and quotas",
-        useCase: "Token management",
-    },
-];
 ---
 
 <section
     id="architecture"
     class="section bg-slate-50 dark:bg-slate-900 transition-colors duration-200"
 >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="container-page">
         <!-- Section header -->
-        <!-- <div class="text-center mb-16">
-            <h2 class="text-4xl sm:text-5xl font-bold text-slate-900 mb-6">
-                Built for Scale
+        <div class="section-header">
+            <div class="inline-flex items-center gap-2 badge-brand text-sm font-semibold mb-4">
+                <iconify-icon icon="solar:layers-bold-duotone" width="16" height="16"></iconify-icon>
+                Under the Hood
+            </div>
+            <h2 class="section-title">
+                A boring, fast, single binary.
             </h2>
-            <p class="text-xl text-slate-600 max-w-3xl mx-auto">
-                Modern architecture designed for enterprise workloads with
-                battle-tested components and intelligent routing.
+            <p class="section-description">
+                pLLM is one Go service — no sidecars, no Python runtime, no surprise dependencies.
+                Boring infrastructure so your AI platform can stop being the interesting thing.
             </p>
-        </div> -->
+        </div>
 
-        <!-- New Modern Architecture diagram -->
+        <!-- Architecture diagram (has embedded live metrics) -->
         <div class="mb-16">
             <ArchitectureDiagram client:load />
         </div>
 
-        <!-- Load balancing strategies -->
-        <div class="mb-16">
-            <div class="text-center mb-12">
-                <h3
-                    class="text-3xl font-bold text-slate-900 dark:text-white mb-4"
-                >
-                    Intelligent Load Balancing
-                </h3>
-                <p
-                    class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto"
-                >
-                    Choose from 6 different routing strategies optimized for
-                    different use cases and workload patterns.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {
-                    loadBalancingStrategies.map((strategy) => (
-                        <div class="card card-hover p-6">
-                            <div class="flex items-center mb-4">
-                                <div class="mr-3 text-blue-600 dark:text-blue-400">
-                                    <iconify-icon icon={strategy.solarIcon} width="28" height="28"></iconify-icon>
-                                </div>
-                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">
-                                    {strategy.name}
-                                </h4>
-                            </div>
-                            <p class="text-slate-600 dark:text-slate-300 text-sm mb-3 leading-relaxed">
-                                {strategy.description}
-                            </p>
-                            <div class="bg-slate-50 dark:bg-dark-secondary rounded-lg px-3 py-2">
-                                <span class="text-xs font-medium text-slate-700 dark:text-slate-300">
-                                    Best for: {strategy.useCase}
-                                </span>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-        </div>
-
-        <!-- Tech stack -->
-        <div class="bg-white dark:bg-slate-800 rounded-xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                    Production-Ready Stack
-                </h3>
-                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                    Built with battle-tested technologies and modern best
-                    practices for enterprise reliability.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <img src="/logos/go.svg" alt="Go" class="w-12 h-12 object-contain" />
-                    </div>
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Chi Router</h4>
+        <!-- Request flow — full width -->
+        <div class="card p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Request flow</h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400">
-                        Lightning-fast HTTP routing and middleware
+                        Auth → policy → router → guardrails → provider. Toggle a simulation mode to see failover in action.
                     </p>
                 </div>
-
-                <div class="text-center">
-                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <img src="/logos/postgresql.svg" alt="PostgreSQL" class="w-12 h-12 object-contain" />
-                    </div>
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">PostgreSQL</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">
-                        Reliable data persistence with GORM ORM
-                    </p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <img src="/logos/redis.svg" alt="Redis" class="w-12 h-12 object-contain" />
-                    </div>
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Redis</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">
-                        High-speed caching and rate limiting
-                    </p>
-                </div>
-
-                <div class="text-center">
-                    <div class="bg-white dark:bg-slate-800 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-slate-200 dark:border-slate-700 shadow-sm">
-                        <img src="/logos/prometheus.svg" alt="Prometheus" class="w-12 h-12 object-contain" />
-                    </div>
-                    <h4 class="font-bold text-slate-900 dark:text-white mb-2">Prometheus</h4>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">
-                        Enterprise monitoring and metrics
-                    </p>
-                </div>
+                <span class="text-xs font-mono text-slate-500 dark:text-slate-400 whitespace-nowrap">interactive</span>
             </div>
-        </div>
-
-        <!-- Interactive Request flow diagram -->
-        <div class="mt-16">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                    Adaptive Request Flow
-                </h3>
-                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-                    Interactive visualization of intelligent routing with
-                    automatic failover and circuit breaker protection.
-                </p>
-            </div>
-
             <InteractiveFlowDiagram client:load />
         </div>
     </div>
